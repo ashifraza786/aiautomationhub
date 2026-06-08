@@ -1,19 +1,15 @@
-// Preconfigured storage helpers for Manus WebDev templates
-// Uploads via Forge Server presigned URL to S3 (PUT direct).
-// Downloads return /manus-storage/{key} paths served via 307 redirect.
+// Storage helpers — uploads via presigned URL to S3
+// Falls back gracefully if Forge/S3 not configured
 
 import { ENV } from "./_core/env";
 
 function getForgeConfig() {
-  // In your server ENV config object, add:
-forgeApiUrl: process.env.FORGE_API_URL ?? '',
-forgeApiKey: process.env.FORGE_API_KEY ?? '',
-  const forgeUrl = ENV.forgeApiUrl;
-  const forgeKey = ENV.forgeApiKey;
+  const forgeUrl = (ENV as any).forgeApiUrl ?? process.env.FORGE_API_URL ?? "";
+  const forgeKey = (ENV as any).forgeApiKey ?? process.env.FORGE_API_KEY ?? "";
 
   if (!forgeUrl || !forgeKey) {
     throw new Error(
-      "Storage config missing: set BUILT_IN_FORGE_API_URL and BUILT_IN_FORGE_API_KEY",
+      "Storage config missing: set FORGE_API_URL and FORGE_API_KEY in .env"
     );
   }
 
@@ -34,16 +30,15 @@ function appendHashSuffix(relKey: string): string {
 export async function storagePut(
   relKey: string,
   data: Buffer | Uint8Array | string,
-  contentType = "application/octet-stream",
+  contentType = "application/octet-stream"
 ): Promise<{ key: string; url: string }> {
   const { forgeUrl, forgeKey } = getForgeConfig();
   const key = appendHashSuffix(normalizeKey(relKey));
 
-  // 1. Get presigned PUT URL from Forge
   const presignUrl = new URL("v1/storage/presign/put", forgeUrl + "/");
   presignUrl.searchParams.set("path", key);
 
-  const presignResp = await fetch(presignUrl, {
+  const presignResp = await fetch(presignUrl.toString(), {
     headers: { Authorization: `Bearer ${forgeKey}` },
   });
 
@@ -55,7 +50,6 @@ export async function storagePut(
   const { url: s3Url } = (await presignResp.json()) as { url: string };
   if (!s3Url) throw new Error("Forge returned empty presign URL");
 
-  // 2. PUT file directly to S3
   const blob =
     typeof data === "string"
       ? new Blob([data], { type: contentType })
@@ -86,7 +80,7 @@ export async function storageGetSignedUrl(relKey: string): Promise<string> {
   const getUrl = new URL("v1/storage/presign/get", forgeUrl + "/");
   getUrl.searchParams.set("path", key);
 
-  const resp = await fetch(getUrl, {
+  const resp = await fetch(getUrl.toString(), {
     headers: { Authorization: `Bearer ${forgeKey}` },
   });
 

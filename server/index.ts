@@ -1,3 +1,4 @@
+﻿import 'dotenv/config';
 import express from "express";
 import { createServer } from "http";
 import path from "path";
@@ -32,12 +33,11 @@ async function startServer() {
     res.json({ status: "ok", timestamp: new Date().toISOString() });
   });
 
-  // Serve static files from dist/public in production, or client/dist in development
+  // Serve static files
   const staticPath = path.join(process.cwd(), "dist", "public");
-
   app.use(express.static(staticPath));
 
-  // Handle client-side routing - serve index.html for all routes
+  // Handle client-side routing
   app.get("*", (_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
   });
@@ -52,6 +52,6 @@ async function startServer() {
 }
 
 startServer().catch((error) => {
-  console.error(" Server startup failed:", error);
+  console.error("Server startup failed:", error);
   process.exit(1);
 });
