@@ -127,7 +127,7 @@ export default function Hero() {
 
   return (
     <section
-      className="relative isolate overflow-hidden border-b border-border/60 bg-background pt-[215px] md:pt-[220px] lg:pt-[225px]"
+     className="relative isolate overflow-hidden border-b border-border/60 bg-background pt-[118px] md:pt-[150px] lg:pt-[225px]"
       aria-label="AI AutomationHub introduction"
     >
       {/* ============================================================
