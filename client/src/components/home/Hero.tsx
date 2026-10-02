@@ -1,476 +1,639 @@
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   Bot,
   Database,
   Globe2,
   Layers3,
+  MessageSquare,
+  Network,
+  Play,
+  Settings2,
+  Sparkles,
   Workflow,
 } from "lucide-react";
 import { Link } from "wouter";
-import { motion } from "framer-motion";
 
-const inputSystems = [
+type HeroSlide = {
+  id: string;
+  eyebrow: string;
+  title: string;
+  accent: string;
+  description: string;
+  primaryLabel: string;
+  secondaryLabel: string;
+  systemLabel: string;
+};
+
+const slides: HeroSlide[] = [
   {
-    label: "Website",
-    icon: Globe2,
-    status: "Digital",
+    id: "automation",
+    eyebrow: "AI AUTOMATION",
+    title: "Turn Repetitive Work Into",
+    accent: "Intelligent Workflows.",
+    description:
+      "Connect leads, customer conversations, documents and repetitive business processes into workflows that work with your team.",
+    primaryLabel: "Build an Automation",
+    secondaryLabel: "Explore AI Automation",
+    systemLabel: "Automation System",
   },
   {
-    label: "CRM",
-    icon: Layers3,
-    status: "Business",
+    id: "software",
+    eyebrow: "CUSTOM SOFTWARE",
+    title: "Build Technology Around",
+    accent: "How Your Business Works.",
+    description:
+      "From internal tools and dashboards to CRM, billing and operational software — we build systems around your actual workflow.",
+    primaryLabel: "Build Custom Software",
+    secondaryLabel: "Explore Solutions",
+    systemLabel: "Business Software",
   },
   {
-    label: "ERP / Data",
-    icon: Database,
-    status: "Operations",
+    id: "erp",
+    eyebrow: "ERP & BUSINESS SYSTEMS",
+    title: "Bring Your Business Into",
+    accent: "One Connected System.",
+    description:
+      "Connect customers, sales, inventory, employees, billing and reporting into a business system designed for the way you operate.",
+    primaryLabel: "Build Your System",
+    secondaryLabel: "Explore ERP Systems",
+    systemLabel: "Connected Operations",
   },
 ];
 
-const outputSystems = [
+const systemNodes = [
   {
-    label: "Automation",
-    icon: Workflow,
-    status: "Workflow",
+    label: "Website",
+    detail: "Digital presence",
+    icon: Globe2,
+    position: "left-[7%] top-[25%]",
   },
   {
-    label: "AI Actions",
+    label: "CRM",
+    detail: "Customer data",
+    icon: Database,
+    position: "left-[7%] bottom-[18%]",
+  },
+  {
+    label: "AI Engine",
+    detail: "Intelligence layer",
     icon: Bot,
-    status: "Intelligence",
+    position: "left-1/2 top-1/2",
+  },
+  {
+    label: "Automation",
+    detail: "Workflow layer",
+    icon: Workflow,
+    position: "right-[7%] top-[25%]",
+  },
+  {
+    label: "Business System",
+    detail: "Operations",
+    icon: Layers3,
+    position: "right-[7%] bottom-[18%]",
   },
 ];
 
 export default function Hero() {
+  const [activeSlide, setActiveSlide] = useState(0);
+  const shouldReduceMotion = useReducedMotion();
+
+  const slide = slides[activeSlide];
+
+  const nextSlide = () => {
+    setActiveSlide((current) => (current + 1) % slides.length);
+  };
+
+  const previousSlide = () => {
+    setActiveSlide((current) => (current - 1 + slides.length) % slides.length);
+  };
+
+  useEffect(() => {
+    if (shouldReduceMotion) return;
+
+    const timer = window.setInterval(() => {
+      setActiveSlide((current) => (current + 1) % slides.length);
+    }, 6000);
+
+    return () => {
+      window.clearInterval(timer);
+    };
+  }, [shouldReduceMotion]);
+
+  const progressWidth = useMemo(() => {
+    return `${((activeSlide + 1) / slides.length) * 100}%`;
+  }, [activeSlide]);
+
   return (
     <section
-      id="hero"
-      className="relative isolate overflow-hidden border-b border-border/70 pt-16 md:pt-[72px]"
-      aria-label="AI AutomationHub"
+      className="relative isolate overflow-hidden border-b border-border/60 bg-background pt-[215px] md:pt-[220px] lg:pt-[225px]"
+      aria-label="AI AutomationHub introduction"
     >
-      {/* Background system environment */}
+      {/* ============================================================
+          BACKGROUND SYSTEM LAYER
+         ============================================================ */}
       <div
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.16]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(167,176,191,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(167,176,191,0.08) 1px, transparent 1px)",
-          backgroundSize: "48px 48px",
-          maskImage:
-            "radial-gradient(circle at 72% 50%, black 0%, transparent 72%)",
-          WebkitMaskImage:
-            "radial-gradient(circle at 72% 50%, black 0%, transparent 72%)",
-        }}
+        className="pointer-events-none absolute inset-0 -z-10 overflow-hidden"
         aria-hidden="true"
-      />
+      >
+        <div className="absolute left-[8%] top-[12%] h-[420px] w-[420px] rounded-full bg-[#4F7CFF]/[0.08] blur-[120px]" />
 
-      {/* Ambient glow */}
-      <div
-        className="pointer-events-none absolute -right-32 top-24 -z-10 h-[420px] w-[420px] rounded-full bg-primary/10 blur-[120px]"
-        aria-hidden="true"
-      />
+        <div className="absolute right-[8%] top-[22%] h-[360px] w-[360px] rounded-full bg-[#6D5CFF]/[0.07] blur-[120px]" />
 
-      <div
-        className="pointer-events-none absolute -left-40 bottom-0 -z-10 h-[300px] w-[300px] rounded-full bg-violet/5 blur-[110px]"
-        aria-hidden="true"
-      />
+        <div
+          className="absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(167,176,191,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(167,176,191,0.35) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
+        />
 
-      <div className="container grid min-h-[700px] grid-cols-1 items-center gap-14 py-16 sm:min-h-[740px] sm:py-20 lg:min-h-[780px] lg:grid-cols-[5fr_7fr] lg:gap-10 lg:py-20">
-        {/* ================================================================
-            HERO COPY
-           ================================================================ */}
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="relative z-10 max-w-[650px]"
-        >
-          {/* Eyebrow */}
-          <div className="mb-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.12em] text-primary">
-            <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-              <span className="absolute inset-0 animate-ping rounded-full bg-primary/50" />
-              <span className="relative h-1.5 w-1.5 rounded-full bg-primary" />
-            </span>
+        <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#4F7CFF]/20 to-transparent" />
+      </div>
 
-            <span>AI • SOFTWARE • AUTOMATION</span>
+      <div className="container relative flex min-h-[calc(100svh-110px)] items-center py-12 md:py-16 lg:py-20">
+        <div className="grid w-full translate-y-8 items-center gap-16 lg:grid-cols-[0.9fr_1.1fr] lg:translate-y-10 lg:gap-20">
+          {/* ==========================================================
+              LEFT — HERO COPY
+             ========================================================== */}
+          <div className="max-w-[680px]">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-surface/70 px-3 py-1.5 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-[#38D9C5] shadow-[0_0_8px_rgba(56,217,197,0.65)]" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-secondary-foreground">
+                AI • SOFTWARE • AUTOMATION
+              </span>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={slide.id}
+                initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={shouldReduceMotion ? undefined : { opacity: 0, y: -10 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
+              >
+                <p className="mb-4 text-[12px] font-semibold uppercase tracking-[0.16em] text-[#4F7CFF]">
+                  {slide.eyebrow}
+                </p>
+
+                <h1 className="max-w-[720px] text-[42px] font-bold leading-[1.04] tracking-[-0.045em] text-[#F4F7FB] sm:text-[50px] md:text-[58px] lg:text-[64px]">
+                  {slide.title}
+                  <br />
+                  <span className="bg-gradient-to-r from-[#4F7CFF] via-[#5F78FF] to-[#6D5CFF] bg-clip-text text-transparent">
+                    {slide.accent}
+                  </span>
+                </h1>
+
+                <p className="mt-6 max-w-[650px] text-[16px] leading-[1.7] text-[#A7B0BF] sm:text-[17px]">
+                  {slide.description}
+                </p>
+
+                <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+                  <Link
+                    href="/start-project"
+                    className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#4F7CFF] px-5 text-[14px] font-semibold text-white shadow-[0_0_28px_rgba(79,124,255,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5B84FF] hover:shadow-[0_0_34px_rgba(79,124,255,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F7CFF]"
+                  >
+                    <span>{slide.primaryLabel}</span>
+
+                    <ArrowRight
+                      className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                      aria-hidden="true"
+                    />
+                  </Link>
+
+                  <Link
+                    href="/solutions"
+                    className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-[#263142] bg-[#0D1118]/70 px-5 text-[14px] font-semibold text-[#E8EDF5] transition-all duration-200 hover:-translate-y-0.5 hover:border-[#4F7CFF]/35 hover:bg-[#121821] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4F7CFF]"
+                  >
+                    <Play className="h-3.5 w-3.5" aria-hidden="true" />
+                    <span>{slide.secondaryLabel}</span>
+                  </Link>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* ========================================================
+                SLIDER CONTROLS
+               ======================================================== */}
+            <div className="mt-10 flex items-center gap-5">
+              <div className="flex items-center gap-2">
+                {slides.map((item, index) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveSlide(index)}
+                    className="group flex h-6 items-center"
+                    aria-label={`Show hero slide ${index + 1}`}
+                    aria-pressed={activeSlide === index}
+                  >
+                    <span
+                      className={[
+                        "h-1 rounded-full transition-all duration-300",
+                        activeSlide === index
+                          ? "w-8 bg-[#4F7CFF] shadow-[0_0_8px_rgba(79,124,255,0.45)]"
+                          : "w-2 bg-[#354050] group-hover:bg-[#596576]",
+                      ].join(" ")}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <div className="hidden h-4 w-px bg-border sm:block" />
+
+              <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-[#6F7A8A]">
+                0{activeSlide + 1} / 0{slides.length}
+              </span>
+
+              <button
+                type="button"
+                onClick={previousSlide}
+                className="ml-auto hidden text-[11px] font-semibold uppercase tracking-[0.12em] text-[#7F8999] transition-colors hover:text-[#F4F7FB] sm:block"
+                aria-label="Previous hero slide"
+              >
+                Prev
+              </button>
+
+              <button
+                type="button"
+                onClick={nextSlide}
+                className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#7F8999] transition-colors hover:text-[#F4F7FB]"
+                aria-label="Next hero slide"
+              >
+                Next
+              </button>
+            </div>
           </div>
 
-          {/* Main heading */}
-          <h1 className="max-w-[680px] text-[40px] font-bold leading-[1.05] tracking-[-0.035em] text-foreground sm:text-[48px] md:text-[56px] lg:text-[64px]">
-            We Build Technology
-            <span className="block text-primary">Around Your Business.</span>
-          </h1>
-
-          {/* Supporting copy */}
-          <p className="mt-6 max-w-[650px] text-base leading-[1.6] text-muted-foreground md:text-[19px]">
-            From powerful business websites to custom software, ERP systems and
-            AI-powered automation — we build digital solutions designed around
-            the way your business actually works.
-          </p>
-
-          {/* CTAs */}
-          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/start-project"
-              className="group inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_30px_rgba(79,124,255,0.14)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/95 hover:shadow-[0_0_36px_rgba(79,124,255,0.24)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Start Your Project
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </Link>
-
-            <Link
-              href="/work"
-              className="group inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-border bg-surface px-5 text-sm font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-            >
-              Explore Our Work
-              <ArrowRight
-                className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5"
-                aria-hidden="true"
-              />
-            </Link>
-          </div>
-
-          {/* Small positioning line */}
-          <div className="mt-8 flex items-center gap-3 text-xs text-muted-foreground">
-            <span className="h-px w-8 bg-border" />
-            <span>Built around the way your business works.</span>
-          </div>
-        </motion.div>
-
-        {/* ================================================================
-            BUSINESS TECHNOLOGY SYSTEM
-           ================================================================ */}
-        <motion.div
-          initial={{ opacity: 0, x: 24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.7, delay: 0.12, ease: "easeOut" }}
-          className="relative z-10 mx-auto w-full max-w-[680px] lg:ml-auto"
-        >
-          <div className="relative">
-            {/* Outer glow */}
+          {/* ==========================================================
+              RIGHT — BUSINESS TECHNOLOGY SYSTEM
+             ========================================================== */}
+          <div className="relative mx-auto w-full max-w-[700px] pt-2 lg:ml-auto lg:pt-4">
+            {/* Ambient depth */}
             <div
-              className="pointer-events-none absolute -inset-5 rounded-[28px] bg-primary/5 blur-2xl"
+              className="pointer-events-none absolute -inset-10 rounded-[40px] bg-[#4F7CFF]/[0.06] blur-[70px]"
               aria-hidden="true"
             />
 
-            {/* Main system frame */}
-            <div className="relative overflow-hidden rounded-2xl border border-border/90 bg-surface/90 p-2.5 shadow-[0_24px_80px_rgba(0,0,0,0.35)] backdrop-blur-xl sm:p-3">
-              {/* Header */}
-              <div className="flex items-center justify-between rounded-xl border border-border/80 bg-background/70 px-4 py-3 sm:px-5">
+            <motion.div
+              className="relative overflow-hidden rounded-[24px] border border-[#263142] bg-[#0D1118]/90 p-3 shadow-[0_35px_90px_rgba(0,0,0,0.42),0_1px_0_rgba(255,255,255,0.035)_inset] backdrop-blur-xl"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: [0, -5, 0],
+                    }
+              }
+              transition={{
+                duration: 7,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              {/* Top system bar */}
+              <div className="relative flex items-center justify-between rounded-[18px] border border-[#202936] bg-[#121821] px-4 py-3">
                 <div className="flex items-center gap-3">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/25 bg-primary/10">
-                    <span className="text-[10px] font-bold text-primary">
-                      AI
-                    </span>
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-[#4F7CFF]/30 bg-[#4F7CFF]/[0.08]">
+                    <Sparkles
+                      className="h-4 w-4 text-[#4F7CFF]"
+                      aria-hidden="true"
+                    />
                   </div>
 
                   <div>
-                    <p className="text-xs font-semibold text-foreground">
-                      Business Operations
+                    <p className="text-[13px] font-semibold text-[#F4F7FB]">
+                      {slide.systemLabel}
                     </p>
-                    <p className="mt-0.5 text-[10px] text-muted-foreground">
-                      Connected technology system
+
+                    <p className="text-[11px] text-[#6F7A8A]">
+                      Connected business technology
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-mint/50" />
-                    <span className="relative h-1.5 w-1.5 rounded-full bg-mint" />
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-[#38D9C5] shadow-[0_0_8px_rgba(56,217,197,0.7)]" />
+
+                  <span className="text-[9px] font-semibold uppercase tracking-[0.15em] text-[#7F8999]">
+                    System Active
                   </span>
-                  System View
                 </div>
               </div>
 
               {/* System canvas */}
-              <div className="relative mt-2.5 min-h-[430px] overflow-hidden rounded-xl border border-border/70 bg-background/55 p-4 sm:min-h-[470px] sm:p-5">
-                {/* Technical grid */}
+              <div className="relative mt-3 min-h-[390px] overflow-hidden rounded-[20px] border border-[#1D2632] bg-[#090D13]">
+                {/* Grid */}
                 <div
-                  className="pointer-events-none absolute inset-0 opacity-30"
+                  className="pointer-events-none absolute inset-0 opacity-[0.055]"
+                  aria-hidden="true"
                   style={{
                     backgroundImage:
-                      "linear-gradient(rgba(167,176,191,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(167,176,191,0.05) 1px, transparent 1px)",
+                      "linear-gradient(rgba(167,176,191,0.45) 1px, transparent 1px), linear-gradient(90deg, rgba(167,176,191,0.45) 1px, transparent 1px)",
                     backgroundSize: "32px 32px",
                   }}
-                  aria-hidden="true"
                 />
 
-                {/* ========================================================
-                    CONNECTION LINES
-                   ======================================================== */}
+                {/* Connection lines */}
                 <svg
                   className="pointer-events-none absolute inset-0 h-full w-full"
-                  viewBox="0 0 680 470"
+                  viewBox="0 0 700 390"
                   preserveAspectRatio="none"
-                  fill="none"
                   aria-hidden="true"
                 >
+                  <defs>
+                    <linearGradient
+                      id="hero-line-blue"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="#4F7CFF" stopOpacity="0" />
+                      <stop
+                        offset="50%"
+                        stopColor="#4F7CFF"
+                        stopOpacity="0.65"
+                      />
+                      <stop offset="100%" stopColor="#4F7CFF" stopOpacity="0" />
+                    </linearGradient>
+
+                    <linearGradient
+                      id="hero-line-mint"
+                      x1="0%"
+                      y1="0%"
+                      x2="100%"
+                      y2="0%"
+                    >
+                      <stop offset="0%" stopColor="#38D9C5" stopOpacity="0" />
+                      <stop
+                        offset="50%"
+                        stopColor="#38D9C5"
+                        stopOpacity="0.6"
+                      />
+                      <stop offset="100%" stopColor="#38D9C5" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+
                   <path
-                    d="M150 115 C220 115 245 205 315 225"
-                    stroke="rgba(79,124,255,0.35)"
-                    strokeWidth="1"
+                    d="M90 118 C210 118 235 190 350 195"
+                    fill="none"
+                    stroke="url(#hero-line-blue)"
+                    strokeWidth="1.4"
                   />
 
                   <path
-                    d="M150 235 C220 235 250 235 315 235"
-                    stroke="rgba(79,124,255,0.45)"
-                    strokeWidth="1"
+                    d="M90 300 C210 300 235 205 350 195"
+                    fill="none"
+                    stroke="url(#hero-line-blue)"
+                    strokeWidth="1.4"
                   />
 
                   <path
-                    d="M150 355 C220 355 245 270 315 250"
-                    stroke="rgba(56,217,197,0.30)"
-                    strokeWidth="1"
+                    d="M350 195 C465 195 490 118 610 118"
+                    fill="none"
+                    stroke="url(#hero-line-mint)"
+                    strokeWidth="1.4"
                   />
 
                   <path
-                    d="M365 235 C435 235 455 140 530 140"
-                    stroke="rgba(109,92,255,0.35)"
-                    strokeWidth="1"
+                    d="M350 195 C465 195 490 300 610 300"
+                    fill="none"
+                    stroke="url(#hero-line-mint)"
+                    strokeWidth="1.4"
                   />
 
-                  <path
-                    d="M365 235 C435 235 465 235 530 235"
-                    stroke="rgba(79,124,255,0.45)"
-                    strokeWidth="1"
+                  <motion.circle
+                    cx="350"
+                    cy="195"
+                    r="4"
+                    fill="#4F7CFF"
+                    animate={
+                      shouldReduceMotion
+                        ? undefined
+                        : {
+                            opacity: [0.45, 1, 0.45],
+                            r: [3, 5, 3],
+                          }
+                    }
+                    transition={{
+                      duration: 2.2,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
                   />
-
-                  <path
-                    d="M365 235 C435 235 455 330 530 330"
-                    stroke="rgba(56,217,197,0.35)"
-                    strokeWidth="1"
-                  />
-
-                  {/* Data flow */}
-                  <circle r="3" fill="#4F7CFF">
-                    <animateMotion
-                      dur="3.8s"
-                      repeatCount="indefinite"
-                      path="M150 115 C220 115 245 205 315 225"
-                    />
-                  </circle>
-
-                  <circle r="3" fill="#38D9C5">
-                    <animateMotion
-                      dur="4.4s"
-                      repeatCount="indefinite"
-                      path="M150 355 C220 355 245 270 315 250"
-                    />
-                  </circle>
-
-                  <circle r="3" fill="#6D5CFF">
-                    <animateMotion
-                      dur="4.1s"
-                      repeatCount="indefinite"
-                      path="M365 235 C435 235 455 140 530 140"
-                    />
-                  </circle>
                 </svg>
 
-                {/* ========================================================
-                    INPUT SYSTEMS
-                   ======================================================== */}
-                <div className="absolute left-4 top-10 w-[145px] sm:left-5 sm:top-12">
-                  <div className="mb-2 px-1 text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                    Business Inputs
-                  </div>
+                {/* Nodes */}
+                {systemNodes.map((node, index) => {
+                  const Icon = node.icon;
+                  const isCore = node.label === "AI Engine";
 
-                  <div className="space-y-2">
-                    {inputSystems.map((item, index) => {
-                      const Icon = item.icon;
-
-                      return (
-                        <motion.div
-                          key={item.label}
-                          initial={{ opacity: 0, x: -8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.45,
-                            delay: 0.35 + index * 0.08,
-                          }}
-                          className="rounded-xl border border-border/90 bg-surface/90 p-3 backdrop-blur-md"
+                  return (
+                    <motion.div
+                      key={node.label}
+                      className={[
+                        "absolute z-10 w-[150px] rounded-2xl border p-3 backdrop-blur-md",
+                        node.position,
+                        isCore
+                          ? "left-1/2 top-1/2 w-[170px] -translate-x-1/2 -translate-y-1/2 border-[#4F7CFF]/35 bg-[#111827] shadow-[0_0_34px_rgba(79,124,255,0.16)]"
+                          : "border-[#263142] bg-[#0F151E]/95 shadow-[0_14px_30px_rgba(0,0,0,0.28)]",
+                      ].join(" ")}
+                      animate={
+                        shouldReduceMotion
+                          ? undefined
+                          : {
+                              y: [0, index % 2 === 0 ? -4 : 4, 0],
+                            }
+                      }
+                      transition={{
+                        duration: 4 + index * 0.4,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                    >
+                      <div className="flex items-center gap-2.5">
+                        <div
+                          className={[
+                            "flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border",
+                            isCore
+                              ? "border-[#4F7CFF]/35 bg-[#4F7CFF]/10"
+                              : "border-[#263142] bg-[#121821]",
+                          ].join(" ")}
                         >
-                          <div className="flex items-center gap-2.5">
-                            <div className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-elevated">
-                              <Icon
-                                className="h-3.5 w-3.5 text-primary"
-                                aria-hidden="true"
-                              />
-                            </div>
-
-                            <div className="min-w-0">
-                              <p className="truncate text-[11px] font-medium text-foreground">
-                                {item.label}
-                              </p>
-                              <p className="text-[9px] text-muted-foreground">
-                                {item.status}
-                              </p>
-                            </div>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* ========================================================
-                    CENTRAL INTELLIGENCE
-                   ======================================================== */}
-                <div className="absolute left-1/2 top-1/2 w-[190px] -translate-x-1/2 -translate-y-1/2 sm:w-[205px]">
-                  <div className="relative rounded-2xl border border-primary/35 bg-elevated/95 p-5 shadow-[0_0_55px_rgba(79,124,255,0.14)] backdrop-blur-xl">
-                    <div
-                      className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/10 via-transparent to-violet/10"
-                      aria-hidden="true"
-                    />
-
-                    <div className="relative">
-                      <div className="mb-4 flex items-center justify-between">
-                        <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-primary">
-                          Intelligence Layer
-                        </span>
-
-                        <span className="flex items-center gap-1.5">
-                          <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                          <span className="text-[9px] text-mint">Ready</span>
-                        </span>
-                      </div>
-
-                      <div className="flex items-center gap-3">
-                        <div className="relative flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-primary/30 bg-primary/10">
-                          <div className="absolute h-5 w-5 rounded-full border border-primary/40" />
-                          <div className="h-2 w-2 rounded-full bg-primary shadow-[0_0_14px_rgba(79,124,255,0.7)]" />
+                          <Icon
+                            className={[
+                              "h-4 w-4",
+                              isCore ? "text-[#4F7CFF]" : "text-[#A7B0BF]",
+                            ].join(" ")}
+                            aria-hidden="true"
+                          />
                         </div>
 
-                        <div>
-                          <p className="text-sm font-semibold text-foreground">
-                            AI Layer
+                        <div className="min-w-0">
+                          <p className="truncate text-[11px] font-semibold text-[#E8EDF5]">
+                            {node.label}
                           </p>
-                          <p className="mt-1 text-[9px] leading-4 text-muted-foreground">
-                            Intelligence connected to business workflows.
+
+                          <p className="mt-0.5 truncate text-[9px] text-[#6F7A8A]">
+                            {node.detail}
                           </p>
                         </div>
                       </div>
+                    </motion.div>
+                  );
+                })}
 
-                      <div className="my-4 h-px bg-border" />
-
-                      <div className="space-y-2">
-                        {["Understand", "Decide", "Trigger"].map(
-                          (item, index) => (
-                            <div
-                              key={item}
-                              className="flex items-center justify-between"
-                            >
-                              <span className="text-[9px] text-muted-foreground">
-                                {item}
-                              </span>
-
-                              <span
-                                className={
-                                  index === 2
-                                    ? "text-[9px] font-medium text-mint"
-                                    : "text-[9px] font-medium text-primary"
-                                }
-                              >
-                                {index === 2 ? "Ready" : "Active"}
-                              </span>
-                            </div>
-                          ),
-                        )}
-                      </div>
+                {/* Live workflow strip */}
+                <div className="absolute bottom-4 left-1/2 z-20 flex w-[calc(100%-32px)] -translate-x-1/2 items-center justify-between rounded-xl border border-[#202936] bg-[#0D1118]/90 px-3 py-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.3)] backdrop-blur-xl">
+                  <div className="flex items-center gap-2">
+                    <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#38D9C5]/[0.08]">
+                      <Network
+                        className="h-3.5 w-3.5 text-[#38D9C5]"
+                        aria-hidden="true"
+                      />
                     </div>
-                  </div>
-                </div>
 
-                {/* ========================================================
-                    OUTPUT SYSTEMS
-                   ======================================================== */}
-                <div className="absolute right-4 top-10 w-[145px] sm:right-5 sm:top-12">
-                  <div className="mb-2 px-1 text-right text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                    Business Actions
-                  </div>
-
-                  <div className="space-y-2">
-                    {outputSystems.map((item, index) => {
-                      const Icon = item.icon;
-
-                      return (
-                        <motion.div
-                          key={item.label}
-                          initial={{ opacity: 0, x: 8 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{
-                            duration: 0.45,
-                            delay: 0.55 + index * 0.08,
-                          }}
-                          className="rounded-xl border border-border/90 bg-surface/90 p-3 backdrop-blur-md"
-                        >
-                          <div className="flex items-center gap-2.5">
-                            <div className="flex h-7 w-7 items-center justify-center rounded-md border border-border bg-elevated">
-                              <Icon
-                                className={
-                                  index === 0
-                                    ? "h-3.5 w-3.5 text-mint"
-                                    : "h-3.5 w-3.5 text-violet"
-                                }
-                                aria-hidden="true"
-                              />
-                            </div>
-
-                            <div className="min-w-0">
-                              <p className="truncate text-[11px] font-medium text-foreground">
-                                {item.label}
-                              </p>
-                              <p className="text-[9px] text-muted-foreground">
-                                {item.status}
-                              </p>
-                            </div>
-                          </div>
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Bottom system status */}
-                <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5">
-                  <div className="flex items-center justify-between gap-4 rounded-lg border border-border/70 bg-surface/75 px-3 py-2.5">
-                    <div className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                      <span className="text-[9px] font-medium text-muted-foreground">
+                    <div>
+                      <p className="text-[10px] font-semibold text-[#E8EDF5]">
                         Connected workflow
-                      </span>
-                    </div>
+                      </p>
 
-                    <div className="flex items-center gap-1.5">
-                      <span className="h-1 w-7 rounded-full bg-primary/40" />
-                      <span className="h-1 w-10 rounded-full bg-primary/60" />
-                      <span className="h-1 w-5 rounded-full bg-mint/50" />
-                      <span className="h-1 w-8 rounded-full bg-violet/50" />
+                      <p className="text-[8px] text-[#6F7A8A]">
+                        Business data moving through the system
+                      </p>
                     </div>
+                  </div>
+
+                  <div className="hidden items-center gap-1.5 sm:flex">
+                    {[1, 2, 3, 4].map((item) => (
+                      <motion.span
+                        key={item}
+                        className="h-1.5 w-1.5 rounded-full bg-[#4F7CFF]"
+                        animate={
+                          shouldReduceMotion
+                            ? undefined
+                            : {
+                                opacity: [0.25, 1, 0.25],
+                              }
+                        }
+                        transition={{
+                          duration: 1.4,
+                          repeat: Infinity,
+                          delay: item * 0.18,
+                        }}
+                      />
+                    ))}
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Floating status */}
-            <motion.div
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.8 }}
-              className="absolute -bottom-4 left-4 hidden rounded-lg border border-border bg-elevated/95 px-3 py-2 shadow-xl sm:block"
-            >
-              <div className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                <span className="text-[10px] font-medium text-muted-foreground">
-                  Business-first technology
-                </span>
+              {/* Bottom status row */}
+              <div className="mt-3 grid grid-cols-3 gap-2">
+                {[
+                  {
+                    icon: Settings2,
+                    label: "Workflow",
+                    value: "Connected",
+                  },
+                  {
+                    icon: MessageSquare,
+                    label: "Business",
+                    value: "Context aware",
+                  },
+                  {
+                    icon: Network,
+                    label: "System",
+                    value: "Integrated",
+                  },
+                ].map((item) => {
+                  const Icon = item.icon;
+
+                  return (
+                    <div
+                      key={item.label}
+                      className="rounded-xl border border-[#202936] bg-[#0F151E] px-3 py-2.5"
+                    >
+                      <div className="flex items-center gap-2">
+                        <Icon
+                          className="h-3.5 w-3.5 text-[#6F7A8A]"
+                          aria-hidden="true"
+                        />
+
+                        <span className="text-[9px] font-medium uppercase tracking-[0.1em] text-[#6F7A8A]">
+                          {item.label}
+                        </span>
+                      </div>
+
+                      <p className="mt-1 text-[10px] font-semibold text-[#DCE3ED]">
+                        {item.value}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
             </motion.div>
+
+            {/* Floating peripheral cards */}
+            <motion.div
+              className="absolute -right-4 top-[17%] hidden rounded-xl border border-[#263142] bg-[#0D1118]/90 px-3 py-2 shadow-[0_14px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl xl:block"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: [0, -5, 0],
+                    }
+              }
+              transition={{
+                duration: 5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#6F7A8A]">
+                Intelligence
+              </p>
+
+              <p className="mt-1 text-[11px] font-semibold text-[#F4F7FB]">
+                Business-aware
+              </p>
+            </motion.div>
+
+            <motion.div
+              className="absolute -left-4 bottom-[16%] hidden rounded-xl border border-[#263142] bg-[#0D1118]/90 px-3 py-2 shadow-[0_14px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl xl:block"
+              animate={
+                shouldReduceMotion
+                  ? undefined
+                  : {
+                      y: [0, 5, 0],
+                    }
+              }
+              transition={{
+                duration: 5.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            >
+              <p className="text-[8px] font-semibold uppercase tracking-[0.12em] text-[#6F7A8A]">
+                Operations
+              </p>
+
+              <p className="mt-1 text-[11px] font-semibold text-[#F4F7FB]">
+                Connected
+              </p>
+            </motion.div>
           </div>
-        </motion.div>
+        </div>
       </div>
+
+      {/* ============================================================
+          SLIDER PROGRESS
+         ============================================================ */}
+      <div
+        className="absolute bottom-0 left-0 h-px bg-[#4F7CFF] shadow-[0_0_10px_rgba(79,124,255,0.5)] transition-all duration-500"
+        style={{ width: progressWidth }}
+        aria-hidden="true"
+      />
     </section>
   );
 }
