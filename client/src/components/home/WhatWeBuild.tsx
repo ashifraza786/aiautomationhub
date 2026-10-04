@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
@@ -11,14 +11,45 @@ import {
   MessageCircle,
   Workflow,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Link } from "wouter";
-
-const supportingServices = [
+import AIAutomationShowcase from "@/components/what-we-build/AIAutomationShowcase";
+import CustomSoftwareShowcase from "@/components/what-we-build/CustomSoftwareShowcase";
+import ERPShowcase from "@/components/what-we-build/ERPShowcase";
+import WebsitesShowcase from "@/components/what-we-build/WebsitesShowcase";
+import BusinessGrowthShowcase from "@/components/what-we-build/BussinessGrowthShowcase";
+const categories = [
   {
+    id: "ai",
+    number: "01",
+    shortLabel: "AI Automation",
+    title: "AI Automation",
+    headline: "Turn Repetitive Work Into Intelligent Workflows.",
+    description:
+      "Automate repetitive business processes and connect the tools your team already uses. AI can be introduced where it provides a useful advantage — not simply because it is available.",
+    items: [
+      "AI Agents",
+      "AI Assistants",
+      "Workflow Automation",
+      "WhatsApp Automation",
+      "OCR & Document Intelligence",
+      "API & Business Integrations",
+      "Lead Automation",
+    ],
+    href: "/solutions/ai-automation",
+    icon: Bot,
+    accent: "blue",
+    visualTitle: "Workflow Builder",
+    visualSubtitle: "Lead Automation",
+  },
+  {
+    id: "software",
     number: "02",
-    icon: Code2,
+    shortLabel: "Custom Software",
     title: "Custom Business Software",
-    description: "Purpose-built software for the way your business operates.",
+    headline: "Build Technology Around How Your Business Works.",
+    description:
+      "Purpose-built software for the way your business operates — from internal tools and dashboards to custom applications and business workflows.",
     items: [
       "Business Dashboards",
       "CRM & Internal Tools",
@@ -26,14 +57,19 @@ const supportingServices = [
       "Custom Applications",
     ],
     href: "/solutions/custom-software",
+    icon: Code2,
     accent: "blue",
+    visualTitle: "Business Software",
+    visualSubtitle: "Operations System",
   },
   {
+    id: "erp",
     number: "03",
-    icon: Building2,
+    shortLabel: "ERP",
     title: "ERP & Business Systems",
+    headline: "Bring Your Business Into One Connected System.",
     description:
-      "Connected systems that bring important business operations into one place.",
+      "Connected systems that bring important business operations into one place, helping teams work from shared business data.",
     items: [
       "Sales & Operations",
       "Inventory & Billing",
@@ -41,14 +77,19 @@ const supportingServices = [
       "Reporting & Business Data",
     ],
     href: "/solutions/erp-business-systems",
+    icon: Building2,
     accent: "violet",
+    visualTitle: "Business Operations",
+    visualSubtitle: "Connected ERP",
   },
   {
+    id: "websites",
     number: "04",
-    icon: Globe2,
+    shortLabel: "Websites",
     title: "Websites & Digital Solutions",
+    headline: "Build Digital Experiences That Connect To Your Business.",
     description:
-      "Digital experiences designed to support your business and generate opportunities.",
+      "Digital experiences designed to support your business, generate opportunities and create a stronger connection between customers and your operations.",
     items: [
       "Business Websites",
       "E-commerce",
@@ -56,14 +97,19 @@ const supportingServices = [
       "Portals & Web Apps",
     ],
     href: "/solutions/websites-digital-solutions",
+    icon: Globe2,
     accent: "mint",
+    visualTitle: "Digital Experience",
+    visualSubtitle: "Business Website",
   },
   {
+    id: "growth",
     number: "05",
-    icon: BarChart3,
+    shortLabel: "Growth",
     title: "Business Growth & Digital Marketing",
+    headline: "Turn Digital Attention Into Measurable Business Opportunities.",
     description:
-      "Digital growth support that connects your online presence with business goals.",
+      "Digital growth support that connects your online presence with business goals — from advertising and promotion to lead generation and conversion experiences.",
     items: [
       "Digital Advertising",
       "Product Promotion",
@@ -71,44 +117,250 @@ const supportingServices = [
       "Conversion-Focused Experiences",
     ],
     href: "/solutions/business-growth",
+    icon: BarChart3,
     accent: "blue",
+    visualTitle: "Growth System",
+    visualSubtitle: "Campaign → Lead",
   },
 ];
 
-const automationSteps = [
-  {
-    icon: Globe2,
-    label: "New Lead",
-    detail: "Website / Campaign",
-  },
-  {
-    icon: Bot,
-    label: "AI Agent",
-    detail: "Understand & qualify",
-  },
-  {
-    icon: Layers3,
-    label: "CRM",
-    detail: "Store & organize",
-  },
-  {
-    icon: MessageCircle,
-    label: "Action",
-    detail: "Follow-up",
-  },
-];
+function getAccentClasses(accent: string) {
+  if (accent === "violet") {
+    return {
+      icon: "border-violet/20 bg-violet/5 text-violet",
+      active:
+        "border-violet/40 bg-violet/[0.08] text-foreground shadow-[0_0_24px_rgba(109,92,255,0.10)]",
+      dot: "bg-violet",
+    };
+  }
+
+  if (accent === "mint") {
+    return {
+      icon: "border-mint/20 bg-mint/5 text-mint",
+      active:
+        "border-mint/35 bg-mint/[0.06] text-foreground shadow-[0_0_24px_rgba(56,217,197,0.08)]",
+      dot: "bg-mint",
+    };
+  }
+
+  return {
+    icon: "border-primary/20 bg-primary/5 text-primary",
+    active:
+      "border-primary/40 bg-primary/[0.07] text-foreground shadow-[0_0_24px_rgba(79,124,255,0.10)]",
+    dot: "bg-primary",
+  };
+}
+
+function CategoryVisual({
+  category,
+}: {
+  category: (typeof categories)[number];
+}) {
+  const Icon = category.icon;
+  const accent = getAccentClasses(category.accent);
+
+  return (
+    <div className="relative h-full min-h-[430px] overflow-hidden rounded-xl border border-border/80 bg-background/70 p-4 sm:p-5 lg:p-6">
+      {/* Ambient system glow */}
+      <div
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_70%_25%,rgba(79,124,255,0.10),transparent_36%),radial-gradient(circle_at_20%_85%,rgba(56,217,197,0.045),transparent_30%)]"
+        aria-hidden="true"
+      />
+
+      <div className="relative flex h-full flex-col">
+        {/* Visual header */}
+        <div className="flex items-center justify-between border-b border-border/70 pb-4">
+          <div className="flex items-center gap-3">
+            <div
+              className={[
+                "flex h-9 w-9 items-center justify-center rounded-lg border",
+                accent.icon,
+              ].join(" ")}
+            >
+              <Icon className="h-4 w-4" />
+            </div>
+
+            <div>
+              <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                {category.visualTitle}
+              </span>
+
+              <p className="mt-1 text-sm font-semibold text-foreground">
+                {category.visualSubtitle}
+              </p>
+            </div>
+          </div>
+
+          <span className="inline-flex items-center gap-2 rounded-full border border-mint/15 bg-mint/5 px-2.5 py-1 text-[9px] font-medium text-mint">
+            <span className="h-1.5 w-1.5 rounded-full bg-mint" />
+            System Ready
+          </span>
+        </div>
+
+        {/* Concept visual */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={category.id}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
+            className="flex flex-1 flex-col justify-center"
+          >
+            {category.id === "ai" ? (
+              <AIAutomationShowcase />
+            ) : category.id === "software" ? (
+              <CustomSoftwareShowcase />
+            ) : category.id === "erp" ? (
+              <ERPShowcase />
+            ) : category.id === "websites" ? (
+              <WebsitesShowcase />
+            ) : category.id === "business-growth" ? (
+              <BusinessGrowthShowcase />
+            ) : (
+              <div className="space-y-3">
+                <div className="grid grid-cols-3 gap-3">
+                  {[1, 2, 3].map((item) => (
+                    <div
+                      key={item}
+                      className="rounded-xl border border-border/70 bg-surface/50 p-3"
+                    >
+                      <div className="h-2 w-12 rounded-full bg-border" />
+                      <div className="mt-4 h-5 w-16 rounded-md bg-elevated" />
+                      <div className="mt-3 h-1.5 w-full rounded-full bg-border/70" />
+                      <div className="mt-2 h-1.5 w-3/4 rounded-full bg-border/50" />
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid grid-cols-[0.9fr_1.1fr] gap-3">
+                  <div className="rounded-xl border border-border/70 bg-surface/50 p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                        System
+                      </span>
+
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${accent.dot}`}
+                      />
+                    </div>
+
+                    <div className="mt-5 space-y-2.5">
+                      {category.items.slice(0, 4).map((item, index) => (
+                        <div
+                          key={item}
+                          className="flex items-center gap-2 rounded-lg border border-border/60 bg-background/40 px-2.5 py-2"
+                        >
+                          <span className="text-[9px] text-muted-foreground">
+                            0{index + 1}
+                          </span>
+                          <span className="truncate text-[10px] font-medium text-foreground">
+                            {item}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl border border-border/70 bg-surface/50 p-4">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                        Activity
+                      </span>
+
+                      <span className="text-[9px] text-muted-foreground">
+                        Live view
+                      </span>
+                    </div>
+
+                    <div className="mt-6 flex h-32 items-end gap-2">
+                      {[34, 52, 42, 68, 56, 78, 64, 88].map((height, index) => (
+                        <motion.div
+                          key={index}
+                          className="flex-1 rounded-t-sm bg-primary/20"
+                          initial={{ height: 0 }}
+                          animate={{ height: `${height}%` }}
+                          transition={{
+                            duration: 0.5,
+                            delay: index * 0.035,
+                            ease: "easeOut",
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between border-t border-border/60 pt-3">
+                      <span className="text-[9px] text-muted-foreground">
+                        Connected system
+                      </span>
+
+                      <span className="text-[9px] font-semibold text-foreground">
+                        READY
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Visual footer */}
+        <div className="mt-5 flex items-center justify-between border-t border-border/70 pt-4">
+          <div className="flex items-center gap-2">
+            <Workflow className="h-3.5 w-3.5 text-primary" />
+
+            <span className="text-[9px] font-medium text-muted-foreground">
+              Concept system view
+            </span>
+          </div>
+
+          <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground">
+            {category.number} / 05
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function WhatWeBuild() {
+  const [activeCategory, setActiveCategory] = useState("ai");
+  const [isPaused, setIsPaused] = useState(false);
+
+  const active =
+    categories.find((category) => category.id === activeCategory) ??
+    categories[0];
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    const timer = window.setInterval(() => {
+      setActiveCategory((current) => {
+        const currentIndex = categories.findIndex(
+          (category) => category.id === current,
+        );
+
+        const nextIndex = (currentIndex + 1) % categories.length;
+
+        return categories[nextIndex].id;
+      });
+    }, 6000);
+
+    return () => window.clearInterval(timer);
+  }, [isPaused]);
+
   return (
     <section
       id="solutions"
-      className="section-feature section-fade-divider"
+      className="section-feature section-fade-divider !pt-[32px] sm:!pt-[36px] md:!pt-[40px] lg:!pt-[48px]"
       aria-labelledby="what-we-build-heading"
     >
       <div className="container">
         {/* ================================================================
-            SECTION INTRO — CAPABILITIES
-           ================================================================ */}
+            SECTION INTRO
+           ================================================================= */}
+
         <div className="section-intro-left">
           <motion.p
             className="section-eyebrow type-eyebrow"
@@ -145,284 +397,163 @@ export default function WhatWeBuild() {
         </div>
 
         {/* ================================================================
-            FEATURED CAPABILITY — AI AUTOMATION
-           ================================================================ */}
+            CATEGORY TABS
+           ================================================================= */}
+
+        <motion.div
+          className="mt-9 overflow-x-auto pb-2"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div
+            className="flex min-w-max gap-2"
+            role="tablist"
+            aria-label="What we build"
+          >
+            {categories.map((category) => {
+              const isActive = activeCategory === category.id;
+
+              return (
+                <button
+                  key={category.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  onClick={() => {
+                    setActiveCategory(category.id);
+                    setIsPaused(true);
+                  }}
+                  className={[
+                    "inline-flex h-11 items-center gap-2 rounded-lg border px-4 text-xs font-semibold transition-all duration-250",
+                    isActive
+                      ? "border-primary/40 bg-primary/[0.08] text-foreground shadow-[0_0_22px_rgba(79,124,255,0.08)]"
+                      : "border-border/80 bg-surface/60 text-muted-foreground hover:border-border hover:bg-elevated/70 hover:text-foreground",
+                  ].join(" ")}
+                >
+                  <span
+                    className={[
+                      "text-[10px] tracking-[0.08em]",
+                      isActive ? "text-primary" : "text-muted-foreground",
+                    ].join(" ")}
+                  >
+                    {category.number}
+                  </span>
+
+                  {category.shortLabel}
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* ================================================================
+            SINGLE ACTIVE SHOWCASE
+           ================================================================= */}
+
         <motion.article
-          className="relative overflow-hidden rounded-2xl border border-primary/25 bg-elevated/70 shadow-[0_0_65px_rgba(79,124,255,0.07)]"
+          className="relative mt-5 overflow-hidden rounded-2xl border border-primary/20 bg-elevated/70 shadow-[0_0_65px_rgba(79,124,255,0.055)]"
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.65 }}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Ambient visual layer */}
           <div
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(79,124,255,0.12),transparent_35%),radial-gradient(circle_at_20%_90%,rgba(56,217,197,0.05),transparent_30%)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_35%,rgba(79,124,255,0.10),transparent_35%),radial-gradient(circle_at_20%_90%,rgba(56,217,197,0.045),transparent_30%)]"
             aria-hidden="true"
           />
 
           <div className="relative grid lg:grid-cols-[0.9fr_1.1fr]">
             {/* ------------------------------------------------------------
-                Copy
+                LEFT — ACTIVE CATEGORY CONTENT
                ------------------------------------------------------------ */}
+
             <div className="p-6 sm:p-8 lg:p-10">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-[11px] font-semibold tracking-[0.14em] text-primary">
-                  01
-                </span>
-
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-primary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                  Core Capability
-                </span>
-              </div>
-
-              <div className="mt-8 flex h-11 w-11 items-center justify-center rounded-xl border border-primary/25 bg-primary/10 text-primary">
-                <Bot className="h-5 w-5" />
-              </div>
-
-              <h3 className="mt-5 text-2xl font-semibold tracking-[-0.025em] text-foreground sm:text-3xl">
-                AI Automation
-              </h3>
-
-              <p className="mt-3 max-w-[520px] text-xl font-medium leading-[1.35] tracking-[-0.015em] text-foreground">
-                Turn Repetitive Work Into Intelligent Workflows.
-              </p>
-
-              <p className="mt-4 max-w-[540px] text-[15px] leading-7 text-muted-foreground">
-                Automate repetitive business processes and connect the tools
-                your team already uses. AI can be introduced where it provides a
-                useful advantage — not simply because it is available.
-              </p>
-
-              {/* Capability list */}
-              <div className="mt-7 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {[
-                  "AI Agents",
-                  "AI Assistants",
-                  "Workflow Automation",
-                  "WhatsApp Automation",
-                  "OCR & Document Intelligence",
-                  "API & Business Integrations",
-                  "Lead Automation",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-2.5 text-xs text-muted-foreground"
-                  >
-                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary">
-                      <Check className="h-3 w-3" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={active.id}
+                  initial={{ opacity: 0, x: -12 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 10 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-[11px] font-semibold tracking-[0.14em] text-primary">
+                      {active.number}
                     </span>
-                    {item}
-                  </div>
-                ))}
-              </div>
 
-              <Link
-                href="/solutions/ai-automation"
-                className="group mt-8 inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-4 text-xs font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-              >
-                Explore AI Automation
-                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5" />
-              </Link>
+                    <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.1em] text-primary">
+                      <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                      {active.id === "ai"
+                        ? "Core Capability"
+                        : "Business Capability"}
+                    </span>
+                  </div>
+
+                  <div
+                    className={[
+                      "mt-8 flex h-11 w-11 items-center justify-center rounded-xl border",
+                      getAccentClasses(active.accent).icon,
+                    ].join(" ")}
+                  >
+                    <active.icon className="h-5 w-5" />
+                  </div>
+
+                  <h3 className="mt-5 text-2xl font-semibold tracking-[-0.025em] text-foreground sm:text-3xl">
+                    {active.title}
+                  </h3>
+
+                  <p className="mt-3 max-w-[520px] text-xl font-medium leading-[1.35] tracking-[-0.015em] text-foreground">
+                    {active.headline}
+                  </p>
+
+                  <p className="mt-4 max-w-[540px] text-[15px] leading-7 text-muted-foreground">
+                    {active.description}
+                  </p>
+
+                  <div className="mt-7 grid grid-cols-1 gap-2 sm:grid-cols-2">
+                    {active.items.map((item) => (
+                      <div
+                        key={item}
+                        className="flex items-center gap-2.5 text-xs text-muted-foreground"
+                      >
+                        <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/20 bg-primary/5 text-primary">
+                          <Check className="h-3 w-3" />
+                        </span>
+
+                        {item}
+                      </div>
+                    ))}
+                  </div>
+
+                  <Link
+                    href={active.href}
+                    className="group mt-8 inline-flex h-10 items-center gap-2 rounded-lg border border-border bg-surface px-4 text-xs font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-background focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+                  >
+                    Explore {active.shortLabel}
+                    <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5" />
+                  </Link>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* ------------------------------------------------------------
-                Workflow Interface
+                RIGHT — ACTIVE VISUAL
                ------------------------------------------------------------ */}
+
             <div className="border-t border-border/70 p-4 sm:p-6 lg:border-l lg:border-t-0 lg:p-8">
-              <div className="h-full rounded-xl border border-border/80 bg-background/70 p-4 sm:p-5">
-                {/* Interface header */}
-                <div className="flex items-center justify-between border-b border-border/70 pb-4">
-                  <div>
-                    <span className="text-[9px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                      Workflow Builder
-                    </span>
-
-                    <p className="mt-1 text-sm font-semibold text-foreground">
-                      Lead Automation
-                    </p>
-                  </div>
-
-                  <div className="flex items-center gap-2 rounded-full border border-mint/15 bg-mint/5 px-2.5 py-1 text-[9px] font-medium text-mint">
-                    <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-                    Connected
-                  </div>
-                </div>
-
-                {/* Workflow */}
-                <div className="mt-6">
-                  <div className="space-y-0">
-                    {automationSteps.map((step, index) => {
-                      const Icon = step.icon;
-                      const isLast = index === automationSteps.length - 1;
-
-                      return (
-                        <div key={step.label}>
-                          <motion.div
-                            initial={{ opacity: 0, x: 12 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                            transition={{
-                              duration: 0.4,
-                              delay: 0.15 + index * 0.08,
-                            }}
-                            className={[
-                              "flex items-center gap-3 rounded-xl border px-3.5 py-3",
-                              index === 1 || index === 2
-                                ? "border-primary/20 bg-primary/[0.035]"
-                                : "border-border/70 bg-surface/50",
-                            ].join(" ")}
-                          >
-                            <div
-                              className={[
-                                "flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border",
-                                index === 1
-                                  ? "border-primary/25 bg-primary/10 text-primary"
-                                  : index === 3
-                                    ? "border-mint/20 bg-mint/5 text-mint"
-                                    : "border-border bg-elevated text-muted-foreground",
-                              ].join(" ")}
-                            >
-                              <Icon className="h-4 w-4" />
-                            </div>
-
-                            <div className="min-w-0 flex-1">
-                              <p className="text-xs font-semibold text-foreground">
-                                {step.label}
-                              </p>
-
-                              <p className="mt-0.5 text-[10px] text-muted-foreground">
-                                {step.detail}
-                              </p>
-                            </div>
-
-                            <span
-                              className={[
-                                "h-1.5 w-1.5 shrink-0 rounded-full",
-                                index === 3
-                                  ? "bg-mint"
-                                  : index === 1 || index === 2
-                                    ? "bg-primary"
-                                    : "bg-border",
-                              ].join(" ")}
-                            />
-                          </motion.div>
-
-                          {!isLast && (
-                            <div className="flex h-8 justify-center">
-                              <div className="relative h-full w-px bg-border">
-                                <motion.span
-                                  className="absolute left-0 top-0 h-1/2 w-px bg-primary/60"
-                                  initial={{ scaleY: 0 }}
-                                  whileInView={{ scaleY: 1 }}
-                                  viewport={{ once: true }}
-                                  transition={{
-                                    duration: 0.45,
-                                    delay: 0.35 + index * 0.1,
-                                  }}
-                                  style={{ transformOrigin: "top" }}
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                {/* Workflow footer */}
-                <div className="mt-6 flex items-center justify-between border-t border-border/70 pt-4">
-                  <div className="flex items-center gap-2">
-                    <Workflow className="h-3.5 w-3.5 text-primary" />
-                    <span className="text-[9px] font-medium text-muted-foreground">
-                      Connected workflow
-                    </span>
-                  </div>
-
-                  <span className="text-[9px] font-semibold tracking-[0.08em] text-muted-foreground">
-                    LEAD → ACTION
-                  </span>
-                </div>
-              </div>
+              <CategoryVisual category={active} />
             </div>
           </div>
         </motion.article>
 
         {/* ================================================================
-            SUPPORTING CAPABILITIES
-           ================================================================ */}
-        <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-          {supportingServices.map((service, index) => {
-            const Icon = service.icon;
+            CONVERSION
+           ================================================================= */}
 
-            return (
-              <motion.article
-                key={service.number}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.06,
-                }}
-                className="group relative overflow-hidden rounded-2xl border border-border/80 bg-surface/70 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/25 hover:bg-elevated/70 md:p-7"
-              >
-                {/* Number / icon */}
-                <div className="flex items-start justify-between">
-                  <span className="text-[11px] font-semibold tracking-[0.14em] text-muted-foreground">
-                    {service.number}
-                  </span>
-
-                  <div
-                    className={[
-                      "flex h-10 w-10 items-center justify-center rounded-lg border",
-                      service.accent === "violet"
-                        ? "border-violet/20 bg-violet/5 text-violet"
-                        : service.accent === "mint"
-                          ? "border-mint/20 bg-mint/5 text-mint"
-                          : "border-primary/20 bg-primary/5 text-primary",
-                    ].join(" ")}
-                  >
-                    <Icon className="h-5 w-5" />
-                  </div>
-                </div>
-
-                <h3 className="mt-7 max-w-[420px] text-xl font-semibold tracking-[-0.02em] text-foreground">
-                  {service.title}
-                </h3>
-
-                <p className="mt-3 max-w-[500px] text-sm leading-6 text-muted-foreground">
-                  {service.description}
-                </p>
-
-                <ul className="mt-6 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                  {service.items.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-2 text-xs text-muted-foreground"
-                    >
-                      <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-border transition-colors duration-200 group-hover:bg-primary/60" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                <Link
-                  href={service.href}
-                  className="group/link mt-7 inline-flex items-center gap-2 text-xs font-semibold text-foreground transition-colors duration-200 hover:text-primary"
-                >
-                  Learn More
-                  <ArrowRight className="h-3.5 w-3.5 text-muted-foreground transition-transform duration-200 group-hover/link:translate-x-0.5 group-hover/link:text-primary" />
-                </Link>
-              </motion.article>
-            );
-          })}
-        </div>
-
-        {/* ================================================================
-            SECTION CONVERSION
-           ================================================================ */}
         <motion.div
           className="mt-10 flex flex-col gap-5 border-t border-border/70 pt-7 md:flex-row md:items-center md:justify-between"
           initial={{ opacity: 0, y: 16 }}
