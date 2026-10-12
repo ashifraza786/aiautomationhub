@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { ArrowRight, Mail, Menu, Phone, X } from "lucide-react";
+import logo from "../../assets/logo-aiautomationhub.webp";
 
 const navigation = [
   { label: "Solutions", href: "/solutions" },
@@ -11,13 +12,14 @@ const navigation = [
   { label: "Contact", href: "/start-project" },
 ];
 
-const PHONE = "+91 7484821896";
-const EMAIL = "team.afi.consultant@gmail.com";
+const PHONE = "+91 9262838454";
+const EMAIL = "helloaiautomationhub@gmail.com";
 
 export default function Navbar() {
   const [location] = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [logoFailed, setLogoFailed] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -157,21 +159,27 @@ export default function Navbar() {
             className="container flex h-[74px] items-center gap-6"
             aria-label="Main navigation"
           >
-            {/* ======================================================
-                LOGO / BRAND
-               ====================================================== */}
+            {/* LOGO / BRAND */}
             <Link
               href="/"
-              className="group relative flex min-h-11 shrink-0 items-center rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               aria-label="AI AutomationHub home"
+              className="group flex shrink-0 items-center gap-3 rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-[#4F7CFF]"
             >
-              <div className="relative flex items-center rounded-lg border border-white/[0.045] bg-white/[0.015] px-2 py-1 shadow-[0_4px_18px_rgba(0,0,0,0.18)] transition-all duration-300 group-hover:border-[#4F7CFF]/20 group-hover:bg-[#4F7CFF]/[0.035]">
-                <img
-                  src="/logo-automationhub.webp"
-                  alt="AI AutomationHub"
-                  className="block h-9 w-auto max-w-[190px] object-contain object-left"
-                />
+              {/* Original brand logo */}
+              <div className="relative flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/[0.08] bg-[#111720] shadow-[0_4px_18px_rgba(0,0,0,0.24)] transition-all duration-300 group-hover:border-[#4F7CFF]/40 group-hover:shadow-[0_0_22px_rgba(79,124,255,0.12)]">
+                <img src={logo} alt="" className="h-10 w-10 object-contain" />
               </div>
+
+              {/* Readable brand identity */}
+              <span className="flex flex-col justify-center">
+                <span className="whitespace-nowrap text-[15px] font-semibold tracking-[-0.045em] text-[#F4F7FB] transition-colors duration-300 group-hover:text-white sm:text-base">
+                  AI Automation<span className="text-[#7C96FF]">Hub</span>
+                </span>
+
+                <span className="mt-1 whitespace-nowrap text-[8px] font-medium uppercase tracking-[0.19em] text-[#778397]">
+                  Business Technology
+                </span>
+              </span>
             </Link>
 
             {/* ======================================================

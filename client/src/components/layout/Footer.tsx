@@ -1,11 +1,11 @@
 import { ArrowRight, Mail, MessageSquare, Phone } from "lucide-react";
 import { Link } from "wouter";
 
-const PHONE = "+91 7484821896";
-const PHONE_CLEAN = "917484821896";
-const EMAIL = "team.afi.consultant@gmail.com";
+const PHONE = "+91 9262838454";
+const PHONE_CLEAN = "91 9262838454";
+const EMAIL = "helloaiautomationhub@gmail.com";
 const WHATSAPP_URL =
-  "https://wa.me/917484821896?text=Hello%20AIAutomationHub%2C%20I%20want%20to%20discuss%20a%20project.";
+  "https://wa.me/919262838454?text=Hello%20AIAutomationHub%2C%20I%20want%20to%20discuss%20a%20project.";
 const INSTAGRAM_URL = "https://www.instagram.com/aiautomationhub_03";
 
 export default function Footer() {
