@@ -1,330 +1,359 @@
+import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import {
+  ArrowDownRight,
   ArrowRight,
+  ArrowUpRight,
   Blocks,
-  BrainCircuit,
-  CircleCheck,
+  Check,
   Workflow,
+  Globe2,
+  Layers3,
+  RefreshCw,
+  Sparkles,
+  WandSparkles,
+  type LucideIcon,
 } from "lucide-react";
 
-const differentiators = [
+const journey = [
   {
     number: "01",
-    title: "Business-First Thinking",
-    description: "We Start With the Problem.",
-    detail:
-      "Before choosing a technology, we understand the business requirement, workflow and outcome that actually matters.",
-    icon: Blocks,
-    accent: "blue",
+    eyebrow: "START WITH THE BUSINESS",
+    title: "Understand before we build.",
+    description:
+      "We look at your business goals, current processes and everyday bottlenecks before deciding which technology makes sense.",
+    outcome: "Find the problem worth solving.",
+    icon: Workflow,
+    flow: ["Business goals", "Workflow research", "Problem identified"],
   },
   {
     number: "02",
-    title: "Built Around Your Workflow",
-    description: "Your Business Doesn't Have to Fit the Software.",
-    detail:
-      "The solution is shaped around how your team works instead of forcing your business into a fixed process.",
-    icon: Workflow,
-    accent: "blue",
+    eyebrow: "MAKE WORK DIGITAL",
+    title: "Bring your operations online.",
+    description:
+      "We identify where digital tools can replace scattered records, disconnected information and manual ways of working.",
+    outcome: "Create a stronger digital foundation.",
+    icon: Globe2,
+    flow: ["Manual processes", "Digital information", "Organized operations"],
   },
   {
     number: "03",
-    title: "AI With a Purpose",
-    description: "AI Should Do Something Useful.",
-    detail:
-      "We look for practical opportunities where AI can reduce repetitive work, improve workflows or support better decisions.",
-    icon: BrainCircuit,
-    accent: "violet",
+    eyebrow: "CONNECT THE SYSTEMS",
+    title: "Build around your workflow.",
+    description:
+      "When needed, we design custom software, ERP solutions and integrations that fit the way your team actually works.",
+    outcome: "Make the right systems work together.",
+    icon: Blocks,
+    flow: ["Business requirements", "Software and ERP", "Connected workflow"],
   },
   {
     number: "04",
-    title: "Connected Technology",
-    description: "Your Tools Should Work Together.",
-    detail:
-      "Websites, software, business systems and automation should contribute to one connected operational experience.",
-    icon: CircleCheck,
-    accent: "mint",
-  },
-  {
-    number: "05",
-    title: "Built to Grow",
-    description: "Start With What You Need. Build Toward What's Next.",
-    detail:
-      "Start with the immediate requirement while keeping the solution ready to evolve as the business grows.",
-    icon: ArrowRight,
-    accent: "mint",
+    eyebrow: "AUTOMATE WHAT MATTERS",
+    title: "Give repetitive work a better way.",
+    description:
+      "We find suitable opportunities to automate repeatable tasks, reduce unnecessary handoffs and free up time for valuable work.",
+    outcome: "Less manual effort. More room to grow.",
+    icon: Sparkles,
+    flow: ["Repetitive tasks", "Practical automation", "Work moves forward"],
   },
 ];
 
-function getAccentClasses(accent: string) {
-  if (accent === "mint") {
-    return {
-      icon: "border-mint/20 bg-mint/[0.05] text-mint group-hover:border-mint/40 group-hover:bg-mint/[0.08]",
-      number: "text-mint",
-      line: "bg-mint/50",
-    };
-  }
+type Service = {
+  name: string;
+  label: string;
+  description: string;
+  icon: LucideIcon;
+  steps: string[];
+};
 
-  if (accent === "violet") {
-    return {
-      icon: "border-violet/20 bg-violet/[0.05] text-violet group-hover:border-violet/40 group-hover:bg-violet/[0.08]",
-      number: "text-violet",
-      line: "bg-violet/50",
-    };
-  }
+const services: Service[] = [
+  {
+    name: "Automation",
+    label: "LET ROUTINE WORK FLOW",
+    description:
+      "Identify repeatable tasks and design workflows that reduce manual effort where automation makes sense.",
+    icon: RefreshCw,
+    steps: ["Trigger", "Workflow", "Action"],
+  },
+  {
+    name: "Custom Software",
+    label: "SOFTWARE THAT FITS",
+    description:
+      "Design business tools around your actual requirements instead of forcing every process into a generic product.",
+    icon: Layers3,
+    steps: ["Requirements", "Custom solution", "Daily operations"],
+  },
+  {
+    name: "ERP Systems",
+    label: "BRING OPERATIONS TOGETHER",
+    description:
+      "Plan connected business processes and information across the functions that need to work together.",
+    icon: Blocks,
+    steps: ["Business functions", "Shared system", "Connected data"],
+  },
+  {
+    name: "Websites",
+    label: "BUILD YOUR DIGITAL PRESENCE",
+    description:
+      "Create a clear digital home for your business that helps people understand your services and take the next step.",
+    icon: Globe2,
+    steps: ["Your business", "Digital experience", "Customer action"],
+  },
+  {
+    name: "Integrations",
+    label: "CONNECT YOUR TOOLS",
+    description:
+      "Explore ways to connect existing platforms and reduce avoidable switching, duplication and handoffs.",
+    icon: Workflow,
+    steps: ["Existing tools", "Integration", "Information flow"],
+  },
+  {
+    name: "AI Solutions",
+    label: "USE AI WITH A PURPOSE",
+    description:
+      "Apply AI where it can support a real business task, improve a workflow or help people work with information.",
+    icon: WandSparkles,
+    steps: ["Business need", "Useful AI", "Supported workflow"],
+  },
+];
 
-  return {
-    icon: "border-primary/20 bg-primary/[0.05] text-primary group-hover:border-primary/40 group-hover:bg-primary/[0.08]",
-    number: "text-primary",
-    line: "bg-primary/50",
-  };
+function SystemDiagram({ steps }: { steps: string[] }) {
+  return (
+    <div className="mt-7 grid gap-2 sm:grid-cols-3">
+      {steps.map((step, index) => (
+        <div key={step} className="flex min-w-0 items-center gap-2">
+          <div className="flex min-h-[74px] w-full items-center gap-3 rounded-xl border border-[#DCDDD2] bg-white p-3">
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EAF0D6] text-xs font-semibold text-[#323B1F]">
+              {String(index + 1).padStart(2, "0")}
+            </span>
+            <span className="text-sm font-medium leading-5 text-[#24251F]">
+              {step}
+            </span>
+          </div>
+          {index < steps.length - 1 && (
+            <ArrowRight
+              className="hidden h-4 w-4 shrink-0 text-[#737663] sm:block"
+              aria-hidden="true"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export default function WhyAIHub() {
+  const [activeJourney, setActiveJourney] = useState(0);
+  const [activeService, setActiveService] = useState("Automation");
   const reduceMotion = useReducedMotion();
+
+  const active = journey[activeJourney];
+  const selectedService =
+    services.find((service) => service.name === activeService) ?? services[0];
+
+  const transition = reduceMotion
+    ? { duration: 0 }
+    : { duration: 0.35, ease: [0.22, 1, 0.36, 1] as const };
 
   return (
     <section
       id="why-ai-automationhub"
       aria-labelledby="why-ai-automationhub-heading"
-      className="section-feature section-fade-divider relative overflow-hidden"
+      className="why-ai-editorial"
     >
-      {/* ================================================================
-          BACKGROUND ATMOSPHERE
-         ================================================================ */}
-      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute right-[-120px] top-[20%] h-80 w-80 rounded-full bg-primary/[0.035] blur-3xl" />
-        <div className="absolute left-[-120px] bottom-[8%] h-72 w-72 rounded-full bg-violet/[0.025] blur-3xl" />
-
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(32,41,54,0.35) 1px, transparent 1px), linear-gradient(90deg, rgba(32,41,54,0.35) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
-            maskImage:
-              "linear-gradient(to bottom, transparent, black 18%, black 82%, transparent)",
-          }}
-        />
-      </div>
-
-      <div className="container relative">
-        {/* ================================================================
-            INTRO
-           ================================================================ */}
-        <motion.div
-          initial={
-            reduceMotion
-              ? false
-              : {
-                  opacity: 0,
-                  y: 20,
-                }
-          }
-          whileInView={
-            reduceMotion
-              ? undefined
-              : {
-                  opacity: 1,
-                  y: 0,
-                }
-          }
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          transition={{
-            duration: 0.6,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="section-intro-left"
-        >
-          <p className="section-eyebrow type-eyebrow">WHY AI AUTOMATIONHUB</p>
-
-          <h2
-            id="why-ai-automationhub-heading"
-            className="section-title type-section-title max-w-[800px]"
+      {/* SECTION ONE — THE APPROACH */}
+      <div className="why-ai-paper">
+        <div className="why-ai-container">
+          <motion.div
+            initial={reduceMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={transition}
+            className="why-ai-intro"
           >
-            Technology Should Solve Problems —
-            <span className="block text-primary">Not Create More.</span>
-          </h2>
-
-          <p className="section-description type-body-large max-w-[700px]">
-            We don't start with a technology. We start with your business,
-            understand how it works, and build the right solution around it.
-          </p>
-        </motion.div>
-
-        {/* ================================================================
-            DIFFERENTIATORS
-         ================================================================ */}
-        <div className="mt-14 grid gap-4 lg:grid-cols-2 lg:gap-5">
-          {differentiators.map((item, index) => {
-            const Icon = item.icon;
-            const accent = getAccentClasses(item.accent);
-            const isLast = index === differentiators.length - 1;
-
-            return (
-              <motion.article
-                key={item.number}
-                initial={
-                  reduceMotion
-                    ? false
-                    : {
-                        opacity: 0,
-                        y: 22,
-                      }
-                }
-                whileInView={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        opacity: 1,
-                        y: 0,
-                      }
-                }
-                viewport={{
-                  once: true,
-                  amount: 0.15,
-                }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.07,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className={[
-                  "group relative overflow-hidden rounded-2xl border border-border/80 bg-surface/70 p-6 transition-all duration-300",
-                  "hover:-translate-y-1 hover:border-primary/25 hover:bg-elevated/80",
-                  "md:p-7",
-                  isLast ? "lg:col-span-2" : "",
-                ].join(" ")}
-              >
-                {/* Accent line */}
-                <div
-                  className={[
-                    "absolute left-0 top-0 h-px w-0 transition-all duration-500 group-hover:w-24",
-                    accent.line,
-                  ].join(" ")}
-                  aria-hidden="true"
-                />
-
-                <div className="flex items-start gap-5">
-                  {/* Icon */}
-                  <motion.div
-                    whileHover={
-                      reduceMotion
-                        ? undefined
-                        : {
-                            scale: 1.04,
-                          }
-                    }
-                    className={[
-                      "flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border transition-all duration-300",
-                      accent.icon,
-                    ].join(" ")}
-                  >
-                    <Icon
-                      className="h-5 w-5"
-                      strokeWidth={1.7}
-                      aria-hidden="true"
-                    />
-                  </motion.div>
-
-                  {/* Content */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                      <span
-                        className={[
-                          "font-mono text-[10px] font-semibold tracking-[0.14em]",
-                          accent.number,
-                        ].join(" ")}
-                      >
-                        {item.number}
-                      </span>
-
-                      <span className="h-1 w-1 rounded-full bg-border" />
-
-                      <span className="text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                        Principle
-                      </span>
-                    </div>
-
-                    <h3 className="mt-3 text-[19px] font-semibold leading-[1.25] tracking-[-0.018em] text-[#E8EDF5] md:text-xl">
-                      {item.title}
-                    </h3>
-
-                    <p className="mt-2 text-sm font-medium leading-6 text-foreground/90 md:text-[15px]">
-                      {item.description}
-                    </p>
-
-                    <p className="mt-3 max-w-[640px] text-[13px] leading-[1.65] text-muted-foreground">
-                      {item.detail}
-                    </p>
-                  </div>
-                </div>
-              </motion.article>
-            );
-          })}
-        </div>
-
-        {/* ================================================================
-            CLOSING STATEMENT
-           ================================================================ */}
-        <motion.div
-          initial={
-            reduceMotion
-              ? false
-              : {
-                  opacity: 0,
-                  y: 18,
-                }
-          }
-          whileInView={
-            reduceMotion
-              ? undefined
-              : {
-                  opacity: 1,
-                  y: 0,
-                }
-          }
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-          transition={{
-            duration: 0.55,
-            delay: 0.1,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="mt-12 border-t border-border/70 pt-9 md:mt-16 md:pt-11"
-        >
-          <div className="flex flex-col gap-7 lg:flex-row lg:items-end lg:justify-between">
-            <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                OUR APPROACH
-              </p>
-
-              <p className="mt-3 text-xl font-semibold tracking-[-0.02em] text-foreground md:text-2xl">
-                We Don't Just Build Software.
-              </p>
-
-              <p className="mt-1.5 text-xl font-semibold tracking-[-0.02em] text-primary md:text-2xl">
-                We Build Better Ways of Working.
-              </p>
+            <div className="why-ai-meta">
+              <span>WHY AI AUTOMATIONHUB</span>
+              <span>OUR APPROACH / 01</span>
             </div>
 
-            <a
-              href="#process"
-              className="group inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-border bg-surface px-5 text-sm font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/35 hover:bg-elevated hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            <div className="why-ai-hero-copy">
+              <h2 id="why-ai-automationhub-heading">
+                Built around your business.
+                <br />
+                <span>Not just another tool.</span>
+              </h2>
+              <div className="why-ai-intro-aside">
+                <ArrowDownRight size={22} strokeWidth={1.5} />
+                <p>
+                  We find what slows you down, then build the digital systems
+                  that help your business work better.
+                </p>
+              </div>
+            </div>
+          </motion.div>
+
+          <div className="why-ai-journey">
+            <div className="why-ai-journey-list" aria-label="Our approach">
+              {journey.map((item, index) => {
+                const Icon = item.icon;
+                const isActive = activeJourney === index;
+
+                return (
+                  <button
+                    key={item.number}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setActiveJourney(index)}
+                    className={`why-ai-journey-item ${
+                      isActive ? "is-active" : ""
+                    }`}
+                  >
+                    <span className="why-ai-journey-number">{item.number}</span>
+                    <span className="why-ai-journey-icon">
+                      <Icon size={19} strokeWidth={1.6} />
+                    </span>
+                    <span className="why-ai-journey-title">
+                      <span>{item.eyebrow}</span>
+                      <strong>{item.title}</strong>
+                    </span>
+                    <ArrowUpRight
+                      className="why-ai-journey-arrow"
+                      size={19}
+                      strokeWidth={1.6}
+                    />
+                  </button>
+                );
+              })}
+            </div>
+
+            <motion.div
+              key={active.number}
+              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={transition}
+              className="why-ai-story-panel"
             >
-              See How We Work
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                strokeWidth={1.8}
-                aria-hidden="true"
-              />
+              <div className="why-ai-story-top">
+                <span>THE THINKING BEHIND THE WORK</span>
+                <span>{active.number} / 04</span>
+              </div>
+
+              <div className="why-ai-story-body">
+                <p className="why-ai-story-kicker">{active.eyebrow}</p>
+                <h3>{active.title}</h3>
+                <p className="why-ai-story-description">{active.description}</p>
+              </div>
+
+              <SystemDiagram steps={active.flow} />
+
+              <div className="why-ai-outcome">
+                <span className="why-ai-check">
+                  <Check size={15} />
+                </span>
+                <span>
+                  <small>THE OBJECTIVE</small>
+                  <strong>{active.outcome}</strong>
+                </span>
+              </div>
+            </motion.div>
+          </div>
+
+          <div className="why-ai-paper-footer">
+            <span>BUSINESS FIRST. TECHNOLOGY SECOND.</span>
+            <a href="#process">
+              See how we work <ArrowRight size={16} />
             </a>
           </div>
-        </motion.div>
+        </div>
+      </div>
+
+      {/* SECTION TWO — EXPLORE THE SYSTEMS */}
+      <div className="why-ai-lime">
+        <div className="why-ai-container">
+          <div className="why-ai-lime-heading">
+            <p className="why-ai-lime-eyebrow">
+              FROM PROBLEM TO PRACTICAL SOLUTION
+            </p>
+            <h2>
+              Systems that do
+              <br />
+              <span>the work you shouldn’t.</span>
+            </h2>
+            <p>
+              Explore the digital systems we can shape around your business. The
+              right solution starts with the problem—not the trend.
+            </p>
+          </div>
+
+          <div
+            className="why-ai-service-pills"
+            aria-label="Explore our solutions"
+          >
+            {services.map((service) => (
+              <button
+                type="button"
+                key={service.name}
+                aria-pressed={activeService === service.name}
+                onClick={() => setActiveService(service.name)}
+                className={`why-ai-service-pill ${
+                  activeService === service.name ? "is-active" : ""
+                }`}
+              >
+                {service.name}
+                {activeService === service.name && <ArrowUpRight size={15} />}
+              </button>
+            ))}
+          </div>
+
+          <motion.div
+            key={selectedService.name}
+            initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={transition}
+            className="why-ai-service-panel"
+          >
+            <div className="why-ai-service-copy">
+              <div className="why-ai-service-icon">
+                <selectedService.icon size={23} strokeWidth={1.6} />
+              </div>
+              <p className="why-ai-service-label">{selectedService.label}</p>
+              <h3>{selectedService.name}</h3>
+              <p className="why-ai-service-description">
+                {selectedService.description}
+              </p>
+              <a href="#process" className="why-ai-service-link">
+                Explore our approach <ArrowRight size={16} />
+              </a>
+            </div>
+
+            <div className="why-ai-service-visual">
+              <div className="why-ai-visual-header">
+                <span>WORKFLOW CONCEPT</span>
+                <span>
+                  <span className="why-ai-status-dot" />
+                  SYSTEM OVERVIEW
+                </span>
+              </div>
+
+              <div className="why-ai-visual-core">
+                <div className="why-ai-visual-orbit">
+                  <div className="why-ai-visual-node">
+                    <selectedService.icon size={27} strokeWidth={1.5} />
+                  </div>
+                </div>
+                <p>Designed around your workflow</p>
+                <span>Business need → Practical system → Better work</span>
+              </div>
+
+              <SystemDiagram steps={selectedService.steps} />
+            </div>
+          </motion.div>
+
+          <div className="why-ai-lime-footer">
+            <span>NO ONE-SIZE-FITS-ALL SYSTEMS.</span>
+            <span>THE RIGHT TECHNOLOGY FOR THE RIGHT PROBLEM.</span>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,6 @@
 import { MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
-
+import TechStackMarquee from "@/components/TechStackMarquee";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
@@ -13,7 +13,7 @@ import BusinessGrowth from "@/components/home/BussinessGrowth";
 import FutureVision from "@/components/home/FutureVision";
 import FinalCTA from "@/components/home/FinalCTA";
 
-const PHONE_CLEAN = "917484821896";
+const PHONE_CLEAN = "919262838454";
 
 const WA_BASE = `https://wa.me/${PHONE_CLEAN}?text=Hello%20AIAutomationHub%2C%20I%20want%20to%20discuss%20a%20project.`;
 
@@ -81,6 +81,7 @@ export default function Home() {
             05 — WHY AI AUTOMATIONHUB
            ================================================================ */}
         <WhyAIHub />
+        <TechStackMarquee />
 
         {/* ================================================================
             06 — BUSINESS GROWTH
