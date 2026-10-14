@@ -12,6 +12,7 @@ import WhyAIHub from "@/components/home/WhyAIHub";
 import BusinessGrowth from "@/components/home/BussinessGrowth";
 import FutureVision from "@/components/home/FutureVision";
 import FinalCTA from "@/components/home/FinalCTA";
+import ContactSection from "@/components/home/ContactSection";
 
 const PHONE_CLEAN = "919262838454";
 
@@ -97,6 +98,12 @@ export default function Home() {
             08 — FINAL CONVERSION
            ================================================================ */}
         <FinalCTA />
+
+        {/* ================================================================
+            09 — CONTACT SECTION
+            Premium contact form immediately above the footer.
+           ================================================================ */}
+        <ContactSection />
       </main>
 
       {/* ================================================================
