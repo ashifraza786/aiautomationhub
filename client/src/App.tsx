@@ -1,9 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
+
+import NotFound from "@/pages/NotFound";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+
 import Home from "./pages/Home";
 import LeadsDashboard from "./pages/LeadsDashboard";
 import StartProject from "./pages/StartProject";
@@ -16,44 +21,44 @@ import BusinessGrowth from "./pages/solutions/BussinessGrowth";
 import Technology from "./pages/Technology";
 import Process from "./pages/Process";
 import About from "./pages/About";
+
 function Router() {
   return (
-    <Switch>
-      {/* Home */}
-      <Route path="/" component={Home} />
+    <div className="flex min-h-screen flex-col bg-background text-foreground">
+      <Navbar />
 
-      {/* Solutions */}
-      <Route path="/solutions" component={Solutions} />
-      <Route path="/solutions/ai-automation" component={AIAutomation} />
-      <Route path="/solutions/custom-software" component={CustomSoftware} />
-      <Route
-        path="/solutions/erp-business-systems"
-        component={ERPBusinessSystems}
-      />
-      <Route
-        path="/solutions/websites-digital-solutions"
-        component={WebsitesDigitalSolutions}
-      />
-      <Route path="/solutions/business-growth" component={BusinessGrowth} />
+      <div className="flex-1">
+        <Switch>
+          <Route path="/" component={Home} />
 
-      {/* Company */}
-      <Route path="/technology" component={Technology} />
-      <Route path="/work" component={NotFound} />
-      <Route path="/process" component={Process} />
-      <Route path="/about" component={About} />
+          <Route path="/solutions" component={Solutions} />
+          <Route path="/solutions/ai-automation" component={AIAutomation} />
+          <Route path="/solutions/custom-software" component={CustomSoftware} />
+          <Route
+            path="/solutions/erp-business-systems"
+            component={ERPBusinessSystems}
+          />
+          <Route
+            path="/solutions/websites-digital-solutions"
+            component={WebsitesDigitalSolutions}
+          />
+          <Route path="/solutions/business-growth" component={BusinessGrowth} />
 
-      {/* Conversion */}
-      <Route path="/start-project" component={StartProject} />
+          <Route path="/technology" component={Technology} />
+          <Route path="/work" component={NotFound} />
+          <Route path="/process" component={Process} />
+          <Route path="/about" component={About} />
 
-      {/* Internal */}
-      <Route path="/leads" component={LeadsDashboard} />
+          <Route path="/start-project" component={StartProject} />
+          <Route path="/leads" component={LeadsDashboard} />
 
-      {/* Explicit 404 */}
-      <Route path="/404" component={NotFound} />
+          <Route path="/404" component={NotFound} />
+          <Route component={NotFound} />
+        </Switch>
+      </div>
 
-      {/* Catch-all */}
-      <Route component={NotFound} />
-    </Switch>
+      <Footer />
+    </div>
   );
 }
 
