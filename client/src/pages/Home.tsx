@@ -1,9 +1,7 @@
 import { MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
-import TechStackMarquee from "@/components/TechStackMarquee";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
 
+import TechStackMarquee from "@/components/TechStackMarquee";
 import Hero from "@/components/home/Hero";
 import ProblemSolution from "@/components/home/ProblemSolution";
 import WhatWeBuild from "@/components/home/WhatWeBuild";
@@ -12,6 +10,7 @@ import WhyAIHub from "@/components/home/WhyAIHub";
 import BusinessGrowth from "@/components/home/BussinessGrowth";
 import FutureVision from "@/components/home/FutureVision";
 import FinalCTA from "@/components/home/FinalCTA";
+import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
 
 const PHONE_CLEAN = "919262838454";
@@ -28,7 +27,7 @@ function track(event: string, data?: Record<string, string>) {
     }
 
     console.info("[analytics]", event, data);
-  } catch (_) {
+  } catch {
     // Analytics should never interrupt the user experience.
   }
 }
@@ -41,6 +40,8 @@ export default function Home() {
       setShowFloatingWA(window.scrollY > 240);
     };
 
+    onScroll();
+
     window.addEventListener("scroll", onScroll, {
       passive: true,
     });
@@ -52,69 +53,40 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
-      {/* ================================================================
-          GLOBAL NAVIGATION
-         ================================================================ */}
-      <Navbar />
-
       <main>
-        {/* ================================================================
-            01 — HERO
-           ================================================================ */}
+        {/* 01 — HERO */}
         <Hero />
 
-        {/* ================================================================
-            02 — PROBLEM → SOLUTION
-           ================================================================ */}
+        {/* 02 — PROBLEM → SOLUTION */}
         <ProblemSolution />
 
-        {/* ================================================================
-            03 — WHAT WE BUILD
-           ================================================================ */}
+        {/* 03 — WHAT WE BUILD */}
         <WhatWeBuild />
 
-        {/* ================================================================
-            04 — HOW WE WORK
-           ================================================================ */}
+        {/* 04 — HOW WE WORK */}
         <HowWeWork />
 
-        {/* ================================================================
-            05 — WHY AI AUTOMATIONHUB
-           ================================================================ */}
+        {/* 05 — WHY AI AUTOMATIONHUB */}
         <WhyAIHub />
         <TechStackMarquee />
 
-        {/* ================================================================
-            06 — BUSINESS GROWTH
-           ================================================================ */}
+        {/* 06 — BUSINESS GROWTH */}
         <BusinessGrowth />
 
-        {/* ================================================================
-            07 — FUTURE VISION
-           ================================================================ */}
+        {/* 07 — FUTURE VISION */}
         <FutureVision />
 
-        {/* ================================================================
-            08 — FINAL CONVERSION
-           ================================================================ */}
+        {/* 08 — FINAL CONVERSION */}
         <FinalCTA />
 
-        {/* ================================================================
-            09 — CONTACT SECTION
-            Premium contact form immediately above the footer.
-           ================================================================ */}
+        {/* 09 — ABOUT, DIRECTLY ABOVE CONTACT */}
+        <AboutSection />
+
+        {/* 10 — CONTACT */}
         <ContactSection />
       </main>
 
-      {/* ================================================================
-          GLOBAL FOOTER
-         ================================================================ */}
-      <Footer />
-
-      {/* ================================================================
-          FLOATING WHATSAPP
-          Utility CTA only — intentionally separate from the main CTA flow.
-         ================================================================ */}
+      {/* Floating WhatsApp */}
       {showFloatingWA && (
         <a
           href={WA_BASE}

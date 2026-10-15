@@ -21,6 +21,7 @@ import BusinessGrowth from "./pages/solutions/BussinessGrowth";
 import Technology from "./pages/Technology";
 import Process from "./pages/Process";
 import About from "./pages/About";
+import Work from "./pages/Work";
 
 function Router() {
   return (
@@ -45,7 +46,7 @@ function Router() {
           <Route path="/solutions/business-growth" component={BusinessGrowth} />
 
           <Route path="/technology" component={Technology} />
-          <Route path="/work" component={NotFound} />
+          <Route path="/work" component={Work} />
           <Route path="/process" component={Process} />
           <Route path="/about" component={About} />
 
