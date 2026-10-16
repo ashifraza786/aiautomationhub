@@ -36,6 +36,7 @@ export interface ProjectData {
   image?: string;
 }
 
+
 export const projectData: ProjectData[] = [
   {
     slug: "ai-based-early-detection-of-medication-non-adherence",
@@ -65,6 +66,35 @@ export const projectData: ProjectData[] = [
 
     href: "/work/ai-based-early-detection-of-medication-non-adherence",
   },
+  {
+  slug: "erp-management-system",
+  number: "02",
+  title: "ERP Management System",
+  shortTitle: "ERP Business Systems",
+  category: "Concept",
+  status: "Prototype",
+
+  description:
+    "An ERP workflow showcase connecting sales, inventory, billing, HR, and reporting.",
+
+  problem:
+    "Business functions can become difficult to coordinate when workflows are disconnected.",
+
+  system:
+    "An ERP showcase representing a connected workflow across core business functions.",
+
+  technology:
+    "React, TypeScript, Framer Motion, and Lucide icons for the visual showcase.",
+
+  outcome:
+    "Interactive ERP workflow demonstration; production deployment and measured outcomes not yet verified.",
+
+  featured: true,
+
+  tags: ["ERP", "Business Systems", "Workflow"],
+
+  href: "/work/erp-management-system",
+},
 ];
 
 /*

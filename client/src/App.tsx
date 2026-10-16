@@ -18,7 +18,9 @@ import CustomSoftware from "./pages/solutions/CustomSoftware";
 import ERPBusinessSystems from "./pages/solutions/ERPBussinessSystem";
 import WebsitesDigitalSolutions from "./pages/solutions/WebsitesDigitalSolutions";
 import BusinessGrowth from "./pages/solutions/BussinessGrowth";
+import BusinessWebsiteCaseStudy from "@/pages/BussinessWebsiteCaseStudy";
 import Technology from "./pages/Technology";
+import ERPCaseStudy from "@/pages/ERPCaseStudy";
 import Process from "./pages/Process";
 import About from "./pages/About";
 import Work from "./pages/Work";
@@ -52,7 +54,12 @@ function Router() {
 
           <Route path="/start-project" component={StartProject} />
           <Route path="/leads" component={LeadsDashboard} />
-
+          
+          <Route
+            path="/work/business-website-digital-store"
+            component={BusinessWebsiteCaseStudy}
+          />
+          <Route path="/work/erp-management-system" component={ERPCaseStudy} />
           <Route path="/404" component={NotFound} />
           <Route component={NotFound} />
         </Switch>
