@@ -1,111 +1,132 @@
 import {
   ArrowUpRight,
-  Camera,
   Instagram,
-  Youtube,
   Linkedin,
+  Youtube,
+  Users,
 } from "lucide-react";
 
 const teamMembers = [
-  {
-    initials: "TM",
-    name: "Team Member 01",
-    role: "Role / Designation",
-  },
-  {
-    initials: "TM",
-    name: "Team Member 02",
-    role: "Role / Designation",
-  },
-  {
-    initials: "TM",
-    name: "Team Member 03",
-    role: "Role / Designation",
-  },
+  { name: "Team Member 01", role: "AI & Automation", initials: "01" },
+  { name: "Team Member 02", role: "Development & Engineering", initials: "02" },
+  { name: "Team Member 03", role: "Strategy & Growth", initials: "03" },
+];
+
+const socialLinks = [
+  { name: "Instagram", href: "https://www.instagram.com/", icon: Instagram },
+  { name: "YouTube", href: "https://www.youtube.com/", icon: Youtube },
+  { name: "LinkedIn", href: "https://www.linkedin.com/", icon: Linkedin },
 ];
 
 export default function AboutSection() {
   return (
     <section
       id="about"
-      aria-labelledby="about-heading"
-      className="scroll-mt-32 overflow-hidden border-t border-[#202936] bg-[#080A0F] text-[#F4F7FB]"
+      className="relative isolate overflow-hidden bg-[#080b14] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-20"
     >
-      {/* Founder introduction */}
-      <div className="mx-auto max-w-[1280px] px-5 py-20 md:px-7 md:py-24 lg:px-8 lg:py-28">
-        <div className="grid items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-          {/* Founder photo placeholder */}
-          <div className="mx-auto w-full max-w-[440px] lg:mx-0">
-            <div className="relative pr-3 pb-3">
-              <div className="absolute bottom-0 right-0 h-[96%] w-[96%] rounded-sm bg-[#4F7CFF]" />
+      {/* Background accents */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-violet-600/10 blur-[120px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-40 top-1/3 h-96 w-96 rounded-full bg-blue-600/10 blur-[140px]"
+      />
 
-              <div className="relative flex aspect-[4/5] flex-col items-center justify-center overflow-hidden border border-[#273244] bg-[#111722]">
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_35%,rgba(79,124,255,0.18),transparent_60%)]"
+      <div className="relative mx-auto max-w-7xl">
+        {/* Founder: image on left, content on right */}
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+          {/* LEFT: Founder image, details and social links */}
+          <div className="min-w-0">
+            <div className="relative mx-auto w-full max-w-md lg:mx-0">
+              <div className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl bg-[#6578ff]" />
+
+              <div className="relative aspect-[4/4.3] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#17172d] via-[#10172a] to-[#0b1020]">
+                <img
+                  src="/images/founder.jpg"
+                  alt="Founder of AI AutomationHub"
+                  className="absolute inset-0 z-10 h-full w-full object-cover object-center"
+                  onError={(event) => {
+                    event.currentTarget.style.display = "none";
+                  }}
                 />
 
-                <div className="relative flex h-20 w-20 items-center justify-center rounded-full border border-[#34435D] bg-[#172033] text-[#91A8FF]">
-                  <Camera className="h-8 w-8" strokeWidth={1.3} />
+                {/* Fallback when founder photo is unavailable */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-violet-950/70 via-[#11182c] to-blue-950/60 p-6 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-2xl font-semibold text-violet-200">
+                    AI
+                  </div>
+                  <div>
+                    <p className="text-lg font-medium text-white">
+                      Founder photo
+                    </p>
+                    <p className="mt-1 text-sm text-slate-400">
+                      Replace with your portrait
+                    </p>
+                  </div>
                 </div>
 
-                <p className="relative mt-5 text-sm font-medium text-[#E5EAF5]">
-                  Founder photo
-                </p>
+                <div className="absolute inset-x-0 bottom-0 z-20 h-1/3 bg-gradient-to-t from-[#080b14]/80 to-transparent" />
 
-                <p className="relative mt-1 text-xs text-[#8995A8]">
-                  Replace with your portrait
-                </p>
-
-                <span className="absolute bottom-5 left-5 text-[10px] uppercase tracking-[0.2em] text-[#7C96FF]">
-                  AI AutomationHub
-                </span>
+                <div className="absolute bottom-4 left-4 right-4 z-20 rounded-xl border border-white/10 bg-[#080b14]/70 p-4 backdrop-blur-md">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-violet-200">
+                    The vision
+                  </p>
+                  <p className="mt-1 text-sm text-slate-200">
+                    Making intelligent automation practical for businesses.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 rounded-full border border-[#263142] bg-[#0D1118] px-3 py-2 text-xs text-[#A7B0BF]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[#7C96FF]" />
-                CEO & Founder
-              </span>
+            <div className="mt-7">
+              <p className="text-2xl font-semibold text-white">Founder Name</p>
+              <p className="mt-1 text-sm text-violet-300">
+                CEO &amp; Founder · AI AutomationHub
+              </p>
+              <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
+                Building practical AI and automation solutions around real
+                business needs.
+              </p>
+            </div>
+
+            <div className="mt-5 flex flex-wrap gap-2.5">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+
+                return (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Visit AI AutomationHub on ${social.name}`}
+                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-slate-300 transition duration-300 hover:border-violet-400/40 hover:bg-violet-400/[0.08] hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {social.name}
+                    <ArrowUpRight className="h-3.5 w-3.5 opacity-60" />
+                  </a>
+                );
+              })}
             </div>
           </div>
-          {/* Founder details — directly below the photo */}
-          <div className="mt-6 border-t border-[#263142] pt-6">
-            <p className="font-serif text-2xl italic tracking-tight text-[#F4F7FB]">
-              Founder Name
-            </p>
 
-            <p className="mt-2 text-xs font-medium uppercase tracking-[0.12em] text-[#8C98AA]">
-              CEO & Founder · AI AutomationHub
-            </p>
-
-            <p className="mt-4 text-sm leading-7 text-[#A7B0BF]">
-              Add the founder's personal story, experience and vision here once
-              the final details are ready.
-            </p>
-          </div>
-          ``` **Dhyan rahe:** Ye block founder image ke outer container ke
-          andar, image ke baad hona chahiye — poore two-column grid ke bahar
-          nahi. Isse founder ka naam, designation aur description image ke just
-          neeche render honge.
-          {/* Founder story */}
-          <div className="pt-1 lg:pt-3">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7C96FF]">
+          {/* RIGHT: Starts at the top, aligned with founder image */}
+          <div className="min-w-0 self-start pt-0">
+            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">
               About AI AutomationHub
             </p>
 
-            <h2
-              id="about-heading"
-              className="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-0.045em] sm:text-5xl lg:text-[56px]"
-            >
+            <h2 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
               Founder-led.
-              <span className="block text-[#8295FF]">
+              <span className="mt-1 block bg-gradient-to-r from-violet-300 via-blue-300 to-cyan-200 bg-clip-text text-transparent">
                 Built around business.
               </span>
             </h2>
 
-            <div className="mt-7 max-w-2xl space-y-4 text-[15px] leading-7 text-[#A7B0BF] sm:text-base sm:leading-8">
+            <div className="mt-7 space-y-5 text-base leading-7 text-slate-400">
               <p>
                 AI AutomationHub was created around a simple idea: technology
                 should make business easier, not add another layer of
@@ -125,138 +146,79 @@ export default function AboutSection() {
               </p>
             </div>
 
-            {/* Founder details placeholder */}
             <div className="mt-8 border-t border-[#263142] pt-6">
-              <p className="font-serif text-2xl italic tracking-tight text-[#F4F7FB]">
-                Founder Name
+              <p className="text-2xl font-semibold text-white">How we work</p>
+              <p className="mt-2 text-sm leading-6 text-slate-400">
+                Practical strategy, thoughtful implementation, and technology
+                designed to support the way your business actually operates.
               </p>
 
-              <p className="mt-2 text-xs font-medium uppercase tracking-[0.12em] text-[#8C98AA]">
-                CEO & Founder · AI AutomationHub
-              </p>
-
-              <p className="mt-4 max-w-xl text-sm leading-6 text-[#8995A8]">
-                Add the founder's personal story, experience and vision here
-                once the final details are ready.
-              </p>
+              <a
+                href="#contact"
+                className="mt-5 inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-400/[0.08] px-5 py-3 text-sm font-medium text-violet-100 transition duration-300 hover:border-violet-300/60 hover:bg-violet-400/15"
+              >
+                Get in touch
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
             </div>
-
-            <a
-              href="#contact"
-              onClick={(event) => {
-                const contact = document.getElementById("contact");
-
-                if (contact) {
-                  event.preventDefault();
-                  window.history.replaceState(null, "", "#contact");
-                  contact.scrollIntoView({
-                    behavior: "smooth",
-                    block: "start",
-                  });
-                }
-              }}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#91A8FF] transition hover:text-white"
-            >
-              Get in touch
-              <ArrowUpRight className="h-4 w-4" />
-            </a>
           </div>
         </div>
-      </div>
 
-      {/* Team directory */}
-      <div className="border-t border-[#202936] bg-[#0B0E14]">
-        <div className="mx-auto max-w-[1280px] px-5 py-16 md:px-7 md:py-20 lg:px-8">
-          <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+        {/* Team section */}
+        <div className="mt-16 border-t border-white/[0.08] pt-12 sm:mt-20 sm:pt-14">
+          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#7C96FF]">
-                The Team
-              </p>
+              <div className="mb-3 flex items-center gap-2 text-sm text-violet-300">
+                <Users className="h-4 w-4" />
+                <span>Our people</span>
+              </div>
 
-              <h3 className="mt-4 max-w-md text-3xl font-semibold leading-tight tracking-[-0.035em] sm:text-4xl">
-                The people behind the work.
+              <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+                The team behind the work
               </h3>
 
-              <p className="mt-4 max-w-md text-sm leading-7 text-[#A7B0BF] sm:text-base">
-                Great solutions come from thoughtful collaboration. Meet the
-                people who will help shape this team as we add confirmed
-                profiles and responsibilities.
+              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400 sm:text-base">
+                A multidisciplinary team focused on building useful, thoughtful,
+                and scalable digital solutions.
               </p>
             </div>
 
-            <div className="border-t border-[#263142]">
-              {teamMembers.map((member, index) => (
-                <div
-                  key={member.name}
-                  className="group flex items-center gap-4 border-b border-[#263142] py-5 sm:gap-5"
-                >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-[#34435D] bg-[#151D2B] text-xs font-semibold tracking-wide text-[#91A8FF]">
+            <span className="w-fit rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-400">
+              Team profiles · Demo content
+            </span>
+          </div>
+
+          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {teamMembers.map((member) => (
+              <div
+                key={member.initials}
+                className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30 hover:bg-white/[0.045]"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 to-blue-500/10 text-sm font-semibold text-violet-200">
                     {member.initials}
                   </div>
 
-                  <div className="min-w-0 flex-1">
-                    <p className="font-medium text-[#F4F7FB] transition group-hover:text-[#91A8FF]">
+                  <div className="min-w-0">
+                    <h4 className="font-semibold text-white transition group-hover:text-violet-200">
                       {member.name}
-                    </p>
-
-                    <p className="mt-1 text-xs text-[#8995A8] sm:text-sm">
-                      {member.role}
-                    </p>
+                    </h4>
+                    <p className="mt-1 text-sm text-slate-400">{member.role}</p>
                   </div>
-
-                  <span className="text-xs tabular-nums text-[#66748A]">
-                    0{index + 1}
-                  </span>
                 </div>
-              ))}
-            </div>
+
+                <p className="mt-4 text-sm leading-6 text-slate-500">
+                  Demo profile — replace with the team member&apos;s
+                  introduction and actual role.
+                </p>
+              </div>
+            ))}
           </div>
-
-          <p className="mt-6 text-xs leading-5 text-[#66748A]">
-            Team profiles are placeholders for layout preview. Replace them with
-            confirmed team names and roles before publishing.
-          </p>
         </div>
-      </div>
 
-      {/* Social media links */}
-      <div className="border-y border-[#202936] bg-[#F4F2E9] text-black">
-        <div className="mx-auto flex max-w-[1280px] flex-wrap items-center gap-3 px-5 py-8 md:px-7 lg:px-8">
-          <a
-            href="https://www.instagram.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit Instagram"
-            className="inline-flex min-h-[64px] items-center gap-4 rounded-full border-2 border-[#E5E5E5] bg-white px-6 py-3 text-lg transition duration-200 hover:border-[#7C96FF] hover:shadow-sm sm:px-8 sm:text-xl"
-          >
-            <Instagram className="h-6 w-6 shrink-0" />
-            <span>Instagram</span>
-            <ArrowUpRight className="ml-1 h-5 w-5 text-[#666666]" />
-          </a>
-
-          <a
-            href="https://www.youtube.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit YouTube"
-            className="inline-flex min-h-[64px] items-center gap-4 rounded-full border-2 border-[#E5E5E5] bg-white px-6 py-3 text-lg transition duration-200 hover:border-[#7C96FF] hover:shadow-sm sm:px-8 sm:text-xl"
-          >
-            <Youtube className="h-6 w-6 shrink-0" />
-            <span>YouTube</span>
-            <ArrowUpRight className="ml-1 h-5 w-5 text-[#666666]" />
-          </a>
-
-          <a
-            href="https://www.linkedin.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit LinkedIn"
-            className="inline-flex min-h-[64px] items-center gap-4 rounded-full border-2 border-[#E5E5E5] bg-white px-6 py-3 text-lg transition duration-200 hover:border-[#7C96FF] hover:shadow-sm sm:px-8 sm:text-xl"
-          >
-            <Linkedin className="h-6 w-6 shrink-0" />
-            <span>LinkedIn</span>
-            <ArrowUpRight className="ml-1 h-5 w-5 text-[#666666]" />
-          </a>
+        {/* Footer note for this section */}
+        <div className="mt-10 border-t border-white/[0.08] pt-6 text-sm text-slate-500">
+          AI AutomationHub · Business technology
         </div>
       </div>
     </section>
