@@ -1,15 +1,19 @@
 import { motion } from "framer-motion";
 import {
   ArrowDown,
+  ArrowLeft,
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  ChevronRight,
   ClipboardList,
   Globe2,
   Package,
   ShoppingCart,
   Workflow,
 } from "lucide-react";
+
+import { Link, useLocation } from "wouter";
 
 const capabilities = [
   {
@@ -81,6 +85,16 @@ function SectionLabel({
 }
 
 export default function BusinessWebsiteCaseStudy() {
+  const [, setLocation] = useLocation();
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      setLocation("/work");
+    }
+  };
+
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
       {/* Hero */}
@@ -96,6 +110,41 @@ export default function BusinessWebsiteCaseStudy() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65 }}
           >
+            {/* Back Button */}
+            <button
+              type="button"
+              onClick={handleBack}
+              className="mb-6 inline-flex min-h-10 items-center gap-2 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm font-medium text-secondary-foreground transition-colors hover:border-primary/40 hover:text-primary"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </button>
+
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="mb-8 flex flex-wrap items-center gap-2 text-sm text-muted-foreground"
+            >
+              <Link href="/" className="transition-colors hover:text-primary">
+                Home
+              </Link>
+
+              <ChevronRight className="h-4 w-4 shrink-0" />
+
+              <Link
+                href="/work"
+                className="transition-colors hover:text-primary"
+              >
+                Work
+              </Link>
+
+              <ChevronRight className="h-4 w-4 shrink-0" />
+
+              <span aria-current="page" className="font-medium text-foreground">
+                Business Website &amp; Digital Store
+              </span>
+            </nav>
+
             <SectionLabel number="CASE STUDY / 01">
               Business Website & Digital Commerce
             </SectionLabel>
@@ -417,22 +466,21 @@ export default function BusinessWebsiteCaseStudy() {
               From business websites to online ordering and workflow automation,
               build a solution around the way your business works.
             </p>
-
-            <a
+            <Link
               href="/#contact"
               className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
               Get in touch
               <ArrowUpRight size={17} />
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/work"
               className="ml-5 inline-flex items-center gap-2 text-sm font-medium text-secondary-foreground transition-colors hover:text-primary"
             >
               Explore other projects
               <ArrowRight size={16} />
-            </a>
+            </Link>
           </div>
         </div>
       </section>

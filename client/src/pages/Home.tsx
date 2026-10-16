@@ -1,5 +1,6 @@
-import { MessageSquare } from "lucide-react";
+import { ArrowRight, ArrowUpRight, MessageSquare } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Link } from "wouter";
 
 import TechStackMarquee from "@/components/TechStackMarquee";
 import Hero from "@/components/home/Hero";
@@ -12,6 +13,8 @@ import FutureVision from "@/components/home/FutureVision";
 import FinalCTA from "@/components/home/FinalCTA";
 import AboutSection from "@/components/home/AboutSection";
 import ContactSection from "@/components/home/ContactSection";
+
+import { projectData } from "@/data/projectData";
 
 const PHONE_CLEAN = "919262838454";
 
@@ -34,6 +37,14 @@ function track(event: string, data?: Record<string, string>) {
 
 export default function Home() {
   const [showFloatingWA, setShowFloatingWA] = useState(false);
+
+  // Keep the homepage portfolio preview small and curated.
+  // The complete project collection remains available on /work.
+  const homepageProjects = projectData.filter((project) =>
+    ["erp-management-system", "ai-automation-case-study"].includes(
+      project.slug,
+    ),
+  );
 
   useEffect(() => {
     const onScroll = () => {
@@ -68,21 +79,102 @@ export default function Home() {
 
         {/* 05 — WHY AI AUTOMATIONHUB */}
         <WhyAIHub />
+
         <TechStackMarquee />
 
-        {/* 06 — BUSINESS GROWTH */}
+        {/* 06 — SELECTED PROJECTS */}
+        <section
+          id="selected-work"
+          className="container mx-auto max-w-[1280px] scroll-mt-24 px-5 py-16 sm:px-7 sm:py-20 lg:px-8 lg:py-24"
+        >
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              Selected Work
+            </p>
+
+            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">
+              Ideas turned into{" "}
+              <span className="text-primary">digital solutions.</span>
+            </h2>
+
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base">
+              A small preview of our work across business systems and
+              intelligent automation. Explore the complete portfolio to see all
+              projects and their details.
+            </p>
+          </div>
+
+          <div className="mx-auto mt-10 grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+            {homepageProjects.map((project, index) => (
+              <Link
+                key={project.slug}
+                href={project.href || "/work"}
+                className="group relative flex min-h-[220px] flex-col overflow-hidden rounded-2xl border border-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:shadow-[0_16px_45px_rgba(0,0,0,0.08)] sm:min-h-[245px] sm:p-7"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <span className="text-xs font-medium tracking-[0.16em] text-muted-foreground">
+                    PROJECT {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-border transition-colors duration-300 group-hover:border-primary/40 group-hover:bg-primary group-hover:text-primary-foreground">
+                    <ArrowUpRight className="h-4 w-4" />
+                  </span>
+                </div>
+
+                <div className="mt-7">
+                  <p className="text-xs font-medium text-primary">
+                    {project.category}
+                  </p>
+
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight sm:text-2xl">
+                    {project.title}
+                  </h3>
+
+                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-muted-foreground">
+                    {project.description}
+                  </p>
+                </div>
+
+                <div className="mt-auto pt-5">
+                  <span className="inline-flex items-center gap-2 text-sm font-semibold transition-colors group-hover:text-primary">
+                    View Case Study
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+
+          {/* One main CTA for the complete portfolio */}
+          <div className="mt-9 flex justify-center">
+            <Link
+              href="/work"
+              onClick={() =>
+                track("explore_all_projects_click", {
+                  location: "homepage_selected_work",
+                })
+              }
+              className="group inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              Explore All Projects
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Link>
+          </div>
+        </section>
+
+        {/* 07 — BUSINESS GROWTH */}
         <BusinessGrowth />
 
-        {/* 07 — FUTURE VISION */}
+        {/* 08 — FUTURE VISION */}
         <FutureVision />
 
-        {/* 08 — FINAL CONVERSION */}
+        {/* 09 — FINAL CONVERSION */}
         <FinalCTA />
 
-        {/* 09 — ABOUT, DIRECTLY ABOVE CONTACT */}
+        {/* 10 — ABOUT, DIRECTLY ABOVE CONTACT */}
         <AboutSection />
 
-        {/* 10 — CONTACT */}
+        {/* 11 — CONTACT */}
         <ContactSection />
       </main>
 

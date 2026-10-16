@@ -14,7 +14,7 @@ const navigation = [
     id: "technology",
   },
   { label: "Work", href: "/work", type: "page" },
-  { label: "Process", href: "/#process", type: "anchor", id: "process" },
+  { label: "Case Studies", href: "/#case studues", type: "anchor", id: "process" },
   { label: "About", href: "/#about", type: "anchor", id: "about" },
   { label: "Contact", href: "/#contact", type: "anchor", id: "contact" },
 ] as const;

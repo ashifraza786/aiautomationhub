@@ -19,6 +19,7 @@ import ERPBusinessSystems from "./pages/solutions/ERPBussinessSystem";
 import WebsitesDigitalSolutions from "./pages/solutions/WebsitesDigitalSolutions";
 import BusinessGrowth from "./pages/solutions/BussinessGrowth";
 import BusinessWebsiteCaseStudy from "@/pages/BussinessWebsiteCaseStudy";
+import AIAutomationCaseStudy from "@/pages/AiAutomationCaseStudy";
 import Technology from "./pages/Technology";
 import ERPCaseStudy from "@/pages/ERPCaseStudy";
 import Process from "./pages/Process";
@@ -54,10 +55,13 @@ function Router() {
 
           <Route path="/start-project" component={StartProject} />
           <Route path="/leads" component={LeadsDashboard} />
-          
           <Route
             path="/work/business-website-digital-store"
             component={BusinessWebsiteCaseStudy}
+          />
+          <Route
+            path="/work/ai-automation-case-study"
+            component={AIAutomationCaseStudy}
           />
           <Route path="/work/erp-management-system" component={ERPCaseStudy} />
           <Route path="/404" component={NotFound} />
