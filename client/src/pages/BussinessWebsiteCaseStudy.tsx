@@ -367,10 +367,77 @@ export default function BusinessWebsiteCaseStudy() {
         </div>
       </section>
 
+      <section className="px-5 py-14 md:px-8 md:py-20">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="mb-8 text-center">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+              Inside the experience
+            </p>
+            <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-5xl">
+              The website, brought to life.
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-muted-foreground">
+              A closer look at the digital storefront connecting product
+              discovery, online orders and everyday business operations.
+            </p>
+          </div>
+
+          <figure className="mx-auto w-full max-w-6xl overflow-hidden rounded-2xl border border-border bg-background shadow-2xl">
+            <img
+              src="/images/bussiness-system.png"
+              alt="Business website and digital storefront interface"
+              className="block h-auto min-h-48 w-full object-contain"
+              loading="eager"
+              onError={(event) => {
+                const image = event.currentTarget;
+                image.style.display = "none";
+                const fallback = image.parentElement?.querySelector(
+                  "[data-image-fallback]",
+                );
+                if (fallback instanceof HTMLElement) {
+                  fallback.style.display = "flex";
+                }
+                console.error("Digital storefront image failed to load:", image.src);
+              }}
+              onLoad={(event) => {
+                const fallback = event.currentTarget.parentElement?.querySelector(
+                  "[data-image-fallback]",
+                );
+                if (fallback instanceof HTMLElement) {
+                  fallback.style.display = "none";
+                }
+              }}
+            />
+            <div
+              data-image-fallback
+              className="hidden min-h-64 flex-col items-center justify-center gap-3 px-6 py-12 text-center"
+              role="status"
+              aria-live="polite"
+            >
+              <Globe2 size={30} className="text-primary" />
+              <p className="text-lg font-semibold text-foreground">
+                Digital storefront preview
+              </p>
+              <p className="max-w-lg text-sm leading-6 text-muted-foreground">
+                Add the website screenshot at
+                <code className="mx-1 rounded bg-surface px-1.5 py-0.5">
+                  public/images/bussiness-system.png
+                </code>
+                to display it here.
+              </p>
+            </div>
+          </figure>
+
+          <p className="mt-4 text-center text-sm text-muted-foreground">
+            Digital storefront concept preview
+          </p>
+        </div>
+      </section>
+
       {/* Why it works */}
       <section className="px-5 py-20 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <SectionLabel number="04">Why It Works</SectionLabel>
+          <SectionLabel number="05">Why It Works</SectionLabel>
 
           <h2 className="max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
             Designed around how a business actually operates.
@@ -415,7 +482,7 @@ export default function BusinessWebsiteCaseStudy() {
       {/* Impact */}
       <section className="border-t border-border bg-surface/40 px-5 py-20 md:px-8 md:py-24">
         <div className="mx-auto max-w-7xl">
-          <SectionLabel number="05">Business Impact</SectionLabel>
+          <SectionLabel number="06">Business Impact</SectionLabel>
 
           <h2 className="max-w-3xl text-3xl font-semibold tracking-tight md:text-5xl">
             A stronger digital foundation for everyday operations.
@@ -458,7 +525,7 @@ export default function BusinessWebsiteCaseStudy() {
           />
 
           <div className="relative max-w-3xl">
-            <SectionLabel number="06">Have a Similar Challenge?</SectionLabel>
+            <SectionLabel number="07">Have a Similar Challenge?</SectionLabel>
             <h2 className="text-3xl font-semibold tracking-tight md:text-5xl">
               Let’s bring your business into the digital world.
             </h2>

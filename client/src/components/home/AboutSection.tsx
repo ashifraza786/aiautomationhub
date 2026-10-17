@@ -4,6 +4,8 @@ import {
   Linkedin,
   Youtube,
   Users,
+  Target,
+  Workflow,
 } from "lucide-react";
 
 const teamMembers = [
@@ -22,27 +24,26 @@ export default function AboutSection() {
   return (
     <section
       id="about"
-      className="relative isolate overflow-hidden bg-[#080b14] px-5 py-16 text-white sm:px-8 lg:px-12 lg:py-20"
+      className="relative isolate overflow-hidden bg-[#F4F0E8] px-5 py-16 font-sans text-[#24231F] sm:px-8 sm:py-20 lg:px-12 lg:py-24"
     >
-      {/* Background accents */}
+      {/* Subtle brand details */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-20 h-80 w-80 rounded-full bg-violet-600/10 blur-[120px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 top-1/3 h-96 w-96 rounded-full bg-blue-600/10 blur-[140px]"
+        className="pointer-events-none absolute -right-32 top-16 h-80 w-80 rounded-full bg-[#004225]/[0.035] blur-3xl"
       />
 
       <div className="relative mx-auto max-w-7xl">
-        {/* Founder: image on left, content on right */}
-        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-          {/* LEFT: Founder image, details and social links */}
+        {/* Founder and introduction */}
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          {/* Founder profile */}
           <div className="min-w-0">
             <div className="relative mx-auto w-full max-w-md lg:mx-0">
-              <div className="absolute -bottom-3 -right-3 h-full w-full rounded-2xl bg-[#6578ff]" />
+              <div
+                aria-hidden="true"
+                className="absolute -bottom-2.5 -right-2.5 h-full w-full rounded-2xl bg-[#004225]"
+              />
 
-              <div className="relative aspect-[4/4.3] overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#17172d] via-[#10172a] to-[#0b1020]">
+              <div className="relative aspect-[4/4.3] overflow-hidden rounded-2xl border border-[#DDD6C9] bg-white">
                 <img
                   src="/images/founder.jpg"
                   alt="Founder of AI AutomationHub"
@@ -52,46 +53,52 @@ export default function AboutSection() {
                   }}
                 />
 
-                {/* Fallback when founder photo is unavailable */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-gradient-to-br from-violet-950/70 via-[#11182c] to-blue-950/60 p-6 text-center">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] text-2xl font-semibold text-violet-200">
+                {/* Founder image fallback */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#FFFFFF] p-6 text-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#DDD6C9] bg-[#F4F0E8] text-2xl font-semibold text-[#004225]">
                     AI
                   </div>
+
                   <div>
-                    <p className="text-lg font-medium text-white">
+                    <p className="text-lg font-semibold tracking-tight text-[#24231F]">
                       Founder photo
                     </p>
-                    <p className="mt-1 text-sm text-slate-400">
+                    <p className="mt-1 text-sm text-[#5F5B53]">
                       Replace with your portrait
                     </p>
                   </div>
                 </div>
 
-                <div className="absolute inset-x-0 bottom-0 z-20 h-1/3 bg-gradient-to-t from-[#080b14]/80 to-transparent" />
-
-                <div className="absolute bottom-4 left-4 right-4 z-20 rounded-xl border border-white/10 bg-[#080b14]/70 p-4 backdrop-blur-md">
-                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-violet-200">
+                {/* Vision panel */}
+                <div className="absolute bottom-4 left-4 right-4 z-20 rounded-xl border border-[#DDD6C9] bg-[#F4F0E8]/95 p-4">
+                  <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#004225]">
                     The vision
                   </p>
-                  <p className="mt-1 text-sm text-slate-200">
+                  <p className="mt-2 text-sm leading-6 text-[#5F5B53]">
                     Making intelligent automation practical for businesses.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="mt-7">
-              <p className="text-2xl font-semibold text-white">Founder Name</p>
-              <p className="mt-1 text-sm text-violet-300">
+            {/* Founder details */}
+            <div className="mt-8">
+              <p className="text-2xl font-semibold tracking-tight text-[#24231F] sm:text-3xl">
+                Founder Name
+              </p>
+
+              <p className="mt-2 text-sm font-medium text-[#004225]">
                 CEO &amp; Founder · AI AutomationHub
               </p>
-              <p className="mt-3 max-w-md text-sm leading-6 text-slate-400">
+
+              <p className="mt-4 max-w-md text-sm leading-7 text-[#5F5B53] sm:text-base">
                 Building practical AI and automation solutions around real
                 business needs.
               </p>
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-2.5">
+            {/* Social links */}
+            <div className="mt-6 flex flex-wrap gap-2.5">
               {socialLinks.map((social) => {
                 const Icon = social.icon;
 
@@ -102,7 +109,7 @@ export default function AboutSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit AI AutomationHub on ${social.name}`}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3.5 py-2.5 text-sm text-slate-300 transition duration-300 hover:border-violet-400/40 hover:bg-violet-400/[0.08] hover:text-white"
+                    className="inline-flex items-center gap-2 rounded-full border border-[#DDD6C9] bg-white px-3.5 py-2.5 text-sm font-medium text-[#24231F] transition duration-200 hover:border-[#004225]/40 hover:bg-[#EAE5DB] hover:text-[#004225] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004225] focus-visible:ring-offset-2"
                   >
                     <Icon className="h-4 w-4" />
                     {social.name}
@@ -113,20 +120,21 @@ export default function AboutSection() {
             </div>
           </div>
 
-          {/* RIGHT: Starts at the top, aligned with founder image */}
-          <div className="min-w-0 self-start pt-0">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-violet-300">
+          {/* About content */}
+          <div className="min-w-0 self-start pt-0 lg:pt-1">
+            <p className="flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.2em] text-[#004225]">
+              <span className="h-px w-8 bg-[#004225]" />
               About AI AutomationHub
             </p>
 
-            <h2 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            <h2 className="mt-6 max-w-3xl text-4xl font-semibold leading-[1.08] tracking-[-0.045em] text-[#24231F] sm:text-5xl lg:text-6xl">
               Founder-led.
-              <span className="mt-1 block bg-gradient-to-r from-violet-300 via-blue-300 to-cyan-200 bg-clip-text text-transparent">
+              <span className="mt-2 block text-[#004225]">
                 Built around business.
               </span>
             </h2>
 
-            <div className="mt-7 space-y-5 text-base leading-7 text-slate-400">
+            <div className="mt-7 max-w-2xl space-y-5 text-base leading-7 text-[#5F5B53] sm:mt-8 sm:text-[17px] sm:leading-8">
               <p>
                 AI AutomationHub was created around a simple idea: technology
                 should make business easier, not add another layer of
@@ -146,16 +154,26 @@ export default function AboutSection() {
               </p>
             </div>
 
-            <div className="mt-8 border-t border-[#263142] pt-6">
-              <p className="text-2xl font-semibold text-white">How we work</p>
-              <p className="mt-2 text-sm leading-6 text-slate-400">
+            {/* How we work */}
+            <div className="mt-9 border-t border-[#DDD6C9] pt-7 sm:mt-10 sm:pt-8">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#DDD6C9] bg-white text-[#004225]">
+                  <Target className="h-5 w-5" />
+                </div>
+
+                <h3 className="text-2xl font-semibold tracking-tight text-[#24231F] sm:text-3xl">
+                  How we work
+                </h3>
+              </div>
+
+              <p className="mt-4 max-w-2xl text-sm leading-7 text-[#5F5B53] sm:text-base">
                 Practical strategy, thoughtful implementation, and technology
                 designed to support the way your business actually operates.
               </p>
 
               <a
                 href="#contact"
-                className="mt-5 inline-flex items-center gap-2 rounded-full border border-violet-400/30 bg-violet-400/[0.08] px-5 py-3 text-sm font-medium text-violet-100 transition duration-300 hover:border-violet-300/60 hover:bg-violet-400/15"
+                className="mt-6 inline-flex items-center gap-2 rounded-lg bg-[#004225] px-5 py-3.5 text-sm font-semibold text-white transition duration-200 hover:bg-[#00351E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#004225] focus-visible:ring-offset-2"
               >
                 Get in touch
                 <ArrowUpRight className="h-4 w-4" />
@@ -165,60 +183,68 @@ export default function AboutSection() {
         </div>
 
         {/* Team section */}
-        <div className="mt-16 border-t border-white/[0.08] pt-12 sm:mt-20 sm:pt-14">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <div className="mb-3 flex items-center gap-2 text-sm text-violet-300">
+        <div className="mt-20 border-t border-[#DDD6C9] pt-12 sm:mt-24 sm:pt-14 lg:mt-28">
+          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+            <div className="max-w-2xl">
+              <div className="mb-4 flex items-center gap-2 text-sm font-medium text-[#004225]">
                 <Users className="h-4 w-4" />
                 <span>Our people</span>
               </div>
 
-              <h3 className="text-2xl font-semibold tracking-tight sm:text-3xl">
+              <h3 className="text-3xl font-semibold leading-tight tracking-tight text-[#24231F] sm:text-4xl">
                 The team behind the work
               </h3>
 
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-400 sm:text-base">
+              <p className="mt-4 max-w-xl text-sm leading-7 text-[#5F5B53] sm:text-base">
                 A multidisciplinary team focused on building useful, thoughtful,
                 and scalable digital solutions.
               </p>
             </div>
 
-            <span className="w-fit rounded-full border border-white/10 px-3 py-1.5 text-xs text-slate-400">
+            <span className="w-fit rounded-full border border-[#DDD6C9] bg-white px-3.5 py-2 text-xs font-medium text-[#5F5B53]">
               Team profiles · Demo content
             </span>
           </div>
 
-          <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {teamMembers.map((member) => (
               <div
                 key={member.initials}
-                className="group rounded-2xl border border-white/[0.08] bg-white/[0.025] p-5 transition duration-300 hover:-translate-y-1 hover:border-violet-400/30 hover:bg-white/[0.045]"
+                className="group rounded-2xl border border-[#DDD6C9] bg-white p-5 transition duration-200 hover:-translate-y-1 hover:border-[#004225]/35 hover:shadow-[0_12px_30px_rgba(36,35,31,0.06)] sm:p-6"
               >
                 <div className="flex items-center gap-4">
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-violet-400/20 bg-gradient-to-br from-violet-500/20 to-blue-500/10 text-sm font-semibold text-violet-200">
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-[#DDD6C9] bg-[#F4F0E8] text-sm font-semibold text-[#004225]">
                     {member.initials}
                   </div>
 
                   <div className="min-w-0">
-                    <h4 className="font-semibold text-white transition group-hover:text-violet-200">
+                    <h4 className="font-semibold tracking-tight text-[#24231F] transition-colors group-hover:text-[#004225]">
                       {member.name}
                     </h4>
-                    <p className="mt-1 text-sm text-slate-400">{member.role}</p>
+
+                    <p className="mt-1 text-sm leading-6 text-[#5F5B53]">
+                      {member.role}
+                    </p>
                   </div>
                 </div>
 
-                <p className="mt-4 text-sm leading-6 text-slate-500">
-                  Demo profile — replace with the team member&apos;s
-                  introduction and actual role.
-                </p>
+                <div className="mt-5 flex items-start gap-3 border-t border-[#DDD6C9] pt-4">
+                  <Workflow className="mt-0.5 h-4 w-4 shrink-0 text-[#004225]" />
+
+                  <p className="text-sm leading-6 text-[#5F5B53]">
+                    Demo profile — replace with the team member&apos;s
+                    introduction and actual role.
+                  </p>
+                </div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Footer note for this section */}
-        <div className="mt-10 border-t border-white/[0.08] pt-6 text-sm text-slate-500">
-          AI AutomationHub · Business technology
+        {/* Section footer */}
+        <div className="mt-12 flex flex-col gap-2 border-t border-[#DDD6C9] pt-6 text-sm text-[#5F5B53] sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-medium text-[#24231F]">AI AutomationHub</span>
+          <span>Business technology, designed around people.</span>
         </div>
       </div>
     </section>

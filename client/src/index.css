@@ -5,7 +5,7 @@
    FONT
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -203,7 +203,7 @@
   }
 body {
   @apply bg-background text-foreground;
-  font-family: "Inter", sans-serif;
+ font-family: "Geist", sans-serif;
   margin: 0;
   min-width: 320px;
 }
@@ -2766,547 +2766,164 @@ p {
 
 
 /* =========================================================
-   WHY AI AUTOMATIONHUB — TARGETED COMPONENT STYLES
+   WHY AI AUTOMATIONHUB — LOCKED BRAND PALETTE
+   Warm Ivory · British Racing Green · Charcoal · Warm Gray
    ========================================================= */
 
-.why-ai-editorial {
-  width: 100%;
-  overflow: hidden;
-  background: #f5f4ee;
-  color: #20211c;
-}
-
+/* Editorial section */
+.why-ai-editorial,
 .why-ai-paper {
-  padding: clamp(64px, 9vw, 120px) 0;
-  background: #f5f4ee;
-  color: #20211c;
+  background: #F4F0E8;
+  color: #24231F;
 }
 
-.why-ai-container {
-  width: min(1240px, calc(100% - 48px));
-  margin-inline: auto;
+/* Main headings */
+.why-ai-hero-copy h2,
+.why-ai-lime-heading h2,
+.why-ai-story-body h3,
+.why-ai-service-copy h3 {
+  color: #24231F;
+  font-family: "Geist", sans-serif;
 }
 
-.why-ai-intro {
-  margin-bottom: 56px;
+/* Emphasis inside headings */
+.why-ai-hero-copy h2 span,
+.why-ai-lime-heading h2 span {
+  color: #004225;
 }
 
+/* Body copy */
+.why-ai-intro-aside,
+.why-ai-intro-aside p,
+.why-ai-story-description,
+.why-ai-service-description,
+.why-ai-lime-heading > p:last-child {
+  color: #5F5B53;
+}
+
+/* Metadata and secondary labels */
 .why-ai-meta,
 .why-ai-story-top,
+.why-ai-story-kicker,
+.why-ai-outcome small,
+.why-ai-service-label,
 .why-ai-visual-header,
-.why-ai-paper-footer,
-.why-ai-lime-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.why-ai-meta,
-.why-ai-story-top,
-.why-ai-lime-eyebrow,
+.why-ai-visual-core > span,
 .why-ai-paper-footer,
 .why-ai-lime-footer,
-.why-ai-visual-header {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+.why-ai-journey-number,
+.why-ai-journey-title > span,
+.why-ai-journey-arrow {
+  color: #5F5B53;
 }
 
-.why-ai-meta {
-  padding-bottom: 18px;
-  border-bottom: 1px solid #d9d9ce;
-  color: #66685c;
+/* Dividers */
+.why-ai-meta,
+.why-ai-journey-list,
+.why-ai-journey-item,
+.why-ai-paper-footer,
+.why-ai-story-top,
+.why-ai-outcome,
+.why-ai-lime-footer {
+  border-color: #DDD6C9;
 }
 
-.why-ai-hero-copy {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.5fr);
-  align-items: end;
-  gap: 36px;
-  margin-top: 42px;
-}
-
-.why-ai-hero-copy h2,
-.why-ai-lime-heading h2 {
-  margin: 0;
-  font-size: clamp(40px, 6vw, 76px);
-  line-height: 0.99;
-  letter-spacing: -0.065em;
-  font-weight: 600;
-}
-
-.why-ai-hero-copy h2 span {
-  color: #77796c;
-}
-
-.why-ai-intro-aside {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding-bottom: 5px;
-}
-
-.why-ai-intro-aside svg {
-  flex: 0 0 auto;
-}
-
-.why-ai-intro-aside p,
-.why-ai-lime-heading > p:last-child {
-  margin: 0;
-  color: #66685c;
-  font-size: 15px;
-  line-height: 1.7;
-}
-
-.why-ai-journey {
-  display: grid;
-  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-  align-items: stretch;
-  gap: 32px;
-}
-
-.why-ai-journey-list {
-  display: flex;
-  flex-direction: column;
-  border-top: 1px solid #d9d9ce;
-}
-
+/* Journey list */
 .why-ai-journey-item {
-  display: grid;
-  grid-template-columns: 28px 40px minmax(0, 1fr) 20px;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  padding: 22px 12px;
-  border: 0;
-  border-bottom: 1px solid #d9d9ce;
-  background: transparent;
-  color: #20211c;
-  text-align: left;
-  cursor: pointer;
-  transition: background 180ms ease;
+  color: #24231F;
 }
 
 .why-ai-journey-item:hover,
 .why-ai-journey-item.is-active {
-  background: #eae9df;
+  background: #FFFFFF;
 }
 
-.why-ai-journey-number {
-  align-self: start;
-  padding-top: 3px;
-  color: #858678;
-  font-size: 11px;
+.why-ai-journey-icon,
+.why-ai-service-icon {
+  background: #FFFFFF;
+  border-color: #DDD6C9;
+  color: #004225;
 }
 
-.why-ai-journey-icon {
-  display: grid;
-  width: 40px;
-  height: 40px;
-  place-items: center;
-  border: 1px solid #d9d9ce;
-  border-radius: 50%;
+/* Content panels */
+.why-ai-story-panel,
+.why-ai-service-panel {
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+  border-radius: 14px;
 }
 
-.why-ai-journey-item.is-active .why-ai-journey-icon {
-  border-color: #b9ce56;
-  background: #dce99c;
-}
-
-.why-ai-journey-title {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  min-width: 0;
-}
-
-.why-ai-journey-title > span {
-  color: #77796c;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.why-ai-journey-title strong {
-  font-size: 15px;
-  font-weight: 600;
-  line-height: 1.4;
-}
-
-.why-ai-journey-arrow {
-  color: #858678;
-}
-
-.why-ai-story-panel {
-  min-width: 0;
-  padding: clamp(22px, 3vw, 38px);
-  border: 1px solid #deded3;
-  border-radius: 4px;
-  background: #eeede4;
-}
-
-.why-ai-story-top {
-  color: #77796c;
-  font-size: 9px;
-}
-
-.why-ai-story-body {
-  margin-top: 42px;
-}
-
-.why-ai-story-kicker,
-.why-ai-service-label {
-  margin: 0 0 12px;
-  color: #77796c;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.why-ai-story-body h3,
-.why-ai-service-copy h3 {
-  margin: 0;
-  font-size: clamp(28px, 3.3vw, 42px);
-  line-height: 1.08;
-  letter-spacing: -0.045em;
-  font-weight: 600;
-}
-
-.why-ai-story-description,
-.why-ai-service-description {
-  margin: 16px 0 0;
-  color: #66685c;
-  font-size: 14px;
-  line-height: 1.75;
-}
-
-.why-ai-editorial .why-ai-story-panel .mt-7 {
-  margin-top: 28px;
-}
-
-.why-ai-editorial .why-ai-story-panel .grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 8px;
-}
-
-.why-ai-editorial .why-ai-story-panel .grid > div {
-  min-width: 0;
-}
-
-.why-ai-editorial .why-ai-story-panel .grid > div > div {
-  min-height: 82px;
-  padding: 10px;
-  border-color: #d9d9ce;
-  background: #f8f7f1;
-}
-
-.why-ai-outcome {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 28px;
-  padding-top: 20px;
-  border-top: 1px solid #d9d9ce;
-}
-
-.why-ai-check {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 auto;
-  place-items: center;
-  border-radius: 50%;
-  background: #dce99c;
-}
-
-.why-ai-outcome > span:last-child {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.why-ai-outcome small {
-  color: #77796c;
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-.why-ai-outcome strong {
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.why-ai-paper-footer {
-  margin-top: 48px;
-  padding-top: 20px;
-  border-top: 1px solid #d9d9ce;
-  color: #77796c;
-}
-
-.why-ai-paper-footer a,
-.why-ai-service-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: #20211c;
-  font-size: 12px;
-  font-weight: 600;
-  text-decoration: none;
-}
-
+/* Interactive service section — no dark background */
 .why-ai-lime {
-  padding: clamp(64px, 9vw, 112px) 0 32px;
-  background: #d9eb79;
-  color: #20211c;
-}
-
-.why-ai-lime-heading {
-  max-width: 760px;
+  background: #F4F0E8;
+  color: #24231F;
 }
 
 .why-ai-lime-eyebrow {
-  margin: 0 0 24px;
+  color: #004225;
 }
 
-.why-ai-lime-heading h2 span {
-  color: #606b32;
-}
-
-.why-ai-lime-heading > p:last-child {
-  max-width: 540px;
-  margin-top: 22px;
-  color: #50563b;
-}
-
-.why-ai-service-pills {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 9px;
-  margin: 38px 0 24px;
-}
-
+/* Service selector pills */
 .why-ai-service-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 42px;
-  padding: 0 16px;
-  border: 1px solid rgba(32, 33, 28, 0.25);
-  border-radius: 999px;
-  background: transparent;
-  color: #20211c;
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 180ms ease, color 180ms ease;
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
 }
 
-.why-ai-service-pill:hover,
+.why-ai-service-pill:hover {
+  background: #EAE5DB;
+}
+
 .why-ai-service-pill.is-active {
-  border-color: #20211c;
-  background: #20211c;
-  color: #f5f4ee;
+  background: #004225;
+  border-color: #004225;
+  color: #FFFFFF;
 }
 
-.why-ai-service-panel {
-  display: grid;
-  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-  gap: 36px;
-  padding: clamp(24px, 4vw, 48px);
-  border: 1px solid rgba(32, 33, 28, 0.18);
-  background: rgba(245, 244, 238, 0.62);
+/* Outcome indicator */
+.why-ai-check {
+  background: #EAE5DB;
+  color: #004225;
 }
 
-.why-ai-service-icon {
-  display: grid;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 28px;
-  place-items: center;
-  border: 1px solid rgba(32, 33, 28, 0.2);
-  border-radius: 50%;
-}
-
-.why-ai-service-link {
-  margin-top: 24px;
-}
-
+/* Automation visual */
 .why-ai-service-visual {
-  min-width: 0;
-  padding: clamp(18px, 3vw, 30px);
-  border: 1px solid #d2dfa0;
-  background: #f5f4ee;
-}
-
-.why-ai-visual-header {
-  flex-wrap: wrap;
-  padding-bottom: 16px;
-  border-bottom: 1px solid #deded3;
-  color: #77796c;
-  font-size: 9px;
-}
-
-.why-ai-visual-header > span:last-child {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.why-ai-status-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #77952a;
-}
-
-.why-ai-visual-core {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 34px 10px 10px;
-  text-align: center;
+  background-color: #FFFFFF;
+  background-image:
+    linear-gradient(rgba(0, 66, 37, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 66, 37, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-color: #DDD6C9;
 }
 
 .why-ai-visual-orbit {
-  display: grid;
-  width: 126px;
-  height: 126px;
-  place-items: center;
-  border: 1px solid #c7d88a;
-  border-radius: 50%;
-  box-shadow: 0 0 0 14px rgba(217, 235, 121, 0.25);
+  background: #F4F0E8;
+  border-color: #DDD6C9;
 }
 
 .why-ai-visual-node {
-  display: grid;
-  width: 68px;
-  height: 68px;
-  place-items: center;
-  border-radius: 50%;
-  background: #d9eb79;
+  background: #004225;
+  border-color: #004225;
+  color: #FFFFFF;
 }
 
-.why-ai-visual-core > p {
-  margin: 28px 0 0;
-  font-size: 15px;
-  font-weight: 600;
+.why-ai-status-dot {
+  background: #004225;
 }
 
-.why-ai-visual-core > span {
-  margin-top: 8px;
-  color: #77796c;
-  font-size: 11px;
-  line-height: 1.6;
+/* Links */
+.why-ai-paper-footer a,
+.why-ai-service-link {
+  color: #004225;
 }
 
-.why-ai-service-visual .mt-7 {
-  margin-top: 28px;
-}
-
-.why-ai-lime-footer {
-  flex-wrap: wrap;
-  margin-top: 38px;
-  padding-top: 22px;
-  border-top: 1px solid rgba(32, 33, 28, 0.2);
-  color: #50563b;
-  font-size: 9px;
-}
-
-.why-ai-editorial button:focus-visible,
-.why-ai-editorial a:focus-visible {
-  outline: 2px solid #657c20;
-  outline-offset: 4px;
-}
-
-@media (max-width: 800px) {
-  .why-ai-hero-copy,
-  .why-ai-journey,
-  .why-ai-service-panel {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .why-ai-hero-copy {
-    gap: 22px;
-    margin-top: 32px;
-  }
-
-  .why-ai-intro {
-    margin-bottom: 36px;
-  }
-
-  .why-ai-journey {
-    gap: 20px;
-  }
-
-  .why-ai-story-body {
-    margin-top: 30px;
-  }
-
-  .why-ai-service-panel {
-    gap: 32px;
-  }
-}
-
-@media (max-width: 520px) {
-  .why-ai-container {
-    width: calc(100% - 32px);
-  }
-
-  .why-ai-meta,
-  .why-ai-paper-footer,
-  .why-ai-lime-footer {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .why-ai-journey-item {
-    grid-template-columns: 24px 34px minmax(0, 1fr) 16px;
-    gap: 8px;
-    padding: 18px 4px;
-  }
-
-  .why-ai-journey-icon {
-    width: 34px;
-    height: 34px;
-  }
-
-  .why-ai-journey-title strong {
-    font-size: 13px;
-  }
-
-  .why-ai-editorial .why-ai-story-panel .grid {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  .why-ai-editorial .why-ai-story-panel .grid > div > div {
-    min-height: 64px;
-  }
-
-  .why-ai-service-pills {
-    gap: 8px;
-  }
-
-  .why-ai-service-pill {
-    min-height: 38px;
-    padding-inline: 12px;
-    font-size: 11px;
-  }
-
-  .why-ai-visual-core > span {
-    max-width: 240px;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .why-ai-editorial *,
-  .why-ai-editorial *::before,
-  .why-ai-editorial *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+/* Keep all section text readable by default */
+.why-ai-editorial p,
+.why-ai-editorial li,
+.why-ai-editorial strong,
+.why-ai-editorial button {
+  text-shadow: none;
 }
 
 
@@ -3584,4 +3201,734 @@ s
   .tech-stack-tool:hover .tech-stack-mark {
     transform: none;
   }
+}
+
+/* ===== LOCKED BRAND OVERRIDES ===== */
+
+:root,
+.dark {
+  color-scheme: light;
+  --background: #F4F0E8;
+  --foreground: #24231F;
+  --primary: #004225;
+  --primary-foreground: #FFFFFF;
+  --accent: #004225;
+  --accent-foreground: #FFFFFF;
+  --surface: #FFFFFF;
+  --elevated: #FFFFFF;
+  --card: #FFFFFF;
+  --card-foreground: #24231F;
+  --popover: #FFFFFF;
+  --popover-foreground: #24231F;
+  --secondary: #EAE5DB;
+  --secondary-foreground: #24231F;
+  --muted: #EAE5DB;
+  --muted-foreground: #5F5B53;
+  --border: #DDD6C9;
+  --input: #DDD6C9;
+  --ring: #004225;
+  --radius: 0.875rem;
+}
+
+html,
+body {
+  background: #F4F0E8;
+  color: #24231F;
+  font-family: "Geist", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #24231F;
+  font-family: "Geist", sans-serif;
+  letter-spacing: -0.035em;
+}
+
+.bg-background {
+  background-color: #F4F0E8;
+}
+
+.bg-surface,
+.bg-card,
+.bg-elevated {
+  background-color: #FFFFFF;
+}
+
+.text-foreground,
+.text-card-foreground {
+  color: #24231F;
+}
+
+.text-muted-foreground {
+  color: #5F5B53;
+}
+
+.text-primary,
+.section-eyebrow,
+.type-eyebrow {
+  color: #004225;
+}
+
+.bg-primary {
+  background-color: #004225;
+  color: #FFFFFF;
+}
+
+.border-border {
+  border-color: #DDD6C9;
+}
+
+::selection {
+  background: #004225;
+  color: #FFFFFF;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #004225;
+  outline-offset: 4px;
+}
+
+.what-we-build-card,
+.what-we-build-featured,
+.what-we-build-bottom,
+.system-node,
+.system-row,
+.automation-node {
+  background-color: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===== FINAL SECTION PALETTE FIX ===== */
+
+.section-surface,
+.problem-solution-section,
+.what-we-build-section {
+  background: #F4F0E8 !important;
+  color: #24231F;
+}
+
+.why-ai-editorial,
+.why-ai-paper {
+  background: #F4F0E8;
+  color: #24231F;
+}
+
+.why-ai-lime {
+  background: #F4F0E8;
+  color: #24231F;
+}
+
+.problem-solution-intro h2,
+.what-we-build-intro h2,
+.problem-panel-header h3,
+.what-we-build-featured-copy h3,
+.what-we-build-card h3,
+.type-display,
+.type-section-title,
+.type-card-title {
+  color: #24231F;
+}
+
+.problem-solution-description,
+.what-we-build-description,
+.what-we-build-card-description,
+.type-body,
+.type-body-large {
+  color: #5F5B53;
+}
+
+.problem-panel,
+.what-we-build-featured,
+.what-we-build-card,
+.what-we-build-bottom,
+.what-we-build-featured-visual,
+.automation-node,
+.system-node,
+.system-row {
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+  box-shadow: none;
+}
+
+.problem-panel-header,
+.problem-panel-footer,
+.problem-panel-footer-after,
+.problem-solution-punchline {
+  border-color: #DDD6C9;
+}
+
+.problem-panel-label,
+.problem-flow-copy span,
+.automation-node-copy span,
+.what-we-build-number {
+  color: #5F5B53;
+}
+
+.problem-flow-copy strong,
+.automation-node-copy strong,
+.what-we-build-bottom strong {
+  color: #24231F;
+}
+
+.problem-panel-after,
+.problem-flow-after .problem-flow-icon,
+.what-we-build-icon,
+.what-we-build-icon-featured,
+.what-we-build-card .what-we-build-icon {
+  border-color: #DDD6C9;
+  background: #EAE5DB;
+  color: #004225;
+  box-shadow: none;
+}
+
+.problem-label-after,
+.problem-transition-badge,
+.what-we-build-featured-badge,
+.what-we-build-link,
+.what-we-build-card-link,
+.technology-bottom-link,
+.what-we-build-card-violet .what-we-build-icon,
+.what-we-build-card-mint .what-we-build-icon {
+  color: #004225;
+}
+
+.problem-transition-badge,
+.what-we-build-featured-badge {
+  background: #EAE5DB;
+  border-color: #DDD6C9;
+}
+
+.hero-glow-blue,
+.hero-glow-violet {
+  background: #52745F;
+  opacity: 0.08;
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(rgb(0 66 37 / 5%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(0 66 37 / 5%) 1px, transparent 1px);
+}
+
+.what-we-build-featured-visual {
+  border-left-color: #DDD6C9;
+  background: #FFFFFF;
+}
+
+.what-we-build-card:hover,
+.what-we-build-featured:hover {
+  border-color: rgb(0 66 37 / 28%);
+  background: #FFFFFF;
+  box-shadow: 0 8px 24px rgb(36 35 31 / 5%);
+}
+
+.what-we-build-card-list li,
+.what-we-build-bottom p,
+.automation-visual-header,
+.automation-visual-footer,
+.automation-visual-label,
+.automation-node-copy span {
+  color: #5F5B53;
+}
+
+.what-we-build-feature-item > span,
+.what-we-build-live-dot,
+.automation-visual-status span,
+.automation-node-active .automation-node-status {
+  color: #004225;
+  background: #004225;
+  box-shadow: none;
+}
+
+.why-ai-hero-copy h2,
+.why-ai-lime-heading h2,
+.why-ai-story-body h3,
+.why-ai-service-copy h3 {
+  color: #24231F;
+}
+
+.why-ai-hero-copy h2 span,
+.why-ai-lime-heading h2 span {
+  color: #5F5B53;
+}
+
+.why-ai-story-panel,
+.why-ai-service-panel,
+.why-ai-service-visual {
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+}
+
+.why-ai-journey-item {
+  color: #24231F;
+  border-color: #DDD6C9;
+}
+
+.why-ai-journey-item:hover,
+.why-ai-journey-item.is-active {
+  background: #EAE5DB;
+}
+
+.why-ai-service-pill.is-active {
+  background: #004225;
+  color: #FFFFFF;
+  border-color: #004225;
+}
+
+.why-ai-lime-footer,
+.why-ai-meta,
+.why-ai-paper-footer,
+.why-ai-story-description,
+.why-ai-service-description {
+  color: #5F5B53;
+}
+
+.why-ai-service-link,
+.why-ai-paper-footer a {
+  color: #004225;
+}
+
+
+/* =========================================
+   STEP 1 — LOCKED GLOBAL DESIGN TOKENS
+   ========================================= */
+
+:root,
+.dark {
+  color-scheme: light;
+
+  /* Brand palette */
+  --background: #F4F0E8;
+  --foreground: #24231F;
+
+  --primary: #004225;
+  --primary-foreground: #FFFFFF;
+  --accent: #004225;
+  --accent-foreground: #FFFFFF;
+
+  /* Surfaces */
+  --surface: #FFFFFF;
+  --elevated: #FFFFFF;
+  --card: #FFFFFF;
+  --card-foreground: #24231F;
+  --popover: #FFFFFF;
+  --popover-foreground: #24231F;
+
+  /* Supporting surfaces and text */
+  --secondary: #EAE5DB;
+  --secondary-foreground: #24231F;
+  --muted: #EAE5DB;
+  --muted-foreground: #5F5B53;
+
+  /* Borders and focus */
+  --border: #DDD6C9;
+  --input: #DDD6C9;
+  --ring: #004225;
+
+  /* Typography and shape */
+  --radius: 0.875rem;
+}
+
+html,
+body {
+  background-color: #F4F0E8;
+  color: #24231F;
+  font-family: "Geist", sans-serif;
+}
+
+/* Keep shared typography consistent.
+   Individual sections can still define their own contrast. */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Geist", sans-serif;
+}
+
+/* Shared Tailwind surfaces */
+.bg-background {
+  background-color: #F4F0E8;
+}
+
+.bg-surface,
+.bg-card,
+.bg-elevated {
+  background-color: #FFFFFF;
+}
+
+/* Shared text utilities */
+.text-foreground,
+.text-card-foreground {
+  color: #24231F;
+}
+
+.text-muted-foreground {
+  color: #5F5B53;
+}
+
+/* Primary actions */
+.bg-primary {
+  background-color: #004225;
+  color: #FFFFFF;
+}
+
+/* Small status indicators: keep dots visible */
+.what-we-build-live-dot,
+.automation-visual-status span,
+.automation-node-active .automation-node-status {
+  background-color: #004225;
+  box-shadow: none;
+}
+
+
+/* =========================================================
+   WHY AI AUTOMATIONHUB — LOCKED BRAND PALETTE
+   Warm Ivory · British Racing Green · Charcoal · Warm Gray
+   ========================================================= */
+
+/* Editorial section */
+.why-ai-editorial,
+.why-ai-paper {
+  background: #F4F0E8;
+  color: #24231F;
+}
+
+/* Main headings */
+.why-ai-hero-copy h2,
+.why-ai-lime-heading h2,
+.why-ai-story-body h3,
+.why-ai-service-copy h3 {
+  color: #24231F;
+  font-family: "Geist", sans-serif;
+}
+
+/* Emphasis inside headings */
+.why-ai-hero-copy h2 span,
+.why-ai-lime-heading h2 span {
+  color: #004225;
+}
+
+/* Body copy */
+.why-ai-intro-aside,
+.why-ai-intro-aside p,
+.why-ai-story-description,
+.why-ai-service-description,
+.why-ai-lime-heading > p:last-child {
+  color: #5F5B53;
+}
+
+/* Metadata and secondary labels */
+.why-ai-meta,
+.why-ai-story-top,
+.why-ai-story-kicker,
+.why-ai-outcome small,
+.why-ai-service-label,
+.why-ai-visual-header,
+.why-ai-visual-core > span,
+.why-ai-paper-footer,
+.why-ai-lime-footer,
+.why-ai-journey-number,
+.why-ai-journey-title > span,
+.why-ai-journey-arrow {
+  color: #5F5B53;
+}
+
+/* Dividers */
+.why-ai-meta,
+.why-ai-journey-list,
+.why-ai-journey-item,
+.why-ai-paper-footer,
+.why-ai-story-top,
+.why-ai-outcome,
+.why-ai-lime-footer {
+  border-color: #DDD6C9;
+}
+
+/* Journey list */
+.why-ai-journey-item {
+  color: #24231F;
+}
+
+.why-ai-journey-item:hover,
+.why-ai-journey-item.is-active {
+  background: #FFFFFF;
+}
+
+.why-ai-journey-icon,
+.why-ai-service-icon {
+  background: #FFFFFF;
+  border-color: #DDD6C9;
+  color: #004225;
+}
+
+/* Content panels */
+.why-ai-story-panel,
+.why-ai-service-panel {
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+  border-radius: 14px;
+}
+
+/* Interactive service section — no dark background */
+.why-ai-lime {
+  background: #F4F0E8;
+  color: #24231F;
+}
+
+.why-ai-lime-eyebrow {
+  color: #004225;
+}
+
+/* Service selector pills */
+.why-ai-service-pill {
+  background: #FFFFFF;
+  color: #24231F;
+  border-color: #DDD6C9;
+}
+
+.why-ai-service-pill:hover {
+  background: #EAE5DB;
+}
+
+.why-ai-service-pill.is-active {
+  background: #004225;
+  border-color: #004225;
+  color: #FFFFFF;
+}
+
+/* Outcome indicator */
+.why-ai-check {
+  background: #EAE5DB;
+  color: #004225;
+}
+
+/* Automation visual */
+.why-ai-service-visual {
+  background-color: #FFFFFF;
+  background-image:
+    linear-gradient(rgba(0, 66, 37, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 66, 37, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
+  border-color: #DDD6C9;
+}
+
+.why-ai-visual-orbit {
+  background: #F4F0E8;
+  border-color: #DDD6C9;
+}
+
+.why-ai-visual-node {
+  background: #004225;
+  border-color: #004225;
+  color: #FFFFFF;
+}
+
+.why-ai-status-dot {
+  background: #004225;
+}
+
+/* Links */
+.why-ai-paper-footer a,
+.why-ai-service-link {
+  color: #004225;
+}
+
+/* Keep all section text readable by default */
+.why-ai-editorial p,
+.why-ai-editorial li,
+.why-ai-editorial strong,
+.why-ai-editorial button {
+  text-shadow: none;
+}
+
+
+/* =========================================================
+   WHY AI AUTOMATIONHUB — FINAL PALETTE LOCK
+   Ivory / Racing Green / Charcoal / Warm Gray
+   ========================================================= */
+
+#why-ai-automationhub.why-ai-editorial {
+  --why-bg: #F4F0E8;
+  --why-green: #004225;
+  --why-heading: #24231F;
+  --why-body: #5F5B53;
+  --why-white: #FFFFFF;
+  --why-border: #DDD6C9;
+  --why-soft: #EAE5DB;
+
+  background: var(--why-bg) !important;
+  color: var(--why-heading) !important;
+  font-family: "Geist", sans-serif;
+}
+
+#why-ai-automationhub .why-ai-paper,
+#why-ai-automationhub .why-ai-lime {
+  background: var(--why-bg) !important;
+  color: var(--why-heading) !important;
+}
+
+/* Headings */
+#why-ai-automationhub .why-ai-hero-copy h2,
+#why-ai-automationhub .why-ai-lime-heading h2,
+#why-ai-automationhub .why-ai-story-body h3,
+#why-ai-automationhub .why-ai-service-copy h3 {
+  color: var(--why-heading) !important;
+  font-family: "Geist", sans-serif;
+}
+
+/* Green heading emphasis */
+#why-ai-automationhub .why-ai-hero-copy h2 span,
+#why-ai-automationhub .why-ai-lime-heading h2 span,
+#why-ai-automationhub .why-ai-lime-eyebrow {
+  color: var(--why-green) !important;
+}
+
+/* Supporting text */
+#why-ai-automationhub .why-ai-intro-aside,
+#why-ai-automationhub .why-ai-intro-aside p,
+#why-ai-automationhub .why-ai-story-description,
+#why-ai-automationhub .why-ai-service-description,
+#why-ai-automationhub .why-ai-meta,
+#why-ai-automationhub .why-ai-story-top,
+#why-ai-automationhub .why-ai-story-kicker,
+#why-ai-automationhub .why-ai-outcome,
+#why-ai-automationhub .why-ai-service-label,
+#why-ai-automationhub .why-ai-visual-header,
+#why-ai-automationhub .why-ai-visual-core > span,
+#why-ai-automationhub .why-ai-paper-footer,
+#why-ai-automationhub .why-ai-lime-footer {
+  color: var(--why-body) !important;
+}
+
+/* Journey navigation */
+#why-ai-automationhub .why-ai-journey-item {
+  background: transparent !important;
+  color: var(--why-heading) !important;
+  border-color: var(--why-border) !important;
+}
+
+#why-ai-automationhub .why-ai-journey-item:hover,
+#why-ai-automationhub .why-ai-journey-item.is-active {
+  background: var(--why-white) !important;
+}
+
+#why-ai-automationhub .why-ai-journey-number,
+#why-ai-automationhub .why-ai-journey-arrow,
+#why-ai-automationhub .why-ai-journey-title > span {
+  color: var(--why-body) !important;
+}
+
+#why-ai-automationhub .why-ai-journey-title strong {
+  color: var(--why-heading) !important;
+}
+
+#why-ai-automationhub .why-ai-journey-icon,
+#why-ai-automationhub .why-ai-service-icon {
+  background: var(--why-white) !important;
+  color: var(--why-green) !important;
+  border-color: var(--why-border) !important;
+}
+
+/* White content panels */
+#why-ai-automationhub .why-ai-story-panel,
+#why-ai-automationhub .why-ai-service-panel {
+  background: var(--why-white) !important;
+  color: var(--why-heading) !important;
+  border: 1px solid var(--why-border) !important;
+  border-radius: 14px;
+  box-shadow: 0 8px 30px rgba(36, 35, 31, 0.04);
+}
+
+#why-ai-automationhub .why-ai-story-top,
+#why-ai-automationhub .why-ai-outcome,
+#why-ai-automationhub .why-ai-journey-list {
+  border-color: var(--why-border) !important;
+}
+
+/* Service selector */
+#why-ai-automationhub .why-ai-service-pill {
+  background: var(--why-white) !important;
+  color: var(--why-heading) !important;
+  border-color: var(--why-border) !important;
+}
+
+#why-ai-automationhub .why-ai-service-pill:hover {
+  background: var(--why-soft) !important;
+}
+
+#why-ai-automationhub .why-ai-service-pill.is-active {
+  background: var(--why-green) !important;
+  color: var(--why-white) !important;
+  border-color: var(--why-green) !important;
+}
+
+/* Check indicator */
+#why-ai-automationhub .why-ai-check {
+  background: var(--why-soft) !important;
+  color: var(--why-green) !important;
+}
+
+/* Automation diagram */
+#why-ai-automationhub .why-ai-service-visual {
+  background-color: var(--why-white) !important;
+  background-image:
+    linear-gradient(rgba(0, 66, 37, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 66, 37, 0.045) 1px, transparent 1px) !important;
+  background-size: 24px 24px !important;
+  color: var(--why-heading) !important;
+  border-color: var(--why-border) !important;
+}
+
+#why-ai-automationhub .why-ai-visual-orbit {
+  background: var(--why-bg) !important;
+  border-color: var(--why-border) !important;
+}
+
+#why-ai-automationhub .why-ai-visual-node {
+  background: var(--why-green) !important;
+  color: var(--why-white) !important;
+  border-color: var(--why-green) !important;
+}
+
+#why-ai-automationhub .why-ai-status-dot {
+  background: var(--why-green) !important;
+}
+
+/* Links and footer */
+#why-ai-automationhub .why-ai-paper-footer a,
+#why-ai-automationhub .why-ai-service-link {
+  color: var(--why-green) !important;
+}
+
+/* Prevent old lime/blue text utilities inside this section */
+#why-ai-automationhub .text-\[\#323B1F\],
+#why-ai-automationhub .text-\[\#24251F\],
+#why-ai-automationhub .text-\[\#737663\] {
+  color: var(--why-heading) !important;
+}
+
+#why-ai-automationhub .bg-\[\#EAF0D6\] {
+  background: var(--why-soft) !important;
 }

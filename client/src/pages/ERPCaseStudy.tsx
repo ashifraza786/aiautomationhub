@@ -4,8 +4,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   BarChart3,
-  CheckCircle2,
-  ChevronRight,
   Package,
   Receipt,
   ShoppingCart,
@@ -16,78 +14,47 @@ import ERPShowcase from "@/components/what-we-build/ERPShowcase";
 
 const capabilities = [
   {
-    number: "01",
-    title: "Sales Management",
-    description:
-      "Represent sales activity and order workflows within a connected business system.",
     icon: ShoppingCart,
+    title: "Sales",
+    description: "Represent sales activity and order workflows.",
   },
   {
-    number: "02",
-    title: "Inventory Management",
-    description: "Bring stock information into the wider operational workflow.",
     icon: Package,
+    title: "Inventory",
+    description: "Bring stock information into the operational overview.",
   },
   {
-    number: "03",
-    title: "Billing",
-    description:
-      "Include billing activities in the shared business system overview.",
     icon: Receipt,
+    title: "Billing",
+    description: "Include billing within the wider business workflow.",
   },
   {
-    number: "04",
-    title: "Human Resources",
-    description:
-      "Represent employee and team information alongside other business functions.",
     icon: Users,
+    title: "Human resources",
+    description: "Represent employee and team information.",
   },
   {
-    number: "05",
-    title: "Reporting",
-    description:
-      "Bring operational information together in a clearer reporting view.",
     icon: BarChart3,
+    title: "Reporting",
+    description: "Bring operational information into a clearer overview.",
   },
 ];
 
-const projectFacts = [
-  { label: "Project type", value: "Concept / Prototype" },
-  { label: "Project focus", value: "Connected business functions" },
-  { label: "System areas", value: "5 represented functions" },
-];
-
-const solutionPoints = [
-  "Core business functions represented in one system",
-  "A shared view of connected operational areas",
-  "Inventory and billing included in the workflow concept",
-  "Reporting represented alongside core business activities",
-];
-
-const principles = [
-  {
-    number: "01",
-    title: "Connected operations",
-    description:
-      "Show how different business functions relate instead of presenting them as isolated activities.",
-  },
-  {
-    number: "02",
-    title: "Clear visibility",
-    description:
-      "Present core functions through a consistent overview that is easier to understand.",
-  },
-  {
-    number: "03",
-    title: "Adaptable structure",
-    description:
-      "Use the concept as a starting point for workflows shaped around actual business needs.",
-  },
+const benefits = [
+  "Core business functions represented within one system.",
+  "A clearer view of sales, inventory and billing workflows.",
+  "Team information and reporting included in the same concept.",
+  "A structure that can be adapted to actual business requirements.",
 ];
 
 const reveal = {
   hidden: { opacity: 0, y: 18 },
   visible: { opacity: 1, y: 0 },
+};
+
+const revealTransition = {
+  duration: 0.5,
+  ease: "easeOut" as const,
 };
 
 export default function ERPCaseStudy() {
@@ -103,22 +70,22 @@ export default function ERPCaseStudy() {
 
   return (
     <main className="min-h-screen overflow-hidden bg-background text-foreground">
-      {/* HERO */}
-      <section className="relative px-5 pb-16 pt-24 sm:pb-20 md:px-8 md:pt-28 lg:pb-24">
+      {/* 01 — EDITORIAL HERO */}
+      <section className="relative px-5 pb-12 pt-8 sm:pb-16 md:px-8 md:pt-10 lg:pb-20">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-24 top-20 h-80 w-80 rounded-full bg-primary/10 blur-[120px]"
+          className="pointer-events-none absolute -right-32 top-24 h-96 w-96 rounded-full bg-primary/[0.08] blur-[130px]"
         />
 
         <div className="relative mx-auto max-w-7xl">
-          <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+          <div className="mb-10 flex flex-wrap items-center justify-between gap-4">
             <button
               type="button"
               onClick={handleBack}
-              className="inline-flex min-h-10 items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+              className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
             >
               <ArrowLeft size={16} />
-              Back to previous page
+              Back to work
             </button>
 
             <nav
@@ -128,166 +95,176 @@ export default function ERPCaseStudy() {
               <Link href="/" className="transition-colors hover:text-primary">
                 Home
               </Link>
-              <ChevronRight size={14} />
+              <span>/</span>
               <Link
                 href="/work"
                 className="transition-colors hover:text-primary"
               >
                 Work
               </Link>
-              <ChevronRight size={14} />
+              <span>/</span>
               <span className="text-foreground">ERP Management System</span>
             </nav>
           </div>
 
-          <div className="grid items-center gap-12 lg:grid-cols-[0.92fr_1.08fr] lg:gap-14">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={reveal}
-              transition={{ duration: 0.55 }}
-              className="min-w-0"
-            >
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/25 bg-primary/5 px-3 py-1.5 text-xs font-semibold text-primary">
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                Concept / Prototype
-              </div>
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={reveal}
+            transition={revealTransition}
+            className="max-w-5xl"
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              ERP · Business Systems · Workflow Design
+            </p>
 
-              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary sm:text-sm">
-                ERP · Business Systems · Workflow Design
-              </p>
+            <h1 className="mt-6 max-w-5xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+              One connected system for{" "}
+              <span className="text-primary">business operations.</span>
+            </h1>
 
-              <h1 className="mt-5 max-w-2xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-                One connected system for{" "}
-                <span className="text-primary">business operations.</span>
-              </h1>
+            <p className="mt-6 max-w-3xl text-base leading-7 text-secondary-foreground sm:text-lg sm:leading-8">
+              An ERP concept exploring how sales, inventory, billing, human
+              resources and reporting can come together in one coordinated
+              business overview.
+            </p>
 
-              <p className="mt-6 max-w-xl text-base leading-7 text-secondary-foreground sm:text-lg sm:leading-8">
-                An ERP system concept bringing sales, inventory, billing, HR,
-                and reporting into one connected operational overview.
-              </p>
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground sm:text-sm">
+              <span>Concept / Prototype</span>
+              <span aria-hidden="true" className="text-primary">
+                •
+              </span>
+              <span>5 business functions</span>
+              <span aria-hidden="true" className="text-primary">
+                •
+              </span>
+              <span>Connected workflows</span>
+            </div>
+          </motion.div>
 
-              <div className="mt-6 flex flex-wrap gap-2">
-                {["Sales", "Inventory", "Billing", "HR", "Reports"].map(
-                  (item) => (
-                    <span
-                      key={item}
-                      className="rounded-full border border-border px-3 py-1.5 text-xs font-medium text-secondary-foreground"
-                    >
-                      {item}
-                    </span>
-                  ),
-                )}
-              </div>
+          {/* Keep the existing showcase and its animation unchanged. */}
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.12 }}
+            className="mt-10 min-w-0 sm:mt-14 lg:mt-16"
+          >
+            <ERPShowcase />
+          </motion.div>
 
-              <div className="mt-8 flex flex-wrap items-center gap-5">
-                <a
-                  href="#challenge"
-                  className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:opacity-90"
-                >
-                  Explore the Case Study
-                  <ArrowRight size={16} />
-                </a>
-
-                <Link
-                  href="/work"
-                  className="inline-flex min-h-12 items-center gap-2 text-sm font-semibold text-secondary-foreground transition-colors hover:text-primary"
-                >
-                  All Projects
-                  <ArrowUpRight size={16} />
-                </Link>
-              </div>
-
-              <p className="mt-5 max-w-lg text-xs leading-6 text-muted-foreground">
-                This page presents a system concept. Deployment, integrations,
-                and business outcomes have not been independently verified.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="min-w-0"
-            >
-              <ERPShowcase />
-            </motion.div>
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-b border-border pb-5 text-xs text-muted-foreground sm:text-sm">
+            <span>ERP Management System</span>
+            <span>Sales · Inventory · Billing · HR · Reporting</span>
           </div>
         </div>
       </section>
 
-      {/* PROJECT SNAPSHOT */}
-      <section className="border-y border-border bg-surface/40">
-        <div className="mx-auto grid max-w-7xl gap-6 px-5 py-7 sm:grid-cols-3 sm:px-8 lg:px-12">
-          {projectFacts.map((item, index) => (
-            <div
-              key={item.label}
-              className={
-                index > 0
-                  ? "border-t border-border pt-5 sm:border-l sm:border-t-0 sm:pl-6 sm:pt-0"
-                  : ""
-              }
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
-                {item.label}
-              </p>
-              <p className="mt-2 text-sm font-semibold sm:text-base">
-                {item.value}
-              </p>
-            </div>
-          ))}
+      {/* 02 — CHALLENGE */}
+      <section
+        id="challenge"
+        className="scroll-mt-32 border-t border-border px-5 py-14 sm:py-16 md:px-8 lg:py-20"
+      >
+        <div className="mx-auto grid max-w-7xl gap-6 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={reveal}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={revealTransition}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              01 / The Challenge
+            </p>
+
+            <h2 className="mt-5 max-w-xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+              Business operations need a connected view.
+            </h2>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={reveal}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ ...revealTransition, delay: 0.06 }}
+            className="space-y-5 text-base leading-7 text-secondary-foreground sm:text-lg sm:leading-8"
+          >
+            <p>
+              Sales, stock, billing, team information and reporting each
+              represent a different part of a business. When these areas are
+              viewed separately, it can be harder to understand how information
+              relates across everyday operations.
+            </p>
+
+            <p>
+              The design challenge is to bring these functions into one
+              understandable overview without making the experience feel
+              complicated or crowded.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* KEY CAPABILITIES */}
-      <section className="px-5 py-16 sm:py-20 md:px-8 lg:py-24">
+      {/* 03 — SOLUTION */}
+      <section className="border-t border-border bg-surface/30 px-5 py-14 sm:py-16 md:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <motion.div
             initial="hidden"
             whileInView="visible"
             variants={reveal}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45 }}
-            className="max-w-3xl"
+            viewport={{ once: true, amount: 0.15 }}
+            transition={revealTransition}
+            className="max-w-4xl"
           >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              01 / Key Capabilities
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              02 / The Solution
             </p>
 
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-              Core functions, brought into one view.
+            <h2 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+              Different business functions. One shared overview.
             </h2>
 
-            <p className="mt-4 max-w-2xl text-base leading-7 text-secondary-foreground">
-              The concept illustrates how essential operational areas can be
-              represented within a shared business platform.
+            <p className="mt-6 max-w-3xl text-base leading-7 text-secondary-foreground sm:text-lg sm:leading-8">
+              The ERP concept presents five essential operational areas
+              together. Instead of treating each function as a separate
+              destination, the design gives them a consistent visual structure
+              and shows how they can relate within a wider business system.
+              Actual integrations and automated workflows would depend on
+              implementation requirements.
             </p>
           </motion.div>
 
-          <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-10 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
             {capabilities.map((item, index) => {
               const Icon = item.icon;
 
               return (
                 <motion.article
-                  key={item.number}
+                  key={item.title}
                   initial="hidden"
                   whileInView="visible"
                   variants={reveal}
-                  viewport={{ once: true, amount: 0.15 }}
-                  transition={{ duration: 0.4, delay: index * 0.04 }}
-                  className="group border-t border-border py-5 transition-colors hover:border-primary/50"
+                  viewport={{ once: true, amount: 0.12 }}
+                  transition={{
+                    ...revealTransition,
+                    delay: index * 0.04,
+                  }}
+                  className="border-t border-border py-5 sm:py-6"
                 >
                   <div className="flex items-start justify-between gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                      <Icon size={20} strokeWidth={1.8} />
-                    </div>
+                    <Icon
+                      size={21}
+                      strokeWidth={1.6}
+                      className="text-primary"
+                    />
                     <span className="font-mono text-xs text-muted-foreground">
-                      {item.number}
+                      0{index + 1}
                     </span>
                   </div>
 
-                  <h3 className="mt-5 text-lg font-semibold">{item.title}</h3>
+                  <h3 className="mt-5 text-lg font-semibold tracking-tight">
+                    {item.title}
+                  </h3>
 
                   <p className="mt-2 max-w-sm text-sm leading-6 text-secondary-foreground">
                     {item.description}
@@ -299,197 +276,131 @@ export default function ERPCaseStudy() {
         </div>
       </section>
 
-      {/* CHALLENGE */}
-      <section
-        id="challenge"
-        className="scroll-mt-28 border-y border-border bg-surface/40 px-5 py-16 sm:py-20 md:px-8"
-      >
-        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-2 md:gap-16">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={reveal}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45 }}
-          >
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              02 / The Challenge
+      {/* Large ERP UI Showcase */}
+      <section className="px-5 py-12 md:px-8 md:py-16">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 max-w-3xl">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.22em] text-primary">
+              Inside the system
             </p>
 
-            <h2 className="mt-4 max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-              Business operations need a connected view.
+            <h2 className="text-3xl font-semibold leading-tight tracking-tight text-foreground md:text-5xl">
+              A clearer view of everyday operations.
             </h2>
-          </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            variants={reveal}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.45, delay: 0.06 }}
-            className="space-y-4 text-base leading-7 text-secondary-foreground"
-          >
-            <p>
-              Sales, stock, billing, team information, and reporting each
-              represent different parts of business operations. When workflows
-              are disconnected, it can be harder to see how information moves
-              between them.
+            <p className="mt-5 max-w-2xl text-base leading-7 text-muted-foreground md:text-lg">
+              Explore how sales, inventory, billing and reporting can come
+              together in one connected business interface.
             </p>
+          </div>
 
-            <p>
-              An ERP approach offers a way to represent these functions within
-              one coordinated system instead of treating each area in isolation.
-            </p>
-
-            <div className="border-l-2 border-primary py-1 pl-4">
-              <p className="text-sm font-semibold text-foreground">
-                Design objective
-              </p>
-              <p className="mt-1 text-sm leading-6">
-                Make the relationships between core business functions easier to
-                understand and evaluate.
-              </p>
-            </div>
-          </motion.div>
+          <figure className="overflow-hidden rounded-xl border border-border bg-surface">
+            <img
+              src="/images/erp-system.png"
+              alt="ERP dashboard interface showing connected business operations"
+              className="block h-auto w-full object-contain"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </section>
 
-      {/* SOLUTION */}
-      <section className="px-5 py-16 sm:py-20 md:px-8 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            03 / The Solution
-          </p>
+      {/* 04 — WHY IT WORKS */}
+      <section className="border-t border-border px-5 py-14 sm:py-16 md:px-8 lg:py-20">
+        <div className="mx-auto grid max-w-7xl gap-8 md:grid-cols-[0.9fr_1.1fr] md:gap-16 lg:gap-24">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={reveal}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={revealTransition}
+          >
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              03 / Intended Benefits
+            </p>
 
-          <div className="mt-4 grid gap-8 lg:grid-cols-2 lg:gap-16">
-            <div>
-              <h2 className="max-w-xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-                One coordinated view of essential business functions.
-              </h2>
+            <h2 className="mt-5 max-w-xl text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
+              Designed to make the bigger picture easier to see.
+            </h2>
+          </motion.div>
 
-              <p className="mt-5 max-w-xl text-base leading-7 text-secondary-foreground">
-                The ERP showcase represents sales, inventory, billing, HR, and
-                reporting together. Specific integrations and automated actions
-                would depend on the final implementation scope.
-              </p>
-            </div>
+          <div>
+            <div className="divide-y divide-border border-t border-border">
+              {benefits.map((benefit, index) => (
+                <motion.div
+                  key={benefit}
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={reveal}
+                  viewport={{ once: true, amount: 0.12 }}
+                  transition={{
+                    ...revealTransition,
+                    delay: index * 0.04,
+                  }}
+                  className="grid grid-cols-[36px_1fr] gap-3 py-5 sm:gap-5"
+                >
+                  <span className="pt-1 font-mono text-xs text-primary">
+                    0{index + 1}
+                  </span>
 
-            <div className="divide-y divide-border border-y border-border">
-              {solutionPoints.map((point, index) => (
-                <div key={point} className="flex items-start gap-3 py-4">
-                  <CheckCircle2
-                    size={18}
-                    className="mt-0.5 shrink-0 text-primary"
-                  />
-                  <p className="text-sm leading-6 text-secondary-foreground">
-                    {point}
+                  <p className="text-base leading-7 text-secondary-foreground sm:text-lg">
+                    {benefit}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* DESIGN PRINCIPLES */}
-      <section className="border-y border-border bg-surface/40 px-5 py-16 sm:py-20 md:px-8 lg:py-24">
-        <div className="mx-auto max-w-7xl">
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-            04 / Design Principles
-          </p>
-
-          <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-            Designed to make connected operations easier to understand.
-          </h2>
-
-          <div className="mt-9 grid gap-7 md:grid-cols-3 md:gap-8">
-            {principles.map((item) => (
-              <article
-                key={item.number}
-                className="border-t border-border pt-5"
-              >
-                <span className="font-mono text-xs text-primary">
-                  {item.number}
-                </span>
-                <h3 className="mt-3 text-lg font-semibold">{item.title}</h3>
-                <p className="mt-2 text-sm leading-6 text-secondary-foreground">
-                  {item.description}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PROJECT SCOPE */}
-      <section className="px-5 py-16 sm:py-20 md:px-8 lg:py-24">
-        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              05 / Project Scope
-            </p>
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-              A concept shaped around business needs.
-            </h2>
-          </div>
-
-          <div className="max-w-2xl">
-            <p className="text-base leading-7 text-secondary-foreground">
-              This showcase communicates the intended relationships between the
-              represented business functions. It should be treated as a concept
-              or prototype unless a deployed implementation is confirmed.
-            </p>
-
-            <p className="mt-4 text-base leading-7 text-secondary-foreground">
-              Implemented modules, actual integrations, product screenshots, and
-              measured outcomes can be added when supporting project evidence is
-              available.
+            <p className="mt-6 text-sm leading-6 text-muted-foreground">
+              These are intended design benefits of the concept, not verified
+              results from a deployed ERP implementation.
             </p>
           </div>
         </div>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="px-5 pb-16 sm:pb-20 md:px-8 md:pb-24">
-        <div className="relative mx-auto max-w-7xl overflow-hidden rounded-2xl border border-border bg-surface px-6 py-10 sm:px-10 sm:py-12 md:px-14 md:py-16">
-          <div
-            aria-hidden="true"
-            className="pointer-events-none absolute -right-20 -top-24 h-72 w-72 rounded-full bg-primary/10 blur-[110px]"
-          />
-
-          <div className="relative max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-primary">
-              Have a Similar Challenge?
+      {/* 05 — FINAL CTA */}
+      <section className="border-t border-border px-5 py-16 sm:py-20 md:px-8 lg:py-24">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          variants={reveal}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={revealTransition}
+          className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 sm:flex-row sm:items-end"
+        >
+          <div className="max-w-3xl">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+              Have a project in mind?
             </p>
 
-            <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+            <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl md:text-5xl">
               Let’s build a system around your business.
             </h2>
 
-            <p className="mt-4 max-w-2xl text-base leading-7 text-secondary-foreground">
-              Explore how connected software can represent your workflows and
-              support the way your business operates.
+            <p className="mt-5 max-w-2xl text-base leading-7 text-secondary-foreground">
+              Explore a solution shaped around your workflows, operational needs
+              and business goals.
             </p>
-
-            <div className="mt-7 flex flex-wrap items-center gap-4">
-              <a
-                href="/#contact"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 hover:opacity-90"
-              >
-                Get in Touch
-                <ArrowUpRight size={17} />
-              </a>
-
-              <Link
-                href="/work"
-                className="inline-flex min-h-12 items-center gap-2 text-sm font-semibold text-secondary-foreground transition-colors hover:text-primary"
-              >
-                Explore Other Projects
-                <ArrowRight size={16} />
-              </Link>
-            </div>
           </div>
-        </div>
+
+          <div className="flex shrink-0 flex-wrap gap-3">
+            <a
+              href="/#contact"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+            >
+              Discuss your project
+              <ArrowRight size={16} />
+            </a>
+
+            <Link
+              href="/work"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold transition-colors hover:border-primary/50 hover:text-primary"
+            >
+              All projects
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
+        </motion.div>
       </section>
     </main>
   );
