@@ -5,7 +5,7 @@
    FONT
    ========================================================= */
 
-@import url("https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -201,12 +201,14 @@
   * {
     @apply border-border outline-ring/50;
   }
+  /*
 body {
   @apply bg-background text-foreground;
- font-family: "Geist", sans-serif;
+ font-family: "Plus Jakarta Sans", sans-serif;
   margin: 0;
   min-width: 320px;
 }
+  */
   html {
     scroll-behavior: smooth;
     background: #080a0f;
@@ -2241,7 +2243,7 @@ p {
 .why-ai-hero-copy h2,
 .why-ai-lime-heading h2 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: clamp(42px, 6.3vw, 82px);
   font-weight: 400;
   line-height: .99;
@@ -2381,7 +2383,7 @@ p {
 .why-ai-story-body h3,
 .why-ai-service-copy h3 {
   margin: 0;
-  font-family: Georgia, "Times New Roman", serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   font-size: clamp(30px, 3vw, 43px);
   font-weight: 400;
   line-height: 1.08;
@@ -2783,7 +2785,7 @@ p {
 .why-ai-story-body h3,
 .why-ai-service-copy h3 {
   color: #24231F;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Emphasis inside headings */
@@ -3234,7 +3236,7 @@ html,
 body {
   background: #F4F0E8;
   color: #24231F;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 h1,
@@ -3244,7 +3246,7 @@ h4,
 h5,
 h6 {
   color: #24231F;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
   letter-spacing: -0.035em;
 }
 
@@ -3552,7 +3554,7 @@ html,
 body {
   background-color: #F4F0E8;
   color: #24231F;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Keep shared typography consistent.
@@ -3563,7 +3565,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Shared Tailwind surfaces */
@@ -3620,7 +3622,7 @@ h6 {
 .why-ai-story-body h3,
 .why-ai-service-copy h3 {
   color: #24231F;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Emphasis inside headings */
@@ -3780,7 +3782,7 @@ h6 {
 
   background: var(--why-bg) !important;
   color: var(--why-heading) !important;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 #why-ai-automationhub .why-ai-paper,
@@ -3795,7 +3797,7 @@ h6 {
 #why-ai-automationhub .why-ai-story-body h3,
 #why-ai-automationhub .why-ai-service-copy h3 {
   color: var(--why-heading) !important;
-  font-family: "Geist", sans-serif;
+  font-family: "Plus Jakarta Sans", sans-serif;
 }
 
 /* Green heading emphasis */
@@ -3931,4 +3933,52 @@ h6 {
 
 #why-ai-automationhub .bg-\[\#EAF0D6\] {
   background: var(--why-soft) !important;
+}
+/* =========================================================
+   GLOBAL FONT PAIRING
+   Headings: Plus Jakarta Sans
+   Body: Inter
+   ========================================================= */
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* FINAL FONT PAIRING */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Plus Jakarta Sans", sans-serif !important;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "Inter", sans-serif;
+}
+
+nav,
+nav a,
+nav button {
+  font-family: "Inter", sans-serif;
+}
+
+nav,
+nav a,
+nav button {
+  font-family: "Inter", sans-serif;
 }

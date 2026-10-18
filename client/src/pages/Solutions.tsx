@@ -199,9 +199,10 @@ function WorkflowPreview({
     <div
       className={[
         "group/preview relative isolate flex min-h-[260px] flex-col justify-center overflow-hidden rounded-2xl border p-5 sm:min-h-[300px] sm:p-7",
+
         featured
-          ? "border-[#8799FF]/20 bg-[#101522]"
-          : "border-white/[0.08] bg-[#10141D]",
+          ? "border-[#004225]/20 bg-[#E4E8DF]"
+          : "border-[#D8D5CC] bg-[#F4F0E8]",
       ].join(" ")}
     >
       <div
@@ -209,27 +210,28 @@ function WorkflowPreview({
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.055]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(129,148,255,.8) 1px,transparent 1px),linear-gradient(90deg,rgba(129,148,255,.8) 1px,transparent 1px)",
+            "linear-gradient(rgba(0,66,37,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(0,66,37,.12) 1px,transparent 1px)",
+
           backgroundSize: "32px 32px",
           maskImage: "radial-gradient(ellipse at center,black,transparent 80%)",
         }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-16 -top-20 -z-10 h-56 w-56 rounded-full bg-primary/[0.13] blur-[85px] transition-opacity duration-500 group-hover/preview:opacity-100"
+        className="pointer-events-none absolute -right-16 -top-20 -z-10 h-56 w-56 rounded-full bg-[#004225]/[0.08] blur-[85px] transition-opacity duration-500 group-hover/preview:opacity-100"
       />
 
-      <div className="mb-6 flex items-center justify-between gap-3">
+      <div className="mb-5 flex items-center justify-between gap-3">
         <div>
-          <p className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500">
-            {featured ? "Workflow concept" : "Process preview"}
+          <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#5F5B53]">
+            Process preview
           </p>
-          <p className="mt-1 text-sm font-medium text-slate-200">
-            {featured ? "From enquiry to action" : "Designed around your needs"}
+          <p className="mt-1.5 text-xs font-medium text-[#5F5B53]">
+            Designed around your needs
           </p>
         </div>
-        <span className="flex shrink-0 items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.035] px-2.5 py-1.5 text-[9px] text-slate-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+        <span className="inline-flex items-center gap-1.5 rounded-full border border-[#D8D5CC] bg-white/70 px-2.5 py-1 text-[9px] font-medium text-[#5F5B53]">
+          <span className="h-1.5 w-1.5 rounded-full bg-[#004225]" />
           Illustrative
         </span>
       </div>
@@ -241,9 +243,10 @@ function WorkflowPreview({
               key={step.title}
               className={[
                 "flex min-h-[104px] min-w-0 flex-col justify-between rounded-xl border p-2.5 sm:min-h-[118px] sm:p-3.5",
+
                 index === 1
-                  ? "border-primary/35 bg-primary/[0.10] shadow-[0_0_30px_rgba(99,123,255,0.08)]"
-                  : "border-white/[0.08] bg-[#171B26]/90",
+                  ? "border-[#004225]/30 bg-[#E4E8DF] shadow-[0_6px_24px_rgba(0,66,37,0.07)]"
+                  : "border-[#D8D5CC] bg-white",
               ].join(" ")}
             >
               <div
@@ -261,10 +264,10 @@ function WorkflowPreview({
                 )}
               </div>
               <div>
-                <p className="text-[10px] font-medium leading-4 text-slate-200 sm:text-[11px]">
+                <p className="text-[10px] font-semibold leading-4 text-[#24231F] sm:text-[11px]">
                   {step.title}
                 </p>
-                <p className="mt-1 text-[8px] leading-3 text-slate-500 sm:text-[9px]">
+                <p className="mt-1 text-[8px] leading-3 text-[#5F5B53] sm:text-[9px]">
                   {step.sub}
                 </p>
               </div>
@@ -280,16 +283,18 @@ function WorkflowPreview({
         ))}
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-white/[0.07] bg-white/[0.025] px-3.5 py-3">
+      <div className="mt-4 flex items-center justify-between gap-3 rounded-xl border border-[#D8D5CC] bg-white/70 px-3.5 py-3">
         <div className="flex min-w-0 items-center gap-2.5">
-          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-primary/[0.12]">
-            <Zap className="h-3.5 w-3.5 text-primary" />
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#E4E8DF]">
+            <Zap className="h-3.5 w-3.5 text-[#004225]" />
           </div>
-          <span className="text-[10px] leading-4 text-slate-400">
+          <span className="text-[10px] leading-4 text-[#5F5B53]">
             Mapped to your business requirements
           </span>
         </div>
-        <span className="shrink-0 text-[9px] text-slate-500">Concept</span>
+        <span className="shrink-0 text-[9px] font-medium text-[#5F5B53]">
+          Concept
+        </span>
       </div>
     </div>
   );
@@ -330,12 +335,13 @@ function FeaturedAutomation() {
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.12 }}
       transition={{ duration: 0.5 }}
-      className="relative overflow-hidden rounded-3xl border border-primary/25 bg-[#111520] shadow-[0_24px_90px_rgba(0,0,0,0.12)]"
+      className="relative overflow-hidden rounded-3xl border border-[#D8D5CC] bg-white shadow-[0_18px_55px_rgba(36,35,31,0.06)]"
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-24 -top-32 h-96 w-96 rounded-full bg-primary/[0.12] blur-[120px]"
+        className="pointer-events-none absolute -right-24 -top-32 h-96 w-96 rounded-full bg-[#004225]/[0.07] blur-[120px]"
       />
+
       <div className="relative grid lg:grid-cols-[0.9fr_1.1fr]">
         <div className="flex flex-col justify-center p-6 sm:p-9 lg:p-12">
           <div className="flex flex-wrap items-center gap-2">
@@ -350,14 +356,14 @@ function FeaturedAutomation() {
             <Bot className="h-6 w-6 text-[#A9B7FF]" strokeWidth={1.6} />
           </div>
 
-          <h3 className="mt-5 text-3xl font-semibold leading-[1.12] tracking-[-0.045em] text-white sm:text-4xl lg:text-[44px]">
+          <h3 className="mt-5 text-3xl font-semibold leading-[1.12] tracking-[-0.045em] text-[#24231F] sm:text-4xl lg:text-[44px]">
             AI automation
-            <span className="mt-1 block text-[#A9B7FF]">
+            <span className="mt-1 block text-[#004225]">
               that works with your business.
             </span>
           </h3>
 
-          <p className="mt-5 max-w-[470px] text-sm leading-7 text-slate-400 sm:text-base sm:leading-8">
+          <p className="mt-5 max-w-[470px] text-sm leading-7 text-[#5F5B53] sm:text-base sm:leading-8">
             Reduce repetitive work by connecting the tasks, tools and follow-ups
             your team handles every day. Start with one process and build from
             there.
@@ -371,7 +377,7 @@ function FeaturedAutomation() {
             ].map((item) => (
               <li
                 key={item}
-                className="flex items-center gap-2.5 text-xs text-slate-300 sm:text-sm"
+                className="flex items-center gap-2.5 text-xs text-[#5F5B53] sm:text-sm"
               >
                 <CircleCheck className="h-4 w-4 shrink-0 text-[#9BAAFF]" />
                 {item}
@@ -398,16 +404,16 @@ function FeaturedAutomation() {
         </div>
 
         <div className="relative flex items-center border-t border-white/[0.07] p-4 sm:p-7 lg:border-l lg:border-t-0 lg:p-9">
-          <div className="w-full rounded-2xl border border-white/[0.09] bg-[#0C0F17] p-4 shadow-2xl sm:p-6">
+          <div className="w-full rounded-2xl border border-[#D8D5CC] bg-[#F4F0E8] p-4 shadow-[0_12px_35px_rgba(36,35,31,0.06)] sm:p-6">
             <div className="flex flex-wrap items-start justify-between gap-3 border-b border-white/[0.07] pb-5">
               <div>
-                <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-slate-500">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.15em] text-[#5F5B53]">
                   Workflow studio
                 </p>
-                <h4 className="mt-1.5 text-base font-semibold text-white">
+                <h4 className="mt-1.5 text-base font-semibold text-[#24231F]">
                   Explore a workflow
                 </h4>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-[#5F5B53]">
                   Example flows—not live integrations
                 </p>
               </div>
@@ -443,7 +449,10 @@ function FeaturedAutomation() {
                     <span
                       className={[
                         "text-[9px] leading-4 sm:text-[10px]",
-                        active ? "text-white" : "text-slate-400",
+
+                        active
+                          ? "text-[#24231F] font-semibold"
+                          : "text-[#5F5B53]",
                       ].join(" ")}
                     >
                       {example.label}
@@ -464,7 +473,7 @@ function FeaturedAutomation() {
               {selected.steps.map((step, index) => (
                 <div
                   key={step}
-                  className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-[#141925] p-3.5"
+                  className="flex items-center gap-3 rounded-xl border border-[#D8D5CC] bg-white p-3.5"
                 >
                   <div
                     className={[
@@ -477,8 +486,8 @@ function FeaturedAutomation() {
                     0{index + 1}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-medium text-slate-200">{step}</p>
-                    <p className="mt-1 text-[10px] text-slate-500">
+                    <p className="text-xs font-medium text-[#24231F]">{step}</p>
+                    <p className="mt-1 text-[10px] text-[#5F5B53]">
                       {index === 0
                         ? "Starting point"
                         : index === 1
@@ -926,9 +935,11 @@ export default function Solutions() {
                 className="relative flex min-h-[112px] flex-col items-center justify-center gap-3 rounded-xl border border-border bg-background/60 px-4 py-5 text-center transition-colors hover:border-primary/25"
               >
                 <Icon className="h-5 w-5 text-primary" strokeWidth={1.6} />
-                <span className="text-xs font-medium text-slate-300">
+
+                <span className="text-xs font-semibold text-[#5F5B53]">
                   {label}
                 </span>
+
                 {index < 4 && (
                   <ArrowRight
                     aria-hidden="true"
@@ -938,7 +949,8 @@ export default function Solutions() {
               </div>
             ))}
           </div>
-          <p className="mx-auto mt-5 max-w-[650px] text-center text-[11px] leading-5 text-slate-500">
+
+          <p className="mx-auto mt-5 max-w-[650px] text-center text-[11px] leading-5 text-[#5F5B53]">
             This represents a long-term direction. Specific capabilities depend
             on the solution designed for each project.
           </p>

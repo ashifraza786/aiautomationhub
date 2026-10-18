@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
   ArrowRight,
   BarChart3,
@@ -11,31 +11,41 @@ import {
 } from "lucide-react";
 import { Link } from "wouter";
 
+const C = {
+  ivory: "#F4F0E8",
+  sage: "#E4E8DF",
+  green: "#004225",
+  charcoal: "#24231F",
+  gray: "#5F5B53",
+  white: "#FFFFFF",
+  border: "#DDD6C9",
+};
+
 const beforeItems = [
   {
     icon: FileSpreadsheet,
     label: "Excel / Sheets",
-    description: "Data scattered across files",
+    description: "Information scattered across files",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp Messages",
-    description: "Important conversations get lost",
+    description: "Important conversations are easy to miss",
   },
   {
     icon: Workflow,
     label: "Manual Data Entry",
-    description: "Teams repeat the same work",
+    description: "The same tasks repeated every day",
   },
   {
     icon: BarChart3,
     label: "Disconnected Tools",
-    description: "Systems don't communicate",
+    description: "Systems work in isolation",
   },
   {
     icon: FileSpreadsheet,
     label: "Manual Reports",
-    description: "Decisions take longer",
+    description: "Reporting takes time and effort",
   },
 ];
 
@@ -67,6 +77,11 @@ const afterItems = [
   },
 ];
 
+const fadeUp = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0 },
+};
+
 function BeforeItem({
   item,
   index,
@@ -78,252 +93,303 @@ function BeforeItem({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      variants={fadeUp}
+      initial="hidden"
+      whileInView="visible"
       viewport={{ once: true, amount: 0.2 }}
-      transition={{
-        duration: 0.35,
-        delay: 0.05 + index * 0.05,
-      }}
+      transition={{ duration: 0.35, delay: index * 0.045 }}
       className="relative"
     >
-      <div className="flex items-center gap-3 rounded-xl border border-border/60 bg-background/35 px-3.5 py-3 transition-colors duration-200 hover:border-border">
-        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-border bg-elevated text-muted-foreground">
-          <Icon className="h-4 w-4" />
+      <div
+        className="flex items-center gap-3 rounded-xl border bg-white px-3.5 py-3 transition-colors duration-200 hover:border-[#004225]/35"
+        style={{ borderColor: C.border }}
+      >
+        <div
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
+          style={{
+            borderColor: C.border,
+            backgroundColor: C.sage,
+            color: C.green,
+          }}
+        >
+          <Icon className="h-4 w-4" aria-hidden="true" />
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-medium text-foreground">{item.label}</p>
-
-          <p className="mt-0.5 text-[11px] leading-4 text-muted-foreground">
+          <p className="text-sm font-semibold" style={{ color: C.charcoal }}>
+            {item.label}
+          </p>
+          <p className="mt-0.5 text-[11px] leading-4" style={{ color: C.gray }}>
             {item.description}
           </p>
         </div>
 
         <span
-          className="h-1.5 w-1.5 shrink-0 rounded-full bg-muted-foreground/30"
+          className="h-1.5 w-1.5 shrink-0 rounded-full"
+          style={{ backgroundColor: "#B7B1A5" }}
           aria-hidden="true"
         />
       </div>
 
       {index < beforeItems.length - 1 && (
         <div className="flex justify-center py-1.5 lg:hidden">
-          <div className="h-2.5 w-px bg-border/70" />
+          <div className="h-2.5 w-px" style={{ backgroundColor: C.border }} />
         </div>
       )}
     </motion.div>
   );
 }
 
-function ConnectedSystemVisual() {
+function SystemNode({
+  title,
+  subtitle,
+  icon: Icon,
+  className = "",
+}: {
+  title: string;
+  subtitle: string;
+  icon: typeof Workflow;
+  className?: string;
+}) {
   return (
-    <div className="relative mt-5 hidden min-h-[370px] overflow-hidden rounded-2xl border border-primary/10 bg-background/35 lg:block">
-      {/* subtle system grid */}
+    <div
+      className={`relative z-10 rounded-xl border bg-white p-3 shadow-[0_3px_10px_rgba(36,35,31,0.045)] ${className}`}
+      style={{ borderColor: C.border }}
+    >
+      <div className="flex items-center gap-2.5">
+        <div
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
+          style={{ backgroundColor: C.sage, color: C.green }}
+        >
+          <Icon className="h-4 w-4" aria-hidden="true" />
+        </div>
+        <div className="min-w-0">
+          <p className="text-xs font-semibold" style={{ color: C.charcoal }}>
+            {title}
+          </p>
+          <p className="mt-0.5 text-[10px]" style={{ color: C.gray }}>
+            {subtitle}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConnectedSystemVisual() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div
+      className="relative mt-5 hidden min-h-[390px] overflow-hidden rounded-2xl border p-4 sm:p-5 lg:block"
+      style={{
+        borderColor: C.border,
+        backgroundColor: C.sage,
+      }}
+    >
+      {/* Subtle background grid */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-40"
+        className="pointer-events-none absolute inset-0"
         aria-hidden="true"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(79,124,255,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(79,124,255,0.055) 1px, transparent 1px)",
-          backgroundSize: "38px 38px",
+            "linear-gradient(rgba(95,91,83,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(95,91,83,0.045) 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
         }}
       />
 
-      {/* connection layer */}
+      {/* Animated connector lines and moving data dots */}
       <svg
-        className="pointer-events-none absolute inset-0 h-full w-full"
-        viewBox="0 0 760 370"
+        className="pointer-events-none absolute inset-0 z-0 h-full w-full"
+        viewBox="0 0 100 100"
         preserveAspectRatio="none"
         aria-hidden="true"
       >
-        {/* Website → CRM */}
-        <motion.path
-          d="M 125 72 C 205 92, 250 125, 305 145"
-          fill="none"
-          stroke="rgba(79,124,255,0.45)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-        />
+        {[
+          "M 30 38 C 34 38, 36 44, 40 47",
+          "M 30 68 C 34 68, 36 58, 40 55",
+          "M 60 47 C 64 44, 66 38, 70 38",
+          "M 60 55 C 64 58, 66 68, 70 68",
+        ].map((path, index) => (
+          <g key={path}>
+            {/* Permanent connection line */}
+            <path
+              d={path}
+              fill="none"
+              stroke="#004225"
+              strokeWidth="0.4"
+              strokeLinecap="round"
+              opacity="0.65"
+            />
 
-        {/* CRM → AI */}
-        <motion.path
-          d="M 125 270 C 205 250, 250 225, 305 205"
-          fill="none"
-          stroke="rgba(79,124,255,0.45)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.35 }}
-        />
+            {/* Animated line reveal */}
+            {!reduceMotion && (
+              <motion.path
+                d={path}
+                fill="none"
+                stroke="#004225"
+                strokeWidth="0.6"
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                whileInView={{ pathLength: 1, opacity: 0.45 }}
+                viewport={{ once: true }}
+                transition={{
+                  duration: 0.8,
+                  delay: index * 0.15,
+                  ease: "easeInOut",
+                }}
+              />
+            )}
 
-        {/* AI → Automation */}
-        <motion.path
-          d="M 455 175 C 515 145, 555 112, 635 82"
-          fill="none"
-          stroke="rgba(56,217,197,0.48)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        />
-
-        {/* AI → Analytics */}
-        <motion.path
-          d="M 455 205 C 515 235, 555 265, 635 285"
-          fill="none"
-          stroke="rgba(56,217,197,0.48)"
-          strokeWidth="1.5"
-          initial={{ pathLength: 0, opacity: 0 }}
-          whileInView={{ pathLength: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, delay: 0.65 }}
-        />
-
-        {/* flow particles */}
-        <motion.circle
-          cx="0"
-          cy="0"
-          r="3"
-          fill="#4F7CFF"
-          animate={{
-            offsetDistance: ["0%", "100%"],
-            opacity: [0, 1, 1, 0],
-          }}
-          transition={{
-            duration: 2.8,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-          style={{
-            offsetPath: "path('M 125 72 C 205 92, 250 125, 305 145')",
-          }}
-        />
-
-        <motion.circle
-          cx="0"
-          cy="0"
-          r="3"
-          fill="#38D9C5"
-          animate={{
-            offsetDistance: ["0%", "100%"],
-            opacity: [0, 1, 1, 0],
-          }}
-          transition={{
-            duration: 3,
-            repeat: Infinity,
-            delay: 0.8,
-            ease: "linear",
-          }}
-          style={{
-            offsetPath: "path('M 455 175 C 515 145, 555 112, 635 82')",
-          }}
-        />
+            {/* Moving data dot */}
+            {!reduceMotion && (
+              <circle r="0.8" fill="#004225">
+                <animateMotion
+                  path={path}
+                  dur={`${2.4 + index * 0.35}s`}
+                  repeatCount="indefinite"
+                  begin={`${index * 0.3}s`}
+                />
+              </circle>
+            )}
+          </g>
+        ))}
       </svg>
 
-      {/* Website */}
-      <div className="absolute left-5 top-8 w-[145px] rounded-xl border border-primary/15 bg-elevated/90 p-3 shadow-[0_0_24px_rgba(79,124,255,0.05)]">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/15 bg-primary/5 text-primary">
-            <Workflow className="h-4 w-4" />
-          </div>
+      {/* Responsive diagram layout */}
+      <div className="relative z-10 grid min-h-[350px] grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)_minmax(0,1fr)] items-center gap-2 sm:gap-3">
+        {/* Input systems */}
+        <div className="flex min-w-0 flex-col justify-center gap-16">
+          <SystemNode
+            title="Website"
+            subtitle="Digital entry"
+            icon={Workflow}
+            className="w-full !p-2 sm:!p-3"
+          />
 
-          <div>
-            <p className="text-xs font-semibold text-foreground">Website</p>
-            <p className="mt-0.5 text-[10px] text-muted-foreground">
-              Digital entry
+          <SystemNode
+            title="CRM / ERP"
+            subtitle="Business data"
+            icon={BarChart3}
+            className="w-full !p-2 sm:!p-3"
+          />
+        </div>
+
+        {/* Central AI system */}
+
+        <div className="relative flex min-w-0 flex-col items-center justify-center">
+          <div
+            className="absolute left-0 right-0 top-1/2 h-px -translate-y-1/2"
+            style={{ backgroundColor: "rgba(0,66,37,0.28)" }}
+            aria-hidden="true"
+          />
+
+          <motion.div
+            className="relative z-10 w-full min-w-0 rounded-xl border bg-white p-2 text-center shadow-[0_5px_20px_rgba(0,66,37,0.07)] sm:p-3"
+            style={{ borderColor: "rgba(0,66,37,0.28)" }}
+            animate={
+              reduceMotion
+                ? undefined
+                : {
+                    boxShadow: [
+                      "0 5px 20px rgba(0,66,37,0.05)",
+                      "0 8px 24px rgba(0,66,37,0.11)",
+                      "0 5px 20px rgba(0,66,37,0.05)",
+                    ],
+                  }
+            }
+            transition={{
+              duration: 3.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
+            <div
+              className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg sm:h-9 sm:w-9"
+              style={{ backgroundColor: C.sage, color: C.green }}
+            >
+              <Bot className="h-4 w-4" aria-hidden="true" />
+            </div>
+
+            <p
+              className="mt-2 text-xs font-semibold sm:text-sm"
+              style={{ color: C.charcoal }}
+            >
+              AI Assistance
             </p>
-          </div>
+
+            <p
+              className="mt-1 text-[9px] leading-4 sm:text-[10px]"
+              style={{ color: C.gray }}
+            >
+              Support for relevant tasks
+            </p>
+          </motion.div>
+
+          {!reduceMotion && (
+            <motion.span
+              className="absolute left-1/2 top-1/2 z-20 h-2 w-2 -translate-x-1/2 rounded-full"
+              style={{ backgroundColor: C.green }}
+              animate={{
+                scale: [0.8, 1.15, 0.8],
+                opacity: [0.55, 1, 0.55],
+              }}
+              transition={{
+                duration: 2.2,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+              aria-hidden="true"
+            />
+          )}
+        </div>
+
+        {/* Connected outputs */}
+        <div className="flex min-w-0 flex-col justify-center gap-16">
+          <SystemNode
+            title="Automation"
+            subtitle="Connected processes"
+            icon={Workflow}
+            className="w-full !p-2 sm:!p-3"
+          />
+
+          <SystemNode
+            title="Analytics"
+            subtitle="Clearer business insights"
+            icon={BarChart3}
+            className="w-full !p-2 sm:!p-3"
+          />
         </div>
       </div>
 
-      {/* CRM / ERP */}
-      <div className="absolute bottom-12 left-5 w-[145px] rounded-xl border border-primary/15 bg-elevated/90 p-3 shadow-[0_0_24px_rgba(79,124,255,0.05)]">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/15 bg-primary/5 text-primary">
-            <BarChart3 className="h-4 w-4" />
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold text-foreground">CRM / ERP</p>
-            <p className="mt-0.5 text-[10px] text-muted-foreground">
-              Business data
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* AI Engine */}
-      <motion.div
-        className="absolute left-1/2 top-1/2 w-[175px] -translate-x-1/2 -translate-y-1/2 rounded-xl border border-primary/35 bg-[#101827] p-3.5 shadow-[0_0_38px_rgba(79,124,255,0.12)]"
-        animate={{
-          boxShadow: [
-            "0 0 28px rgba(79,124,255,0.08)",
-            "0 0 42px rgba(79,124,255,0.16)",
-            "0 0 28px rgba(79,124,255,0.08)",
-          ],
-        }}
-        transition={{
-          duration: 3.5,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary">
-            <Bot className="h-4 w-4" />
-          </div>
-
-          <div>
-            <p className="text-sm font-semibold text-foreground">AI Layer</p>
-            <p className="mt-0.5 text-[10px] text-muted-foreground">
-              Intelligent assistance
-            </p>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Automation */}
-      <div className="absolute right-5 top-10 w-[150px] rounded-xl border border-mint/15 bg-elevated/90 p-3 shadow-[0_0_24px_rgba(56,217,197,0.05)]">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-mint/15 bg-mint/5 text-mint">
-            <Workflow className="h-4 w-4" />
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold text-foreground">Automation</p>
-            <p className="mt-0.5 text-[10px] text-muted-foreground">
-              Connected workflow
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Analytics */}
-      <div className="absolute bottom-12 right-5 w-[150px] rounded-xl border border-mint/15 bg-elevated/90 p-3 shadow-[0_0_24px_rgba(56,217,197,0.05)]">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-mint/15 bg-mint/5 text-mint">
-            <BarChart3 className="h-4 w-4" />
-          </div>
-
-          <div>
-            <p className="text-xs font-semibold text-foreground">Analytics</p>
-            <p className="mt-0.5 text-[10px] text-muted-foreground">
-              Better visibility
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* system label */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2">
-        <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/85 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground backdrop-blur">
-          <span className="h-1.5 w-1.5 rounded-full bg-mint" />
-          One connected system
+      {/* Footer label stays inside the visual */}
+      <div className="relative z-10 mt-2 flex justify-center">
+        <span
+          className="inline-flex max-w-full items-center gap-2 rounded-full border bg-white px-3 py-1.5 text-center text-[9px] font-semibold uppercase tracking-[0.1em] sm:text-[10px] sm:tracking-[0.12em]"
+          style={{
+            borderColor: C.border,
+            color: C.gray,
+          }}
+        >
+          <motion.span
+            className="h-1.5 w-1.5 shrink-0 rounded-full"
+            style={{ backgroundColor: C.green }}
+            animate={
+              reduceMotion
+                ? undefined
+                : {
+                    opacity: [1, 0.45, 1],
+                    scale: [1, 1.25, 1],
+                  }
+            }
+            transition={{
+              duration: 1.6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            aria-hidden="true"
+          />
+          A more connected business
         </span>
       </div>
     </div>
@@ -331,115 +397,104 @@ function ConnectedSystemVisual() {
 }
 
 function MobileConnectedSystem() {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="relative mt-5 lg:hidden">
-      <div className="relative rounded-2xl border border-primary/10 bg-background/35 p-4">
+    <div className="mt-5 lg:hidden">
+      <div
+        className="rounded-2xl border p-4"
+        style={{ borderColor: C.border, backgroundColor: C.sage }}
+      >
         <div className="grid grid-cols-2 gap-2.5">
-          {afterItems.slice(0, 2).map((item) => {
-            const Icon = item.icon;
-
-            return (
-              <div
-                key={item.label}
-                className="rounded-xl border border-primary/10 bg-elevated/70 p-3"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-primary/15 bg-primary/5 text-primary">
-                    <Icon className="h-4 w-4" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="truncate text-xs font-semibold text-foreground">
-                      {item.label}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {afterItems.slice(0, 2).map((item) => (
+            <SystemNode
+              key={item.label}
+              title={item.label}
+              subtitle={item.description}
+              icon={item.icon}
+            />
+          ))}
         </div>
 
-        <div className="relative mx-auto my-3 h-12 w-px bg-gradient-to-b from-primary/20 via-primary/60 to-mint/30">
-          <motion.span
-            className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-primary shadow-[0_0_12px_rgba(79,124,255,0.6)]"
-            animate={{ top: ["0%", "80%", "0%"] }}
-            transition={{
-              duration: 2.4,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-          />
+        <div
+          className="relative mx-auto my-3 h-10 w-px"
+          style={{ backgroundColor: "rgba(0,66,37,0.35)" }}
+          aria-hidden="true"
+        >
+          {!reduceMotion && (
+            <motion.span
+              className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full"
+              style={{ backgroundColor: C.green }}
+              animate={{ top: ["0%", "80%", "0%"] }}
+              transition={{
+                duration: 2.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          )}
         </div>
 
         <motion.div
-          className="mx-auto w-[190px] rounded-xl border border-primary/35 bg-[#101827] p-3.5 text-center shadow-[0_0_34px_rgba(79,124,255,0.10)]"
-          animate={{
-            boxShadow: [
-              "0 0 24px rgba(79,124,255,0.06)",
-              "0 0 36px rgba(79,124,255,0.14)",
-              "0 0 24px rgba(79,124,255,0.06)",
-            ],
-          }}
-          transition={{
-            duration: 3.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
+          className="mx-auto w-[190px] rounded-xl border bg-white p-3.5 text-center shadow-[0_5px_22px_rgba(0,66,37,0.08)]"
+          style={{ borderColor: "rgba(0,66,37,0.28)" }}
         >
-          <div className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg border border-primary/25 bg-primary/10 text-primary">
-            <Bot className="h-4 w-4" />
+          <div
+            className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg"
+            style={{ backgroundColor: C.sage, color: C.green }}
+          >
+            <Bot className="h-4 w-4" aria-hidden="true" />
           </div>
-
-          <p className="mt-2 text-sm font-semibold text-foreground">
+          <p
+            className="mt-2 text-sm font-semibold"
+            style={{ color: C.charcoal }}
+          >
             AI + Automation
           </p>
-
-          <p className="mt-0.5 text-[10px] text-muted-foreground">
+          <p className="mt-0.5 text-[10px]" style={{ color: C.gray }}>
             Connected business workflow
           </p>
         </motion.div>
 
-        <div className="relative mx-auto my-3 h-12 w-px bg-gradient-to-b from-mint/30 via-mint/60 to-primary/20">
-          <motion.span
-            className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full bg-mint shadow-[0_0_12px_rgba(56,217,197,0.55)]"
-            animate={{ top: ["0%", "80%", "0%"] }}
-            transition={{
-              duration: 2.6,
-              repeat: Infinity,
-              delay: 0.5,
-              ease: "easeInOut",
-            }}
-          />
+        <div
+          className="relative mx-auto my-3 h-10 w-px"
+          style={{ backgroundColor: "rgba(0,66,37,0.35)" }}
+          aria-hidden="true"
+        >
+          {!reduceMotion && (
+            <motion.span
+              className="absolute left-1/2 h-2 w-2 -translate-x-1/2 rounded-full"
+              style={{ backgroundColor: C.green }}
+              animate={{ top: ["0%", "80%", "0%"] }}
+              transition={{
+                duration: 2.6,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          )}
         </div>
 
         <div className="grid grid-cols-2 gap-2.5">
-          {afterItems.slice(3).map((item) => {
-            const Icon = item.icon;
-
-            return (
-              <div
-                key={item.label}
-                className="rounded-xl border border-mint/10 bg-elevated/70 p-3"
-              >
-                <div className="flex items-center gap-2.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-mint/15 bg-mint/5 text-mint">
-                    <Icon className="h-4 w-4" />
-                  </div>
-
-                  <div className="min-w-0">
-                    <p className="truncate text-xs font-semibold text-foreground">
-                      {item.label}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {afterItems.slice(3).map((item) => (
+            <SystemNode
+              key={item.label}
+              title={item.label}
+              subtitle={item.description}
+              icon={item.icon}
+            />
+          ))}
         </div>
 
-        <div className="mt-3 flex items-center justify-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-background/75 px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-mint" />
+        <div className="mt-3 flex justify-center">
+          <span
+            className="inline-flex items-center gap-2 rounded-full border bg-white px-3 py-1.5 text-[9px] font-semibold uppercase tracking-[0.12em]"
+            style={{ borderColor: C.border, color: C.gray }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ backgroundColor: C.green }}
+            />
             One connected system
           </span>
         </div>
@@ -452,18 +507,19 @@ export default function ProblemSolution() {
   return (
     <section
       id="problem-solution"
-      className="section-feature section-fade-divider !pb-[56px] sm:!pb-[64px] md:!pb-[72px] lg:!pb-[80px]"
       aria-labelledby="problem-solution-heading"
+      className="section-feature section-fade-divider !pb-[56px] sm:!pb-[64px] md:!pb-[72px] lg:!pb-[80px]"
+      style={{ backgroundColor: C.ivory, color: C.charcoal }}
     >
       <div className="container">
-        {/* ================================================================
-            01 — RECOGNIZE
-           ================================================================ */}
+        {/* Section introduction */}
         <div className="section-intro-left">
           <motion.p
             className="section-eyebrow type-eyebrow"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            style={{ color: C.green }}
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeUp}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.45 }}
           >
@@ -473,54 +529,75 @@ export default function ProblemSolution() {
           <motion.h2
             id="problem-solution-heading"
             className="section-title type-section-title"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            style={{ color: C.charcoal }}
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeUp}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.05 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
           >
-            Still Managing Your Business Manually?
+            Is Manual Work Slowing Your Business Down?
           </motion.h2>
 
           <motion.p
             className="section-description type-body-large"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            style={{ color: C.gray }}
+            initial="hidden"
+            whileInView="visible"
+            variants={fadeUp}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.55, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Spreadsheets, WhatsApp messages, repetitive data entry and
-            disconnected tools can slow your business down. We turn those
-            scattered processes into connected digital systems that are easier
-            to manage, automate and scale.
+            Spreadsheets, scattered messages, repetitive tasks and disconnected
+            tools make everyday work harder to manage. We help bring these
+            processes together into connected digital systems designed around
+            your business.
           </motion.p>
         </div>
 
-        {/* ================================================================
-            02 + 03 — PROBLEM → TRANSFORMATION
-           ================================================================ */}
+        {/* Before → After comparison */}
         <div className="mt-8 grid items-stretch gap-5 lg:mt-10 lg:grid-cols-[1fr_auto_1fr] lg:gap-5">
-          {/* BEFORE */}
           <motion.article
-            className="rounded-2xl border border-border/80 bg-surface/65 p-5 sm:p-6 md:p-7"
-            initial={{ opacity: 0, x: -24 }}
+            className="rounded-2xl border p-5 sm:p-6 md:p-7"
+            style={{
+              backgroundColor: C.white,
+              borderColor: C.border,
+              boxShadow: "0 8px 28px rgba(36,35,31,0.035)",
+            }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.5 }}
           >
-            <div className="flex items-start justify-between gap-4 border-b border-border/70 pb-5">
+            <div
+              className="flex items-start justify-between gap-4 border-b pb-5"
+              style={{ borderColor: C.border }}
+            >
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+                <span
+                  className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: C.gray }}
+                >
                   Before
                 </span>
-
-                <h3 className="mt-2 text-xl font-semibold tracking-[-0.02em] text-foreground">
-                  Disconnected Workflows
+                <h3
+                  className="mt-2 text-xl font-semibold tracking-[-0.02em]"
+                  style={{ color: C.charcoal }}
+                >
+                  Disconnected Processes
                 </h3>
               </div>
 
-              <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-border bg-background/60 px-2.5 py-1 text-[10px] font-medium text-muted-foreground">
-                <X className="h-3 w-3" />
-                Manual
+              <div
+                className="flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium"
+                style={{
+                  borderColor: C.border,
+                  backgroundColor: C.ivory,
+                  color: C.gray,
+                }}
+              >
+                <X className="h-3 w-3" aria-hidden="true" />
+                Manual Work
               </div>
             </div>
 
@@ -530,108 +607,159 @@ export default function ProblemSolution() {
               ))}
             </div>
 
-            <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-border/60 pt-4 text-[11px] text-muted-foreground">
+            <div
+              className="mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t pt-4 text-[11px]"
+              style={{ borderColor: C.border, color: C.gray }}
+            >
               <span>Too many manual steps</span>
               <span>More room for errors</span>
             </div>
           </motion.article>
 
-          {/* TRANSFORMATION */}
+          {/* Transformation indicator */}
           <motion.div
             className="flex items-center justify-center lg:flex-col"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.45 }}
           >
-            <div className="hidden h-full w-px bg-gradient-to-b from-transparent via-primary/30 to-transparent lg:block" />
-
+            <div
+              className="hidden h-full w-px lg:block"
+              style={{
+                background:
+                  "linear-gradient(to bottom, transparent, rgba(0,66,37,0.3), transparent)",
+              }}
+            />
             <div className="flex items-center gap-3 lg:absolute">
-              <div className="hidden h-px w-8 bg-border sm:block lg:hidden" />
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary shadow-[0_0_28px_rgba(79,124,255,0.10)]">
-                <ArrowRight className="h-4 w-4 lg:rotate-90" />
+              <div
+                className="hidden h-px w-8 sm:block lg:hidden"
+                style={{ backgroundColor: C.border }}
+              />
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-full border bg-white"
+                style={{
+                  borderColor: "rgba(0,66,37,0.24)",
+                  color: C.green,
+                  boxShadow: "0 5px 18px rgba(0,66,37,0.08)",
+                }}
+              >
+                <ArrowRight
+                  className="h-4 w-4 lg:rotate-90"
+                  aria-hidden="true"
+                />
               </div>
-
-              <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-primary">
+              <span
+                className="text-[10px] font-semibold uppercase tracking-[0.14em]"
+                style={{ color: C.green }}
+              >
                 Connect
               </span>
-
-              <div className="h-px w-8 bg-primary/25 sm:block lg:hidden" />
+              <div
+                className="h-px w-8 sm:block lg:hidden"
+                style={{ backgroundColor: C.border }}
+              />
             </div>
           </motion.div>
 
-          {/* AFTER */}
           <motion.article
-            className="relative overflow-hidden rounded-2xl border border-primary/25 bg-elevated/75 p-5 shadow-[0_0_50px_rgba(79,124,255,0.06)] sm:p-6 md:p-7"
-            initial={{ opacity: 0, x: 24 }}
+            className="relative overflow-hidden rounded-2xl border p-5 sm:p-6 md:p-7"
+            style={{
+              backgroundColor: C.white,
+              borderColor: "rgba(0,66,37,0.24)",
+              boxShadow: "0 10px 34px rgba(0,66,37,0.045)",
+            }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.55 }}
+            transition={{ duration: 0.5 }}
           >
             <div
-              className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_80%_10%,rgba(79,124,255,0.10),transparent_38%)]"
-              aria-hidden="true"
-            />
-
-            <div className="relative flex items-start justify-between gap-4 border-b border-primary/15 pb-5">
+              className="flex items-start justify-between gap-4 border-b pb-5"
+              style={{ borderColor: C.border }}
+            >
               <div>
-                <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary">
+                <span
+                  className="text-[11px] font-semibold uppercase tracking-[0.14em]"
+                  style={{ color: C.green }}
+                >
                   After
                 </span>
-
-                <h3 className="mt-2 text-xl font-semibold tracking-[-0.02em] text-foreground">
-                  Connected Business System
+                <h3
+                  className="mt-2 text-xl font-semibold tracking-[-0.02em]"
+                  style={{ color: C.charcoal }}
+                >
+                  Connected Business Operations
                 </h3>
               </div>
 
-              <div className="flex shrink-0 items-center gap-1.5 rounded-full border border-mint/20 bg-mint/5 px-2.5 py-1 text-[10px] font-medium text-mint">
-                <Check className="h-3 w-3" />
-                Connected
+              <div
+                className="flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] font-medium"
+                style={{
+                  borderColor: "rgba(0,66,37,0.18)",
+                  backgroundColor: C.sage,
+                  color: C.green,
+                }}
+              >
+                <Check className="h-3 w-3" aria-hidden="true" />
+                Integrated
               </div>
             </div>
 
             <ConnectedSystemVisual />
             <MobileConnectedSystem />
 
-            <div className="relative mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t border-primary/15 pt-4 text-[11px] text-muted-foreground">
+            <div
+              className="relative mt-5 flex flex-wrap gap-x-5 gap-y-2 border-t pt-4 text-[11px]"
+              style={{ borderColor: C.border, color: C.gray }}
+            >
               <span>Connected operations</span>
               <span>Built to scale</span>
             </div>
           </motion.article>
         </div>
 
-        {/* ================================================================
-            04 — TAKE THE NEXT STEP
-           ================================================================ */}
+        {/* Closing CTA */}
         <motion.div
-          className="mt-8 flex flex-col items-start justify-between gap-5 border-t border-border/70 pt-6 sm:mt-10 md:flex-row md:items-center md:gap-6 md:pt-7"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.5 }}
+          className="mt-8 flex flex-col items-start justify-between gap-5 border-t pt-6 sm:mt-10 md:flex-row md:items-center md:gap-6 md:pt-7"
+          style={{ borderColor: C.border }}
+          initial="hidden"
+          whileInView="visible"
+          variants={fadeUp}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.45 }}
         >
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
             <span
-              className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+              className="h-1.5 w-1.5 shrink-0 rounded-full"
+              style={{ backgroundColor: C.green }}
               aria-hidden="true"
             />
-
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm" style={{ color: C.gray }}>
               You don't need more tools.
             </p>
-
-            <strong className="text-sm font-semibold text-foreground">
-              You need the right system.
+            <strong
+              className="text-sm font-semibold"
+              style={{ color: C.charcoal }}
+            >
+              You need a system that works together.
             </strong>
           </div>
 
           <Link
             href="/start-project"
-            className="group inline-flex h-11 items-center gap-2 rounded-lg border border-border bg-surface px-5 text-sm font-semibold text-foreground transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:bg-elevated focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            className="group inline-flex min-h-11 items-center gap-2 rounded-lg border px-5 text-sm font-semibold transition-all duration-200 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#004225] focus-visible:ring-offset-2"
+            style={{
+              borderColor: C.border,
+              backgroundColor: C.white,
+              color: C.green,
+            }}
           >
-            Tell Us What You Need
-            <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform duration-200 group-hover:translate-x-0.5" />
+            Explore the Right Solution
+            <ArrowRight
+              className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
           </Link>
         </motion.div>
       </div>

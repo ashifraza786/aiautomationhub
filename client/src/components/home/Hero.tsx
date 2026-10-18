@@ -44,8 +44,8 @@ const slides: HeroSlide[] = [
     title: "Turn Repetitive Work Into",
     accent: "Intelligent Workflows.",
     description:
-      "AI automation, workflow systems and connected tools built around the way your business works.",
-    systemLabel: "Automation Concept",
+      "Connect repetitive tasks, business processes and existing tools through practical automation designed around your workflow.",
+    systemLabel: "Automation Workflow",
     centerLabel: "AI Engine",
     centerDetail: "Intelligence layer",
     workflowLabel: "Workflow",
@@ -89,8 +89,8 @@ const slides: HeroSlide[] = [
     title: "Build Technology Around",
     accent: "How Your Business Works.",
     description:
-      "Custom software, dashboards and business tools designed around your actual workflow.",
-    systemLabel: "Software Concept",
+      "Create custom applications, dashboards and internal tools that fit your team's processes and business requirements.",
+    systemLabel: "Software System",
     centerLabel: "Core System",
     centerDetail: "Business logic",
     workflowLabel: "System",
@@ -134,8 +134,8 @@ const slides: HeroSlide[] = [
     title: "Bring Your Business Into",
     accent: "One Connected System.",
     description:
-      "Connect sales, inventory, billing, customers and reporting in one business system.",
-    systemLabel: "ERP Concept",
+      "Connect sales, inventory, billing, customers and reporting through business systems designed to work together.",
+    systemLabel: "Connected Business System",
     centerLabel: "ERP Core",
     centerDetail: "Connected operations",
     workflowLabel: "Business Flow",
