@@ -546,7 +546,7 @@ export default function CustomSoftware() {
     <main className="min-h-screen overflow-hidden bg-[#F4F0E8] font-sans text-[#24231F]">
       {/* 01 — HERO */}
       <section className="border-b border-[#E3DDD2] bg-[#F4F0E8]">
-        <div className="mx-auto grid max-w-[1280px] items-center gap-12 px-5 py-16 sm:px-7 sm:py-20 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 lg:px-8 lg:py-24">
+        <div className="mx-auto grid max-w-[1280px] items-center gap-10 px-5 pt-28 pb-16 sm:px-7 sm:pt-32 sm:pb-20 lg:grid-cols-[0.95fr_1.05fr] lg:gap-14 lg:px-8 lg:pt-36 lg:pb-24">
           <Reveal className="max-w-[650px]">
             <div className="mb-6 inline-flex items-center gap-2 rounded-lg border border-[#D9E5DB] bg-white px-3 py-2">
               <span className="h-2 w-2 rounded-full bg-[#004225]" />
@@ -555,14 +555,13 @@ export default function CustomSoftware() {
               </span>
             </div>
 
-            <h1 className="text-[40px] font-semibold leading-[1.04] tracking-[-0.045em] text-[#24231F] sm:text-5xl lg:text-[64px]">
-              Software built around the way your business works.
+            <h1 className="hero-editorial-heading max-w-[620px] text-[44px] font-normal leading-[1.02] tracking-[-0.035em] text-[#24231F] sm:text-[56px] lg:text-[68px]">
+              Software That Fits the Way You Work.
             </h1>
-
-            <p className="mt-6 max-w-[610px] text-base leading-7 text-[#5F5B53] sm:text-lg sm:leading-8">
-              Standard software is not always designed for the way your business
-              operates. We build custom business software around your workflows,
-              teams, data and day-to-day requirements.
+            <p className="mt-6 max-w-[580px] text-[16px] leading-7 text-[#5F5B53] sm:text-[17px] sm:leading-[1.85]">
+              Off-the-shelf software may not fit the way your business operates.
+              We build tailored applications around your team's workflows,
+              business data and day-to-day needs.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -576,7 +575,7 @@ export default function CustomSoftware() {
               </SecondaryButton>
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 border-t border-[#DED8CD] pt-5 text-xs text-[#5F5B53]">
+            <div className="mt-8 flex flex-wrap gap-x-5 gap-y-3 border-t border-[#DED8CD] pt-5 text-[12px] leading-5 text-[#5F5B53]">
               {[
                 "Built around your process",
                 "Business-specific workflows",

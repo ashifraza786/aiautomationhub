@@ -131,8 +131,8 @@ export default function CustomSoftwareShowcase() {
                   Overview
                 </span>
 
-                <p className="mt-1 text-xs font-semibold text-foreground">
-                  Business Operations
+                <p className="mt-1 text-sm font-semibold text-foreground">
+                  Business Workspace
                 </p>
               </div>
 
@@ -175,11 +175,11 @@ export default function CustomSoftwareShowcase() {
                 <div className="mt-4 flex items-center justify-between gap-3">
                   <div className="min-w-0">
                     <p className="truncate text-[10px] font-semibold text-foreground">
-                      Business Order
+                      Customer Order
                     </p>
 
                     <p className="mt-1 text-[8px] text-muted-foreground">
-                      Customer account
+                      Order details
                     </p>
                   </div>
 
@@ -299,7 +299,7 @@ export default function CustomSoftwareShowcase() {
             <Check className="h-3.5 w-3.5 text-primary" />
 
             <span className="text-[9px] font-medium text-muted-foreground">
-              Business operates inside software
+              Operations managed in one workspace
             </span>
           </div>
 

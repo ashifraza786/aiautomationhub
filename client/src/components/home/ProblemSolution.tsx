@@ -24,54 +24,64 @@ const C = {
 const beforeItems = [
   {
     icon: FileSpreadsheet,
+    image: "/images/apps/excel.svg",
     label: "Excel / Sheets",
-    description: "Information scattered across files",
+    description: "Information spread across multiple files",
   },
   {
     icon: MessageCircle,
+    image: "/images/apps/whatsapp.svg",
     label: "WhatsApp Messages",
-    description: "Important conversations are easy to miss",
+    description: "Important messages can get overlooked",
   },
   {
     icon: Workflow,
+    image: "/images/apps/dataentry.svg",
     label: "Manual Data Entry",
-    description: "The same tasks repeated every day",
+    description: "Repetitive tasks take time every day",
   },
   {
     icon: BarChart3,
+    image: "/images/apps/workflow.svg",
     label: "Disconnected Tools",
-    description: "Systems work in isolation",
+    description: "Your tools don't work together",
   },
   {
     icon: FileSpreadsheet,
+    image: "/images/apps/reports.svg",
     label: "Manual Reports",
-    description: "Reporting takes time and effort",
+    description: "Reports take time to prepare",
   },
 ];
 
 const afterItems = [
   {
     icon: Workflow,
+    image: "/images/apps/website.svg",
     label: "Website",
     description: "Digital entry point",
   },
   {
     icon: BarChart3,
+    image: "/images/apps/crm.svg",
     label: "CRM / ERP",
     description: "Business data stays connected",
   },
   {
     icon: Bot,
+    image: "/images/apps/ai.svg",
     label: "AI",
     description: "Intelligent assistance where useful",
   },
   {
     icon: Workflow,
+    image: "/images/apps/automation.svg",
     label: "Automation",
     description: "Repetitive work runs automatically",
   },
   {
     icon: BarChart3,
+    image: "/images/apps/analytics.svg",
     label: "Analytics",
     description: "Clear visibility for better decisions",
   },
@@ -100,21 +110,30 @@ function BeforeItem({
       transition={{ duration: 0.35, delay: index * 0.045 }}
       className="relative"
     >
+      {" "}
       <div
         className="flex items-center gap-3 rounded-xl border bg-white px-3.5 py-3 transition-colors duration-200 hover:border-[#004225]/35"
         style={{ borderColor: C.border }}
       >
         <div
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border"
           style={{
             borderColor: C.border,
-            backgroundColor: C.sage,
+            backgroundColor: C.white,
             color: C.green,
           }}
         >
-          <Icon className="h-4 w-4" aria-hidden="true" />
+          {item.image ? (
+            <img
+              src={item.image}
+              alt=""
+              className="h-7 w-7 object-contain"
+              aria-hidden="true"
+            />
+          ) : (
+            <Icon className="h-4 w-4" aria-hidden="true" />
+          )}
         </div>
-
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold" style={{ color: C.charcoal }}>
             {item.label}
@@ -130,7 +149,6 @@ function BeforeItem({
           aria-hidden="true"
         />
       </div>
-
       {index < beforeItems.length - 1 && (
         <div className="flex justify-center py-1.5 lg:hidden">
           <div className="h-2.5 w-px" style={{ backgroundColor: C.border }} />
@@ -144,11 +162,13 @@ function SystemNode({
   title,
   subtitle,
   icon: Icon,
+  image,
   className = "",
 }: {
   title: string;
   subtitle: string;
   icon: typeof Workflow;
+  image?: string;
   className?: string;
 }) {
   return (
@@ -161,7 +181,16 @@ function SystemNode({
           className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg"
           style={{ backgroundColor: C.sage, color: C.green }}
         >
-          <Icon className="h-4 w-4" aria-hidden="true" />
+          {image ? (
+            <img
+              src={image}
+              alt=""
+              className="h-6 w-6 object-contain"
+              aria-hidden="true"
+            />
+          ) : (
+            <Icon className="h-4 w-4" aria-hidden="true" />
+          )}
         </div>
         <div className="min-w-0">
           <p className="text-xs font-semibold" style={{ color: C.charcoal }}>
@@ -264,6 +293,7 @@ function ConnectedSystemVisual() {
             title="Website"
             subtitle="Digital entry"
             icon={Workflow}
+            image="/images/apps/website.svg"
             className="w-full !p-2 sm:!p-3"
           />
 
@@ -271,6 +301,7 @@ function ConnectedSystemVisual() {
             title="CRM / ERP"
             subtitle="Business data"
             icon={BarChart3}
+            image="/images/apps/crm-erp.svg"
             className="w-full !p-2 sm:!p-3"
           />
         </div>
@@ -304,11 +335,12 @@ function ConnectedSystemVisual() {
               ease: "easeInOut",
             }}
           >
-            <div
-              className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg sm:h-9 sm:w-9"
-              style={{ backgroundColor: C.sage, color: C.green }}
-            >
-              <Bot className="h-4 w-4" aria-hidden="true" />
+            <div className="mx-auto flex h-12 w-12 items-center justify-center sm:h-14 sm:w-14">
+              <img
+                src="/images/apps/aiassistant.svg"
+                alt="AI assistant robot"
+                className="h-full w-full object-contain"
+              />
             </div>
 
             <p
@@ -350,6 +382,7 @@ function ConnectedSystemVisual() {
             title="Automation"
             subtitle="Connected processes"
             icon={Workflow}
+            image="/images/apps/automation.svg"
             className="w-full !p-2 sm:!p-3"
           />
 
@@ -357,6 +390,7 @@ function ConnectedSystemVisual() {
             title="Analytics"
             subtitle="Clearer business insights"
             icon={BarChart3}
+            image="/images/apps/analytics.svg"
             className="w-full !p-2 sm:!p-3"
           />
         </div>
@@ -412,6 +446,7 @@ function MobileConnectedSystem() {
               title={item.label}
               subtitle={item.description}
               icon={item.icon}
+              image={item.image}
             />
           ))}
         </div>
@@ -439,11 +474,12 @@ function MobileConnectedSystem() {
           className="mx-auto w-[190px] rounded-xl border bg-white p-3.5 text-center shadow-[0_5px_22px_rgba(0,66,37,0.08)]"
           style={{ borderColor: "rgba(0,66,37,0.28)" }}
         >
-          <div
-            className="mx-auto flex h-9 w-9 items-center justify-center rounded-lg"
-            style={{ backgroundColor: C.sage, color: C.green }}
-          >
-            <Bot className="h-4 w-4" aria-hidden="true" />
+          <div className="mx-auto flex h-12 w-12 items-center justify-center">
+            <img
+              src="/images/apps/aiassistant.svg"
+              alt="AI assistant robot"
+              className="h-full w-full object-contain"
+            />
           </div>
           <p
             className="mt-2 text-sm font-semibold"
@@ -482,6 +518,7 @@ function MobileConnectedSystem() {
               title={item.label}
               subtitle={item.description}
               icon={item.icon}
+              image={item.image}
             />
           ))}
         </div>
@@ -515,7 +552,7 @@ export default function ProblemSolution() {
         {/* Section introduction */}
         <div className="section-intro-left">
           <motion.p
-            className="section-eyebrow type-eyebrow"
+            className="section-eyebrow type-eyebrow editorial-eyebrow"
             style={{ color: C.green }}
             initial="hidden"
             whileInView="visible"
@@ -525,10 +562,9 @@ export default function ProblemSolution() {
           >
             YOUR BUSINESS. YOUR WORKFLOW.
           </motion.p>
-
           <motion.h2
             id="problem-solution-heading"
-            className="section-title type-section-title"
+            className="section-title type-section-title editorial-section-heading font-medium"
             style={{ color: C.charcoal }}
             initial="hidden"
             whileInView="visible"
@@ -548,10 +584,9 @@ export default function ProblemSolution() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            Spreadsheets, scattered messages, repetitive tasks and disconnected
-            tools make everyday work harder to manage. We help bring these
-            processes together into connected digital systems designed around
-            your business.
+            Spreadsheets, scattered messages and repetitive tasks make daily
+            work harder than it needs to be. We connect your tools and workflows
+            into one more organised, efficient way to run your business.
           </motion.p>
         </div>
 

@@ -24,9 +24,9 @@ const categories = [
     number: "01",
     shortLabel: "AI Automation",
     title: "AI Automation",
-    headline: "Turn Repetitive Work Into Intelligent Workflows.",
+    headline: "Turn Repetitive Tasks Into Smarter Workflows.",
     description:
-      "Automate repetitive business processes and connect the tools your team already uses. AI can be introduced where it provides a useful advantage — not simply because it is available.",
+      "Automate routine tasks and connect the tools your team already uses. Apply AI where it solves a real business problem and makes everyday work simpler.",
     items: [
       "AI Agents",
       "AI Assistants",
@@ -47,9 +47,9 @@ const categories = [
     number: "02",
     shortLabel: "Custom Software",
     title: "Custom Business Software",
-    headline: "Build Technology Around How Your Business Works.",
+    headline: "Software Built Around the Way You Work.",
     description:
-      "Purpose-built software for the way your business operates — from internal tools and dashboards to custom applications and business workflows.",
+      "Bring your day-to-day operations into purpose-built software, from internal dashboards and business tools to custom applications that fit your team's workflow.",
     items: [
       "Business Dashboards",
       "CRM & Internal Tools",
@@ -67,9 +67,9 @@ const categories = [
     number: "03",
     shortLabel: "ERP",
     title: "ERP & Business Systems",
-    headline: "Bring Your Business Into One Connected System.",
+    headline: "Bring Your Core Operations Into One System.",
     description:
-      "Connected systems that bring important business operations into one place, helping teams work from shared business data.",
+      "Connect sales, inventory, billing, employee management and reporting so your team can work with shared, consistent business information.",
     items: [
       "Sales & Operations",
       "Inventory & Billing",
@@ -87,9 +87,9 @@ const categories = [
     number: "04",
     shortLabel: "Websites",
     title: "Websites & Digital Solutions",
-    headline: "Build Digital Experiences That Connect To Your Business.",
+    headline: "Create Digital Experiences That Move Business Forward.",
     description:
-      "Digital experiences designed to support your business, generate opportunities and create a stronger connection between customers and your operations.",
+      "Create websites, online stores and digital platforms that help customers discover your business, explore your offerings and take the next step.",
     items: [
       "Business Websites",
       "E-commerce",
@@ -107,9 +107,9 @@ const categories = [
     number: "05",
     shortLabel: "Growth",
     title: "Business Growth & Digital Marketing",
-    headline: "Turn Digital Attention Into Measurable Business Opportunities.",
+    headline: "Turn Online Reach Into Meaningful Opportunities.",
     description:
-      "Digital growth support that connects your online presence with business goals — from advertising and promotion to lead generation and conversion experiences.",
+      "Connect digital campaigns with business goals through advertising, product promotion, lead generation and conversion-focused experiences.",
     items: [
       "Digital Advertising",
       "Product Promotion",
@@ -363,7 +363,7 @@ export default function WhatWeBuild() {
 
         <div className="section-intro-left">
           <motion.p
-            className="section-eyebrow type-eyebrow"
+            className="section-eyebrow type-eyebrow editorial-eyebrow"
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
@@ -374,13 +374,13 @@ export default function WhatWeBuild() {
 
           <motion.h2
             id="what-we-build-heading"
-            className="section-title type-section-title"
+            className="section-title type-section-title editorial-section-heading font-medium"
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 0.05 }}
           >
-            Technology Built Around How Your Business Works.
+            Technology That Works Around Your Business.
           </motion.h2>
 
           <motion.p
@@ -390,9 +390,9 @@ export default function WhatWeBuild() {
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.55, delay: 0.1 }}
           >
-            From AI-powered automation to custom software, ERP systems and
-            digital experiences — we build the technology your business actually
-            needs.
+            From intelligent automation to custom software, ERP systems and
+            digital experiences, we build technology around your workflows, your
+            team and your business goals.
           </motion.p>
         </div>
 
@@ -506,7 +506,7 @@ export default function WhatWeBuild() {
                     {active.title}
                   </h3>
 
-                  <p className="mt-3 max-w-[520px] text-xl font-medium leading-[1.35] tracking-[-0.015em] text-foreground">
+                  <p className="mt-3 max-w-[520px] text-xl font-semibold leading-[1.4] tracking-[-0.02em] text-foreground">
                     {active.headline}
                   </p>
 
@@ -563,12 +563,12 @@ export default function WhatWeBuild() {
         >
           <div>
             <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Not sure what you need?
+              Not sure where to start?
             </span>
 
             <p className="mt-2 text-sm text-foreground">
-              That's okay. Tell us the problem — we'll help define the right
-              technology.
+              Tell us what you want to improve. We'll help you explore the right
+              approach for your business.
             </p>
           </div>
 
@@ -576,7 +576,7 @@ export default function WhatWeBuild() {
             href="/start-project"
             className="group inline-flex h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-semibold text-primary-foreground shadow-[0_0_24px_rgba(79,124,255,0.10)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-primary/95 hover:shadow-[0_0_32px_rgba(79,124,255,0.18)] focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
           >
-            Tell Us What You Need
+            Discuss Your Requirements
             <ArrowRight className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
         </motion.div>

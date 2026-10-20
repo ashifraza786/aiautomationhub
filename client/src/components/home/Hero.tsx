@@ -252,10 +252,10 @@ export default function Hero() {
                   {slide.eyebrow}
                 </p>
 
-                <h1 className="max-w-[700px] text-[42px] font-semibold leading-[1.04] tracking-[-0.045em] text-[#24231F] sm:text-[50px] md:text-[58px] lg:text-[64px]">
+                <h1 className="hero-editorial-heading max-w-[700px] text-[42px] font-normal leading-[1.04] tracking-[-0.035em] text-[#24231F] sm:text-[50px] md:text-[58px] lg:text-[64px]">
                   {slide.title}
                   <br />
-                  <span className="text-[#004225]">{slide.accent}</span>
+                  <span className="hero-editorial-accent">{slide.accent}</span>
                 </h1>
 
                 <p className="mt-6 max-w-[620px] text-[16px] leading-[1.7] text-[#5F5B53] sm:text-[17px]">
